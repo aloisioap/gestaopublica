@@ -68,12 +68,8 @@ export const UNIDADES_BASICAS_SAUDE: UBS[] = [
     horario: "07:00 - 18:00",
     equipes: 3,
     agentesComunitarios: 8,
-    imagem: "https://images.unsplash.com/photo-1597764695966-29323bf3a9e3?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1597764695966-29323bf3a9e3?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1526256262350-7da22feff441?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     servicos: ["Consultas Médicas", "Enfermagem", "Odontologia", "Vacinação", "Farmácia"],
     metas: {
       consultasMensais: 1200,
@@ -97,11 +93,8 @@ export const UNIDADES_BASICAS_SAUDE: UBS[] = [
     horario: "07:00 - 18:00",
     equipes: 2,
     agentesComunitarios: 5,
-    imagem: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     servicos: ["Consultas Médicas", "Enfermagem", "Vacinação", "Agentes Comunitários"],
     metas: {
       consultasMensais: 800,
@@ -124,11 +117,8 @@ export const UNIDADES_BASICAS_SAUDE: UBS[] = [
     horario: "07:00 - 18:00",
     equipes: 2,
     agentesComunitarios: 6,
-    imagem: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1518552785926-422b3adff08d?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     servicos: ["Consultas Médicas", "Enfermagem", "Odontologia", "Vacinação"],
     metas: {
       consultasMensais: 700,
@@ -151,11 +141,8 @@ export const UNIDADES_BASICAS_SAUDE: UBS[] = [
     horario: "07:00 - 18:00",
     equipes: 2,
     agentesComunitarios: 4,
-    imagem: "https://images.unsplash.com/photo-1513399030874-02fbc603cc6f?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1513399030874-02fbc603cc6f?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     servicos: ["Consultas Médicas", "Enfermagem", "Vacinação", "Agentes Comunitários"],
     metas: {
       consultasMensais: 600,
@@ -177,11 +164,8 @@ export const UNIDADES_BASICAS_SAUDE: UBS[] = [
     horario: "07:00 - 18:00",
     equipes: 3,
     agentesComunitarios: 7,
-    imagem: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     servicos: ["Consultas Médicas", "Visita Domiciliar", "Grupos de Saúde", "Vacinação", "Farmácia"],
     metas: {
       consultasMensais: 1000,
@@ -205,11 +189,8 @@ export const UNIDADES_BASICAS_SAUDE: UBS[] = [
     horario: "07:00 - 18:00",
     equipes: 2,
     agentesComunitarios: 5,
-    imagem: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     servicos: ["Consultas Médicas", "Visita Domiciliar", "Pré-Natal", "Vacinação"],
     metas: {
       consultasMensais: 750,
@@ -232,11 +213,8 @@ export const UNIDADES_BASICAS_SAUDE: UBS[] = [
     horario: "07:00 - 18:00",
     equipes: 2,
     agentesComunitarios: 6,
-    imagem: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     servicos: ["Consultas Médicas", "Visita Domiciliar", "Grupos de Saúde", "Vacinação"],
     metas: {
       consultasMensais: 680,
@@ -259,11 +237,8 @@ export const UNIDADES_BASICAS_SAUDE: UBS[] = [
     horario: "07:00 - 18:00",
     equipes: 3,
     agentesComunitarios: 7,
-    imagem: "https://images.unsplash.com/photo-1558888412-683af2da90d7?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1558888412-683af2da90d7?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     servicos: ["Consultas Médicas", "Enfermagem", "Odontologia", "Vacinação", "Farmácia"],
     metas: {
       consultasMensais: 950,
@@ -309,11 +284,8 @@ export const CASAS_ESPECIALIZADAS: CasaEspecializada[] = [
     bairro: "Umarizal",
     telefone: "(91) 3190-2001",
     horario: "07:00 - 19:00",
-    imagem: "https://images.unsplash.com/photo-1519750157634-9d1678e24a3d?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1519750157634-9d1678e24a3d?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1580281657521-958b44aa7c0d?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     tipo: "Oncologia",
     servicos: ["Quimioterapia", "Radioterapia", "Consultas Oncológicas", "Apoio Psicológico"],
     indicadores: { pacientesAtivos: 180, sessoesQuimioMes: 450, tempoAtendimento: 4.5 },
@@ -332,11 +304,8 @@ export const CASAS_ESPECIALIZADAS: CasaEspecializada[] = [
     bairro: "Centenário",
     telefone: "(95) 3199-2002",
     horario: "08:00 - 17:00",
-    imagem: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1517632298120-364df44e9d7e?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     tipo: "CASA DIA",
     servicos: ["Atividades Terapêuticas", "Alimentação", "Fisioterapia", "Atendimento Médico"],
     indicadores: { frequenciaMedia: 92, idososAtendidos: 45, pcdAtendidos: 15 },
@@ -355,11 +324,8 @@ export const CASAS_ESPECIALIZADAS: CasaEspecializada[] = [
     bairro: "Nova Boa Vista",
     telefone: "(95) 3199-2003",
     horario: "24 horas",
-    imagem: "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     tipo: "ILPI",
     servicos: ["Alojamento", "Alimentação", "Cuidados de Enfermagem", "Atividades Sociais"],
     indicadores: { ocupacao: 85, idososAlojados: 34, idososInscritos: 156 },
@@ -377,11 +343,8 @@ export const CASAS_ESPECIALIZADAS: CasaEspecializada[] = [
     bairro: "Centro",
     telefone: "(95) 3199-2004",
     horario: "08:00 - 18:00",
-    imagem: "https://images.unsplash.com/photo-1516275463348-66fca4f45d4f?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1516275463348-66fca4f45d4f?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     tipo: "Saúde da Mulher",
     servicos: ["Saúde da Mulher", "Atendimento Psicológico", "Orientação Jurídica", "Grupos de Apoio"],
     indicadores: { atendimentosMes: 320, prevencaoViolencia: 45 },
@@ -399,11 +362,8 @@ export const CASAS_ESPECIALIZADAS: CasaEspecializada[] = [
     bairro: "São João",
     telefone: "(95) 3199-2005",
     horario: "08:00 - 18:00",
-    imagem: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     tipo: "CAPS III",
     servicos: ["Atendimento Psiquiátrico", "Terapia Ocupacional", "Grupos Terapêuticos", "Reinserção Social"],
     indicadores: { usuariosAtivos: 280, atendimentosMes: 850, reinsercaoTrabalho: 35 },
@@ -457,12 +417,8 @@ export const UNIDADES_PRONTO_ATENDIMENTO: UPA[] = [
     endereco: "Av. Augusto Montenegro, 7200 - Sacramenta",
     bairro: "Sacramenta",
     telefone: "(91) 3276-1920",
-    imagem: "https://images.unsplash.com/photo-1517632298120-364df44e9d7e?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1517632298120-364df44e9d7e?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     tipo: "UPA 24h",
     classificacaoRisco: { vermelho: 3, laranja: 8, amarelo: 15, verde: 25, azul: 5 },
     indicadores: {
@@ -528,12 +484,8 @@ export const UNIDADES_PRONTO_ATENDIMENTO: UPA[] = [
     endereco: "Av. Marquês de Herval, 2000 - Condor",
     bairro: "Condor",
     telefone: "(91) 3276-1921",
-    imagem: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1526256262350-7da22feff441?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     tipo: "UPA 24h",
     classificacaoRisco: { vermelho: 1, laranja: 3, amarelo: 8, verde: 18, azul: 3 },
     indicadores: {
@@ -639,12 +591,8 @@ export const HOSPITAIS_MUNICIPAIS: Hospital[] = [
     endereco: "Av. Almirante Barroso, 1758 - Marco",
     bairro: "Marco",
     telefone: "(91) 3190-1500",
-    imagem: "https://images.unsplash.com/photo-1526256262350-7da22feff441?w=800&h=400&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1526256262350-7da22feff441?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1519750157634-9d1678e24a3d?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     indicadores: {
       leitosTotal: 120,
       taxaOcupacao: 85,
@@ -817,11 +765,8 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
     nome: "Serviço de Atendimento Móvel de Urgência",
     descricao: "Atendimento pré-hospitalar de urgência e emergência",
     telefone: "192",
-    imagem: "https://images.unsplash.com/photo-1527072552787-8deca4cb234a?w=400&h=300&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1527072552787-8deca4cb234a?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     veiculos: [
       {
         id: "samu-01",
@@ -833,7 +778,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
         status: "Operacional",
         atendimentosMes: 180,
         metaMes: 200,
-        imagem: "https://images.unsplash.com/photo-1497645589266-28f2b6b8d256?w=200&h=150&fit=crop",
+        imagem: "",
         manutencoes: [
           { id: "m1", data: "2024-01-15", tipo: "Preventiva", descricao: "Troca de óleo e filtros", custo: 800, status: "Concluída", kmAtual: 42000, proximaRevisao: 47000 },
         ],
@@ -848,7 +793,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
         status: "Operacional",
         atendimentosMes: 195,
         metaMes: 200,
-        imagem: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=200&h=150&fit=crop",
+        imagem: "",
         manutencoes: [],
       },
       {
@@ -861,7 +806,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
         status: "Manutenção",
         atendimentosMes: 150,
         metaMes: 180,
-        imagem: "https://images.unsplash.com/photo-1514425127363-6d12d0ae409d?w=200&h=150&fit=crop",
+        imagem: "",
         manutencoes: [
           { id: "m2", data: "2024-03-10", tipo: "Corretiva", descricao: "Reparo no sistema de ar", custo: 2500, status: "Em andamento", kmAtual: 62000, proximaRevisao: 67000 },
         ],
@@ -876,7 +821,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
         status: "Operacional",
         atendimentosMes: 85,
         metaMes: 100,
-        imagem: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=200&h=150&fit=crop",
+        imagem: "",
         manutencoes: [],
       },
     ],
@@ -897,11 +842,8 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
     nome: "Serviço de Apoio Diagnóstico Móvel",
     descricao: "Exames diagnósticos em comunidades",
     telefone: "(95) 3199-1800",
-    imagem: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=400&h=300&fit=crop",
-    imagens: [
-      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1519750157634-9d1678e24a3d?w=1200&h=800&fit=crop",
-    ],
+    imagem: "",
+    imagens: [],
     veiculos: [
       {
         id: "sadt-01",
@@ -913,7 +855,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
         status: "Operacional",
         atendimentosMes: 320,
         metaMes: 350,
-        imagem: "https://images.unsplash.com/photo-1518552785926-422b3adff08d?w=200&h=150&fit=crop",
+        imagem: "",
         manutencoes: [],
       },
       {
@@ -926,7 +868,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
         status: "Operacional",
         atendimentosMes: 180,
         metaMes: 200,
-        imagem: "https://images.unsplash.com/photo-1580281657521-958b44aa7c0d?w=200&h=150&fit=crop",
+        imagem: "",
         manutencoes: [
           { id: "m3", data: "2024-02-20", tipo: "Preventiva", descricao: "Calibração equipamento", custo: 1500, status: "Concluída", kmAtual: 45000, proximaRevisao: 50000 },
         ],
@@ -988,7 +930,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
     nome: "Consultório Odontológico Móvel",
     descricao: "Atendimento odontológico em comunidades",
     telefone: "(95) 3199-1801",
-    imagem: "https://images.unsplash.com/photo-1519638399535-1b036603ac77?w=400&h=300&fit=crop",
+    imagem: "",
     veiculos: [
       {
         id: "odonto-01",
@@ -1000,7 +942,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
         status: "Operacional",
         atendimentosMes: 280,
         metaMes: 300,
-        imagem: "https://images.unsplash.com/photo-1526256262350-7da22feff441?w=200&h=150&fit=crop",
+        imagem: "",
         manutencoes: [],
       },
       {
@@ -1013,7 +955,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
         status: "Operacional",
         atendimentosMes: 260,
         metaMes: 300,
-        imagem: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=200&h=150&fit=crop",
+        imagem: "",
         manutencoes: [
           { id: "m4", data: "2024-01-10", tipo: "Preventiva", descricao: "Manutenção equipamentos", custo: 1200, status: "Concluída", kmAtual: 25000, proximaRevisao: 30000 },
         ],
@@ -1037,7 +979,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
     nome: "Farmácia Móvel",
     descricao: "Dispensação de medicamentos em comunidades",
     telefone: "(95) 3199-1802",
-    imagem: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&h=300&fit=crop",
+    imagem: "",
     veiculos: [
       {
         id: "farma-01",
@@ -1049,7 +991,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
         status: "Operacional",
         atendimentosMes: 450,
         metaMes: 500,
-        imagem: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=200&h=150&fit=crop",
+        imagem: "",
         manutencoes: [],
       },
     ],
@@ -1070,7 +1012,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
     nome: "Fisioterapia Móvel",
     descricao: "Atendimento fisioterapêutico domiciliar",
     telefone: "(95) 3199-1803",
-    imagem: "https://images.unsplash.com/photo-1550831107-1553da8c8464?w=400&h=300&fit=crop",
+    imagem: "",
     veiculos: [
       {
         id: "fisio-01",
@@ -1082,7 +1024,7 @@ export const SERVICOS_MOVEIS: ServicoMovel[] = [
         status: "Operacional",
         atendimentosMes: 180,
         metaMes: 200,
-        imagem: "https://images.unsplash.com/photo-1526256262350-7da22feff441?w=200&h=150&fit=crop",
+        imagem: "",
         manutencoes: [],
       },
     ],

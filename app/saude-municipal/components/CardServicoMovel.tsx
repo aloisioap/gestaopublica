@@ -1,14 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { MapPin, Phone, Activity, Eye, Target, Truck, Wrench } from "lucide-react";
+import { MapPin, Phone, Activity, Eye, Target, Truck, Wrench, Upload } from "lucide-react";
 import { ModalAuditoria } from "./ModalAuditoria";
 import { ModalMetas } from "./ModalMetas";
 import { ModalManutencao } from "./ModalManutencao";
-import { ImageCarousel } from "./ImageCarousel";
 import { ServicoMovel, CORES_SAUDE_MUNICIPAL } from "@/lib/dados-saude-municipal";
 
 interface CardServicoMovelProps {
@@ -22,32 +22,46 @@ const statusColors: Record<string, string> = {
 };
 
 export function CardServicoMovel({ servico }: CardServicoMovelProps) {
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const veiculosOperacionais = servico.veiculos.filter(v => v.status === "Operacional").length;
   const veiculosManutencao = servico.veiculos.filter(v => v.status === "Manutenção").length;
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setUploadedImage(result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
-      {/* Header com foto */}
-      <div className="h-28 relative overflow-hidden">
-        {servico.imagens?.length ? (
-          <>
-            <ImageCarousel
-              images={servico.imagens}
-              alt={servico.nome}
-              className="absolute inset-0 rounded-none"
-              imageClassName="h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          </>
-        ) : (
+      {/* Header com upload de foto */}
+      <div className="h-28 relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-cyan-50 to-cyan-100">
+        {uploadedImage ? (
           <>
             <img
-              src={servico.imagens?.[0] ?? servico.imagem}
+              src={uploadedImage}
               alt={servico.nome}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           </>
+        ) : (
+          <label className="cursor-pointer flex flex-col items-center gap-2">
+            <Upload className="h-8 w-8 text-cyan-600" />
+            <span className="text-xs font-semibold text-cyan-700">Enviar foto</span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+          </label>
         )}
         <div
           className="absolute bottom-2 left-2 p-2 rounded-full shadow-lg"

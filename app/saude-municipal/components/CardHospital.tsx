@@ -6,10 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MapPin, Phone, Building2, Eye, Target, Activity, Stethoscope, Scissors, Microscope, Scan, HeartPulse } from "lucide-react";
+import { MapPin, Phone, Building2, Eye, Target, Activity, Stethoscope, Scissors, Microscope, Scan, HeartPulse, Upload } from "lucide-react";
 import { ModalAuditoria } from "./ModalAuditoria";
 import { ModalMetas } from "./ModalMetas";
-import { ImageCarousel } from "./ImageCarousel";
 import { Hospital, CORES_SAUDE_MUNICIPAL } from "@/lib/dados-saude-municipal";
 
 interface CardHospitalProps {
@@ -18,35 +17,49 @@ interface CardHospitalProps {
 
 export function CardHospital({ hospital }: CardHospitalProps) {
   const [abaAtiva, setAbaAtiva] = useState("geral");
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const percentualMetaCirurgias = (hospital.indicadores.cirurgiasMes / hospital.metas.cirurgiasMes) * 100;
   const percentualMetaPartos = (hospital.indicadores.partosMes / hospital.metas.partosMes) * 100;
   const percentualMetaBiopsias = (hospital.indicadores.biopsiasMes / hospital.metas.biopsiasMes) * 100;
   const percentualMetaAmbulatorio = (hospital.indicadores.consultasAmbulatorioMes / hospital.metas.consultasAmbulatorioMes) * 100;
   const percentualMetaSadt = (hospital.indicadores.examesSadtMes / hospital.metas.examesSadtMes) * 100;
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setUploadedImage(result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
-      {/* Header com foto */}
-      <div className="h-32 relative overflow-hidden">
-        {hospital.imagens?.length ? (
-          <>
-            <ImageCarousel
-              images={hospital.imagens}
-              alt={hospital.nome}
-              className="absolute inset-0 rounded-none"
-              imageClassName="h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-          </>
-        ) : (
+      {/* Header com upload de foto */}
+      <div className="h-32 relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-red-50 to-red-100">
+        {uploadedImage ? (
           <>
             <img
-              src={hospital.imagem}
+              src={uploadedImage}
               alt={hospital.nome}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
           </>
+        ) : (
+          <label className="cursor-pointer flex flex-col items-center gap-2">
+            <Upload className="h-8 w-8 text-red-600" />
+            <span className="text-xs font-semibold text-red-700">Enviar foto</span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+          </label>
         )}
         <div
           className="absolute bottom-3 left-3 p-2.5 rounded-full shadow-lg"

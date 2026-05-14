@@ -66,31 +66,15 @@ export function CardUnidade({
 
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
-      {/* Header com foto ou gradiente */}
+      {/* Header com upload de foto */}
       <div
-        className="h-28 relative overflow-hidden"
+        className="h-28 relative overflow-hidden flex items-center justify-center"
         style={{ background: `linear-gradient(135deg, ${cor}20 0%, ${cor}40 100%)` }}
       >
-        {imagens?.length ? (
-          <>
-            <ImageCarousel
-              images={imagens}
-              alt={nome}
-              className="absolute inset-0 rounded-none"
-              imageClassName="h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            <div
-              className="absolute bottom-2 left-2 p-2 rounded-full shadow-lg"
-              style={{ backgroundColor: cor }}
-            >
-              {icone}
-            </div>
-          </>
-        ) : imagem ? (
+        {uploadedImage ? (
           <>
             <img
-              src={imagem}
+              src={uploadedImage}
               alt={nome}
               className="w-full h-full object-cover"
             />
@@ -103,11 +87,18 @@ export function CardUnidade({
             </div>
           </>
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <div
-              className="p-3 rounded-full shadow-lg"
-              style={{ backgroundColor: cor }}
-            >
+          <div className="flex flex-col items-center gap-2">
+            <label className="cursor-pointer flex flex-col items-center gap-2 p-4">
+              <Upload className="h-6 w-6" style={{ color: cor }} />
+              <span className="text-xs font-semibold text-slate-700">Enviar foto</span>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+            </label>
+            <div className="p-3 rounded-full shadow-lg" style={{ backgroundColor: cor }}>
               {icone}
             </div>
           </div>
