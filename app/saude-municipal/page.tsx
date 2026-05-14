@@ -159,10 +159,7 @@ export default function GestaoSaudeMunicipal() {
           value: `${INDICADORES_SAUDE_MUNICIPAL.coberturaAB}%`,
         },
       ],
-      images: [
-        "https://images.unsplash.com/photo-1519750157634-9d1678e24a3d?w=1200&h=800&fit=crop",
-        "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&h=800&fit=crop",
-      ],
+      images: [],
       href: "/saude-municipal/atencao-basica",
     },
     {
@@ -181,10 +178,7 @@ export default function GestaoSaudeMunicipal() {
           value: totalAtendUE.toLocaleString("pt-BR"),
         },
       ],
-      images: [
-        "https://images.unsplash.com/photo-1517632298120-364df44e9d7e?w=1200&h=800&fit=crop",
-        "https://images.unsplash.com/photo-1527072552787-8deca4cb234a?w=1200&h=800&fit=crop",
-      ],
+      images: [],
       href: "/saude-municipal/urgencia-emergencia",
     },
     {
@@ -202,10 +196,7 @@ export default function GestaoSaudeMunicipal() {
           value: SERVICOS_MOVEIS.length,
         },
       ],
-      images: [
-        "https://images.unsplash.com/photo-1519750157634-9d1678e24a3d?w=1200&h=800&fit=crop",
-        "https://images.unsplash.com/photo-1516275463348-66fca4f45d4f?w=1200&h=800&fit=crop",
-      ],
+      images: [],
       href: "/saude-municipal/casas-especializadas",
     },
   ];
