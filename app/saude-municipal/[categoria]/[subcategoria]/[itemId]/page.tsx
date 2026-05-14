@@ -186,22 +186,22 @@ function getDetailHighlights(details: any) {
   if (details.indicadores?.atendimentosMes !== undefined) {
     highlights.push({ label: "Atend./Mês", value: details.indicadores.atendimentosMes.toLocaleString("pt-BR") });
   }
-  if (details.equipes !== undefined) {
-    highlights.push({ label: "Equipes", value: details.equipes });
+  if ((details as any).equipes !== undefined) {
+    highlights.push({ label: "Equipes", value: (details as any).equipes });
   }
-  if (details.agentesComunitarios !== undefined) {
-    highlights.push({ label: "ACS", value: details.agentesComunitarios });
+  if ((details as any).agentesComunitarios !== undefined) {
+    highlights.push({ label: "ACS", value: (details as any).agentesComunitarios });
   }
   if (details.indicadores?.taxaOcupacao !== undefined) {
     highlights.push({ label: "Ocupação", value: `${details.indicadores.taxaOcupacao}%` });
   }
-  return highlights.length ? highlights : [{ label: "Bairro", value: details.bairro ?? "-" }];
+  return highlights.length ? highlights : [{ label: "Bairro", value: (details as any).bairro ?? "-" }];
 }
 
 function getDetailDescription(details: any) {
-  if (details.descricao) return details.descricao;
-  if (details.tipo) return `${details.tipo} com atendimento em ${details.bairro ?? "localidade"}`;
-  if (details.servicos) return `Serviços: ${details.servicos.slice(0, 3).join(", ")}${details.servicos.length > 3 ? "..." : ""}`;
+  if ((details as any).descricao) return (details as any).descricao;
+  if ((details as any).tipo) return `${(details as any).tipo} com atendimento em ${(details as any).bairro ?? "localidade"}`;
+  if ((details as any).servicos) return `Serviços: ${(details as any).servicos.slice(0, 3).join(", ")}${(details as any).servicos.length > 3 ? "..." : ""}`;
   return "Visão completa dos indicadores e seções da unidade.";
 }
 
@@ -214,7 +214,7 @@ function getDetailsBairro(details: any) {
 }
 
 function getDetailSections(details: any) {
-  if (details.secoes) return details.secoes;
+  if ((details as any).secoes) return (details as any).secoes;
   if (details.ambulatorio?.consultas) return details.ambulatorio.consultas;
   if (details.cirurgias?.eletivas) return details.cirurgias.eletivas;
   return [];
