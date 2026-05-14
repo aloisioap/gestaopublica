@@ -1,13 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { MapPin, Phone, Clock, Eye, Target, Activity } from "lucide-react";
+import { MapPin, Phone, Clock, Eye, Target, Activity, Upload } from "lucide-react";
 import { ModalAuditoria } from "./ModalAuditoria";
 import { ModalMetas } from "./ModalMetas";
-import { ImageCarousel } from "./ImageCarousel";
 import { MetaSecao, CORES_SAUDE_MUNICIPAL } from "@/lib/dados-saude-municipal";
 
 interface CardUnidadeProps {
@@ -49,7 +49,20 @@ export function CardUnidade({
   extraInfo,
   onVerDetalhes,
 }: CardUnidadeProps) {
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const percentualMeta = metas?.cumprimento || 0;
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setUploadedImage(result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
