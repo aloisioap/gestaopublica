@@ -1,3 +1,0 @@
-module.exports=[13166,a=>{"use strict";var b=a.i(7997),c=a.i(95936),d=a.i(98888),e=a.i(43917);function f(){return(0,b.jsxs)("div",{className:"min-h-screen flex flex-col items-center justify-center bg-slate-50 p-8",children:[(0,b.jsx)(d.MapPin,{className:"h-16 w-16 text-slate-300 mb-4"}),(0,b.jsx)("h2",{className:"text-2xl font-bold text-slate-900 mb-2",children:"Bairro não encontrado"}),(0,b.jsx)("p",{className:"text-slate-500 mb-6 text-center max-w-md",children:"O bairro que você está procurando não existe ou foi removido."}),(0,b.jsx)(c.default,{href:"/",children:(0,b.jsx)(e.Button,{children:"Voltar para o início"})})]})}a.s(["default",()=>f])}];
-
-//# sourceMappingURL=app_bairro_%5Bid%5D_not-found_tsx_01c249c1._.js.map

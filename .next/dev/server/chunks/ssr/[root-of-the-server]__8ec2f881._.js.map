@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 16, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/-/WebstormProjects/Gestao%20publica/components/ui/toast-wrapper.tsx"],"sourcesContent":["\"use client\";\r\n\r\nimport dynamic from \"next/dynamic\";\r\n\r\nconst Toaster = dynamic(\r\n  () => import(\"@/components/ui/toaster\").then((mod) => mod.Toaster),\r\n  { \r\n    ssr: false,\r\n    loading: () => null\r\n  }\r\n);\r\n\r\nexport function ToastWrapper() {\r\n  return <Toaster />;\r\n}\r\n"],"names":[],"mappings":";;;;;AAEA;;AAFA;;;AAIA,MAAM,UAAU,IAAA,0KAAO;;;;;;IAGnB,KAAK;IACL,SAAS,IAAM;;AAIZ,SAAS;IACd,qBAAO,8OAAC;;;;;AACV"}}]
-}
