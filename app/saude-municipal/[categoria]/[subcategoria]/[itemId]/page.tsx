@@ -92,11 +92,11 @@ export default async function ItemDetailsPage({ params }: Props) {
               <div className="rounded-2xl bg-slate-100 px-4 py-2 text-slate-700">{getDetailsBairro(details)}</div>
             </div>
 
-            {details.telefone && (
-              <p className="text-slate-600">Telefone: <span className="font-semibold text-slate-900">{details.telefone}</span></p>
+            {(details as any).telefone && (
+              <p className="text-slate-600">Telefone: <span className="font-semibold text-slate-900">{(details as any).telefone}</span></p>
             )}
-            {details.horario && (
-              <p className="text-slate-600">Horário: <span className="font-semibold text-slate-900">{details.horario}</span></p>
+            {(details as any).horario && (
+              <p className="text-slate-600">Horário: <span className="font-semibold text-slate-900">{(details as any).horario}</span></p>
             )}
           </div>
         </section>
