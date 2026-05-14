@@ -215,7 +215,7 @@ function getDetailsBairro(details: any) {
 
 function getDetailSections(details: any) {
   if ((details as any).secoes) return (details as any).secoes;
-  if (details.ambulatorio?.consultas) return details.ambulatorio.consultas;
-  if (details.cirurgias?.eletivas) return details.cirurgias.eletivas;
+  if ((details as any).ambulatorio?.consultas) return (details as any).ambulatorio.consultas;
+  if ((details as any).cirurgias?.eletivas) return (details as any).cirurgias.eletivas;
   return [];
 }
