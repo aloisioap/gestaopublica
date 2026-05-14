@@ -40,6 +40,7 @@ export function CardUnidade({
   telefone,
   horario,
   imagem,
+  imagens,
   icone,
   cor,
   metas,
