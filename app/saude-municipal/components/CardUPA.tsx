@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { MapPin, Phone, Activity, Eye, Target, AlertCircle } from "lucide-react";
 import { ModalAuditoria } from "./ModalAuditoria";
 import { ModalMetas } from "./ModalMetas";
+import { ImageCarousel } from "./ImageCarousel";
 import { UPA, CORES_SAUDE_MUNICIPAL } from "@/lib/dados-saude-municipal";
 
 interface CardUPAProps {
@@ -20,15 +21,26 @@ export function CardUPA({ upa }: CardUPAProps) {
     <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
       {/* Header com foto */}
       <div className="h-28 relative overflow-hidden">
-        <img
-          src={upa.imagem}
-          alt={upa.nome}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = 'none';
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        {upa.imagens?.length ? (
+          <>
+            <ImageCarousel
+              images={upa.imagens}
+              alt={upa.nome}
+              className="absolute inset-0 rounded-none"
+              imageClassName="h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          </>
+        ) : (
+          <>
+            <img
+              src={upa.imagem}
+              alt={upa.nome}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          </>
+        )}
         <div
           className="absolute bottom-2 left-2 p-2 rounded-full shadow-lg"
           style={{ backgroundColor: CORES_SAUDE_MUNICIPAL.urgencia }}

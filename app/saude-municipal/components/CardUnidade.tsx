@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { MapPin, Phone, Clock, Eye, Target, Activity } from "lucide-react";
 import { ModalAuditoria } from "./ModalAuditoria";
 import { ModalMetas } from "./ModalMetas";
+import { ImageCarousel } from "./ImageCarousel";
 import { MetaSecao, CORES_SAUDE_MUNICIPAL } from "@/lib/dados-saude-municipal";
 
 interface CardUnidadeProps {
@@ -17,6 +18,7 @@ interface CardUnidadeProps {
   telefone: string;
   horario: string;
   imagem?: string;
+  imagens?: string[];
   icone: React.ReactNode;
   cor: string;
   metas?: {
@@ -55,15 +57,28 @@ export function CardUnidade({
         className="h-28 relative overflow-hidden"
         style={{ background: `linear-gradient(135deg, ${cor}20 0%, ${cor}40 100%)` }}
       >
-        {imagem ? (
+        {imagens?.length ? (
+          <>
+            <ImageCarousel
+              images={imagens}
+              alt={nome}
+              className="absolute inset-0 rounded-none"
+              imageClassName="h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <div
+              className="absolute bottom-2 left-2 p-2 rounded-full shadow-lg"
+              style={{ backgroundColor: cor }}
+            >
+              {icone}
+            </div>
+          </>
+        ) : imagem ? (
           <>
             <img
               src={imagem}
               alt={nome}
               className="w-full h-full object-cover"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
-              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div

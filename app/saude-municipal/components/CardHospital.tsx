@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MapPin, Phone, Building2, Eye, Target, Activity, Stethoscope, Scissors, Microscope, Scan, HeartPulse } from "lucide-react";
 import { ModalAuditoria } from "./ModalAuditoria";
 import { ModalMetas } from "./ModalMetas";
+import { ImageCarousel } from "./ImageCarousel";
 import { Hospital, CORES_SAUDE_MUNICIPAL } from "@/lib/dados-saude-municipal";
 
 interface CardHospitalProps {
@@ -27,15 +28,26 @@ export function CardHospital({ hospital }: CardHospitalProps) {
     <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
       {/* Header com foto */}
       <div className="h-32 relative overflow-hidden">
-        <img
-          src={hospital.imagem}
-          alt={hospital.nome}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = 'none';
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        {hospital.imagens?.length ? (
+          <>
+            <ImageCarousel
+              images={hospital.imagens}
+              alt={hospital.nome}
+              className="absolute inset-0 rounded-none"
+              imageClassName="h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          </>
+        ) : (
+          <>
+            <img
+              src={hospital.imagem}
+              alt={hospital.nome}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          </>
+        )}
         <div
           className="absolute bottom-3 left-3 p-2.5 rounded-full shadow-lg"
           style={{ backgroundColor: CORES_SAUDE_MUNICIPAL.hospital }}

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ReactNode } from "react";
+import { ImageCarousel } from "./ImageCarousel";
 
 interface StatItem {
   label: string;
@@ -19,6 +20,7 @@ interface CascadeCardProps {
   href: string;
   color: string;
   badge?: string;
+  images?: string[];
   index?: number;
 }
 
@@ -31,6 +33,7 @@ export function CascadeCard({
   href,
   color,
   badge,
+  images,
   index = 0,
 }: CascadeCardProps) {
   return (
@@ -44,9 +47,26 @@ export function CascadeCard({
         <div
           className="relative h-32 px-5 flex items-center justify-between overflow-hidden"
           style={{
-            background: `linear-gradient(135deg, ${color} 0%, ${color}bb 100%)`,
+            background: images && images.length > 0
+              ? "none"
+              : `linear-gradient(135deg, ${color} 0%, ${color}bb 100%)`,
           }}
         >
+          {images && images.length > 0 && (
+            <div className="absolute inset-0">
+              <ImageCarousel
+                images={images}
+                alt={title}
+                className="absolute inset-0 rounded-none"
+                imageClassName="h-full object-cover"
+                showControls={false}
+                showIndicators={false}
+                autoPlay={true}
+                autoPlayInterval={6000}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+            </div>
+          )}
           {/* decorative circles */}
           <div
             className="absolute -right-6 -top-6 w-24 h-24 rounded-full opacity-20"

@@ -24,7 +24,7 @@ import {
   SERVICOS_MOVEIS,
   UNIDADES_BASICAS_SAUDE,
 } from "@/lib/dados-saude-municipal";
-import { CascadeCard } from "../components/CascadeCard";
+import { CascadeCard } from "@/app/saude-municipal/components/CascadeCard";
 
 // ——— helpers ————————————————————————————————————————
 
@@ -81,7 +81,7 @@ const CONFIGS: Record<string, MacroConfig> = {
 // ——— page ——————————————————————————————————————————————
 
 interface Props {
-  params: Promise<{ categoria: string }>;
+  params: { categoria: string };
 }
 
 export default async function MacroAreaPage({ params }: Props) {
@@ -260,6 +260,7 @@ function TypeGrid({ categoria, config }: { categoria: string; config: MacroConfi
               href={`/saude-municipal/casas-especializadas/${casa.id}`}
               color={getCasaColor(casa.sigla)}
               badge={casa.sigla}
+              images={casa.imagens}
               index={idx}
             />
           ))}

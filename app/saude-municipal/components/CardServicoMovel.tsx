@@ -8,6 +8,7 @@ import { MapPin, Phone, Activity, Eye, Target, Truck, Wrench } from "lucide-reac
 import { ModalAuditoria } from "./ModalAuditoria";
 import { ModalMetas } from "./ModalMetas";
 import { ModalManutencao } from "./ModalManutencao";
+import { ImageCarousel } from "./ImageCarousel";
 import { ServicoMovel, CORES_SAUDE_MUNICIPAL } from "@/lib/dados-saude-municipal";
 
 interface CardServicoMovelProps {
@@ -28,15 +29,26 @@ export function CardServicoMovel({ servico }: CardServicoMovelProps) {
     <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
       {/* Header com foto */}
       <div className="h-28 relative overflow-hidden">
-        <img
-          src={servico.imagem}
-          alt={servico.nome}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = 'none';
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        {servico.imagens?.length ? (
+          <>
+            <ImageCarousel
+              images={servico.imagens}
+              alt={servico.nome}
+              className="absolute inset-0 rounded-none"
+              imageClassName="h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          </>
+        ) : (
+          <>
+            <img
+              src={servico.imagens?.[0] ?? servico.imagem}
+              alt={servico.nome}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          </>
+        )}
         <div
           className="absolute bottom-2 left-2 p-2 rounded-full shadow-lg"
           style={{ backgroundColor: CORES_SAUDE_MUNICIPAL.movel }}
@@ -80,8 +92,20 @@ export function CardServicoMovel({ servico }: CardServicoMovelProps) {
           {/* Lista de veículos */}
           <div className="space-y-1">
             {servico.veiculos.slice(0, 3).map((v) => (
-              <div key={v.id} className="flex items-center justify-between text-xs p-1.5 bg-slate-50 rounded">
-                <span className="truncate flex-1">{v.nome}</span>
+              <div key={v.id} className="flex items-center justify-between gap-2 text-xs p-1.5 bg-slate-50 rounded">
+                <div className="flex items-center gap-2 truncate">
+                  {v.imagem && (
+                    <img
+                      src={v.imagem}
+                      alt={v.nome}
+                      className="h-6 w-6 rounded-md object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                  )}
+                  <span className="truncate flex-1">{v.nome}</span>
+                </div>
                 <Badge variant="outline" className={`text-[8px] px-1 ${statusColors[v.status]}`}>
                   {v.status}
                 </Badge>

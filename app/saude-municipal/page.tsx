@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   HeartPulse,
@@ -11,6 +12,8 @@ import {
   Stethoscope,
   Home,
   AlertCircle,
+  Truck,
+  Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,7 +27,7 @@ import {
   SERVICOS_MOVEIS,
   INDICADORES_SAUDE_MUNICIPAL,
 } from "@/lib/dados-saude-municipal";
-import { CascadeCard } from "./components/CascadeCard";
+import { CascadeCard } from "@/app/saude-municipal/components/CascadeCard";
 
 export default function GestaoSaudeMunicipal() {
   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
@@ -35,6 +38,109 @@ export default function GestaoSaudeMunicipal() {
       (acc, u) => acc + u.indicadores.atendimentosMes,
       0
     ) + (hospital?.indicadores.altasMes ?? 0);
+
+  const [isKpiPaused, setIsKpiPaused] = useState(false);
+  const kpiContainerRef = useRef<HTMLDivElement | null>(null);
+  const directionRef = useRef(1);
+
+  useEffect(() => {
+    const element = kpiContainerRef.current;
+    if (!element) return;
+
+    let rafId: number;
+    const animate = () => {
+      if (!element || isKpiPaused) {
+        rafId = requestAnimationFrame(animate);
+        return;
+      }
+
+      const maxScroll = element.scrollWidth - element.clientWidth;
+      if (maxScroll <= 0) {
+        rafId = requestAnimationFrame(animate);
+        return;
+      }
+
+      let nextScroll = element.scrollLeft + directionRef.current * 0.35;
+      if (nextScroll <= 0) {
+        nextScroll = 0;
+        directionRef.current = 1;
+      } else if (nextScroll >= maxScroll) {
+        nextScroll = maxScroll;
+        directionRef.current = -1;
+      }
+      element.scrollLeft = nextScroll;
+      rafId = requestAnimationFrame(animate);
+    };
+
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
+  }, [isKpiPaused]);
+
+  const kpiCards = [
+    {
+      label: "Cobertura AB",
+      value: `${INDICADORES_SAUDE_MUNICIPAL.coberturaAB}%`,
+      description: "Cobertura da Atenção Básica",
+      icon: <Users className="h-5 w-5" />,
+      color: CORES_SAUDE_MUNICIPAL.sucesso,
+    },
+    {
+      label: "Atendimentos/Mês",
+      value: `${(INDICADORES_SAUDE_MUNICIPAL.atendimentosMes / 1000).toFixed(1)}k`,
+      description: "Fluxo de pacientes",
+      icon: <Activity className="h-5 w-5" />,
+      color: CORES_SAUDE_MUNICIPAL.info,
+    },
+    {
+      label: "Satisfação",
+      value: `${INDICADORES_SAUDE_MUNICIPAL.satisfacaoUsuario}/5`,
+      description: "Avaliação do SUS",
+      icon: <HeartPulse className="h-5 w-5" />,
+      color: CORES_SAUDE_MUNICIPAL.destaque,
+    },
+    {
+      label: "Tempo Médio",
+      value: `${INDICADORES_SAUDE_MUNICIPAL.tempoEsperaMedia}min`,
+      description: "Espera média de atendimento",
+      icon: <Clock className="h-5 w-5" />,
+      color: CORES_SAUDE_MUNICIPAL.alerta,
+    },
+    {
+      label: "Leitos Total",
+      value: INDICADORES_SAUDE_MUNICIPAL.leitosTotal,
+      description: "Capacidade hospitalar",
+      icon: <Building2 className="h-5 w-5" />,
+      color: CORES_SAUDE_MUNICIPAL.hospital,
+    },
+    {
+      label: "Tempo Permanência",
+      value: `${INDICADORES_SAUDE_MUNICIPAL.tempoPermanenciaMedia} dias`,
+      description: "Média de estadia",
+      icon: <Clock className="h-5 w-5" />,
+      color: CORES_SAUDE_MUNICIPAL.primaria,
+    },
+    {
+      label: "Equipes UMS+ESF",
+      value: umsCount + esfCount,
+      description: "Capacidade de campo",
+      icon: <Users className="h-5 w-5" />,
+      color: CORES_SAUDE_MUNICIPAL.primaria,
+    },
+    {
+      label: "Veículos Móveis",
+      value: SERVICOS_MOVEIS.reduce((acc, s) => acc + s.veiculos.length, 0),
+      description: "Resposta móvel ativa",
+      icon: <Truck className="h-5 w-5" />,
+      color: CORES_SAUDE_MUNICIPAL.movel,
+    },
+    {
+      label: "Ocupação Hospitalar",
+      value: `${hospital?.indicadores.taxaOcupacao ?? 0}%`,
+      description: "Leitos em uso",
+      icon: <Building2 className="h-5 w-5" />,
+      color: CORES_SAUDE_MUNICIPAL.hospital,
+    },
+  ];
 
   const macroAreas = [
     {
@@ -52,6 +158,10 @@ export default function GestaoSaudeMunicipal() {
           label: "Cobertura AB",
           value: `${INDICADORES_SAUDE_MUNICIPAL.coberturaAB}%`,
         },
+      ],
+      images: [
+        "https://images.unsplash.com/photo-1519750157634-9d1678e24a3d?w=1200&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&h=800&fit=crop",
       ],
       href: "/saude-municipal/atencao-basica",
     },
@@ -71,6 +181,10 @@ export default function GestaoSaudeMunicipal() {
           value: totalAtendUE.toLocaleString("pt-BR"),
         },
       ],
+      images: [
+        "https://images.unsplash.com/photo-1517632298120-364df44e9d7e?w=1200&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1527072552787-8deca4cb234a?w=1200&h=800&fit=crop",
+      ],
       href: "/saude-municipal/urgencia-emergencia",
     },
     {
@@ -87,6 +201,10 @@ export default function GestaoSaudeMunicipal() {
           label: "Móveis",
           value: SERVICOS_MOVEIS.length,
         },
+      ],
+      images: [
+        "https://images.unsplash.com/photo-1519750157634-9d1678e24a3d?w=1200&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1516275463348-66fca4f45d4f?w=1200&h=800&fit=crop",
       ],
       href: "/saude-municipal/casas-especializadas",
     },
@@ -138,82 +256,59 @@ export default function GestaoSaudeMunicipal() {
 
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* KPIs */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <Card
-            className="border-l-4"
-            style={{ borderLeftColor: CORES_SAUDE_MUNICIPAL.sucesso }}
-          >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-slate-500">Cobertura AB</p>
-                  <p className="text-xl font-bold" style={{ color: CORES_SAUDE_MUNICIPAL.primaria }}>
-                    {INDICADORES_SAUDE_MUNICIPAL.coberturaAB}%
-                  </p>
-                </div>
-                <div className="p-2 rounded-lg" style={{ backgroundColor: `${CORES_SAUDE_MUNICIPAL.sucesso}20` }}>
-                  <Users className="h-5 w-5" style={{ color: CORES_SAUDE_MUNICIPAL.sucesso }} />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="mb-8">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+                Indicadores em tempo real
+              </p>
+              <h2 className="text-2xl font-bold text-slate-900">
+                Visão estratégica da rede de saúde
+              </h2>
+            </div>
+            <Badge className="bg-slate-100 text-slate-700 border-0">Futuro</Badge>
+          </div>
 
-          <Card
-            className="border-l-4"
-            style={{ borderLeftColor: CORES_SAUDE_MUNICIPAL.info }}
-          >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-slate-500">Atendimentos/Mês</p>
-                  <p className="text-lg font-bold" style={{ color: CORES_SAUDE_MUNICIPAL.primaria }}>
-                    {(INDICADORES_SAUDE_MUNICIPAL.atendimentosMes / 1000).toFixed(1)}k
-                  </p>
-                </div>
-                <div className="p-2 rounded-lg" style={{ backgroundColor: `${CORES_SAUDE_MUNICIPAL.info}20` }}>
-                  <Activity className="h-5 w-5" style={{ color: CORES_SAUDE_MUNICIPAL.info }} />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card
-            className="border-l-4"
-            style={{ borderLeftColor: CORES_SAUDE_MUNICIPAL.destaque }}
-          >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-slate-500">Satisfação</p>
-                  <p className="text-xl font-bold" style={{ color: CORES_SAUDE_MUNICIPAL.primaria }}>
-                    {INDICADORES_SAUDE_MUNICIPAL.satisfacaoUsuario}/5
-                  </p>
-                </div>
-                <div className="p-2 rounded-lg" style={{ backgroundColor: `${CORES_SAUDE_MUNICIPAL.destaque}20` }}>
-                  <TrendingUp className="h-5 w-5" style={{ color: CORES_SAUDE_MUNICIPAL.destaque }} />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card
-            className="border-l-4"
-            style={{ borderLeftColor: CORES_SAUDE_MUNICIPAL.alerta }}
-          >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-slate-500">Tempo Médio</p>
-                  <p className="text-xl font-bold" style={{ color: CORES_SAUDE_MUNICIPAL.primaria }}>
-                    {INDICADORES_SAUDE_MUNICIPAL.tempoEsperaMedia}min
-                  </p>
-                </div>
-                <div className="p-2 rounded-lg" style={{ backgroundColor: `${CORES_SAUDE_MUNICIPAL.alerta}20` }}>
-                  <Clock className="h-5 w-5" style={{ color: CORES_SAUDE_MUNICIPAL.alerta }} />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white/95 shadow-sm">
+            <div className="absolute inset-y-0 left-0 w-16 bg-white/95 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-16 bg-white/95 pointer-events-none" />
+            <div
+              ref={kpiContainerRef}
+              onMouseEnter={() => setIsKpiPaused(true)}
+              onMouseLeave={() => setIsKpiPaused(false)}
+              className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 py-4 no-scrollbar"
+            >
+              {kpiCards.map((kpi) => (
+                <Card
+                  key={kpi.label}
+                  className="snap-start min-w-[16rem] border-l-4 shadow-sm"
+                  style={{ borderLeftColor: kpi.color }}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-[10px] uppercase tracking-[0.24em] text-slate-500">
+                          {kpi.label}
+                        </p>
+                        <p className="mt-4 text-2xl font-bold text-slate-900">
+                          {kpi.value}
+                        </p>
+                        <p className="mt-2 text-xs text-slate-500">
+                          {kpi.description}
+                        </p>
+                      </div>
+                      <div
+                        className="flex h-11 w-11 items-center justify-center rounded-2xl"
+                        style={{ backgroundColor: `${kpi.color}20`, color: kpi.color }}
+                      >
+                        {kpi.icon}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Section title */}
@@ -236,6 +331,7 @@ export default function GestaoSaudeMunicipal() {
               icon={area.icon}
               href={area.href}
               color={area.cor}
+              images={area.images}
               index={idx}
             />
           ))}
