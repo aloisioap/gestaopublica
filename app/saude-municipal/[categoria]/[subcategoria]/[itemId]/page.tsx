@@ -87,9 +87,9 @@ export default async function ItemDetailsPage({ params }: Props) {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-500 text-sm">Informações de contato</p>
-                <p className="font-semibold text-slate-900">{details.endereco || "-"}</p>
+                <p className="font-semibold text-slate-900">{getDetailsAddress(details)}</p>
               </div>
-              <div className="rounded-2xl bg-slate-100 px-4 py-2 text-slate-700">{details.bairro || "-"}</div>
+              <div className="rounded-2xl bg-slate-100 px-4 py-2 text-slate-700">{getDetailsBairro(details)}</div>
             </div>
 
             {details.telefone && (
@@ -203,6 +203,14 @@ function getDetailDescription(details: any) {
   if (details.tipo) return `${details.tipo} com atendimento em ${details.bairro ?? "localidade"}`;
   if (details.servicos) return `Serviços: ${details.servicos.slice(0, 3).join(", ")}${details.servicos.length > 3 ? "..." : ""}`;
   return "Visão completa dos indicadores e seções da unidade.";
+}
+
+function getDetailsAddress(details: any) {
+  return (details as any).endereco || "-";
+}
+
+function getDetailsBairro(details: any) {
+  return (details as any).bairro || "-";
 }
 
 function getDetailSections(details: any) {
