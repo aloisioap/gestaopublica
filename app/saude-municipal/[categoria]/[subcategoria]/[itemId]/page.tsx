@@ -69,7 +69,7 @@ export default async function ItemDetailsPage({ params }: Props) {
               <div>
                 <p className="text-slate-500 text-sm">Resumo do item</p>
                 <h2 className="text-xl font-semibold text-slate-900">{details.nome}</h2>
-                <p className="mt-3 text-slate-600 leading-relaxed">{details.descricao || "Visão completa dos indicadores e seções da unidade."}</p>
+                <p className="mt-3 text-slate-600 leading-relaxed">{getDetailDescription(details)}</p>
               </div>
             </div>
 
@@ -196,6 +196,13 @@ function getDetailHighlights(details: any) {
     highlights.push({ label: "Ocupação", value: `${details.indicadores.taxaOcupacao}%` });
   }
   return highlights.length ? highlights : [{ label: "Bairro", value: details.bairro ?? "-" }];
+}
+
+function getDetailDescription(details: any) {
+  if (details.descricao) return details.descricao;
+  if (details.tipo) return `${details.tipo} com atendimento em ${details.bairro ?? "localidade"}`;
+  if (details.servicos) return `Serviços: ${details.servicos.slice(0, 3).join(", ")}${details.servicos.length > 3 ? "..." : ""}`;
+  return "Visão completa dos indicadores e seções da unidade.";
 }
 
 function getDetailSections(details: any) {
