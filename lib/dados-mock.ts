@@ -1,0 +1,948 @@
+// ============================================================
+// DADOS FUNSAU - POLÍCIA MILITAR
+// Sistema de Saúde para Policiais Militares
+// ============================================================
+
+// Patentes da Polícia Militar (ordem hierárquica)
+export const PATENTES_PM = [
+  { codigo: 'SD', nome: 'Soldado', nivel: 1, cor: 'bg-green-100 text-green-700' },
+  { codigo: 'CB', nome: 'Cabo', nivel: 2, cor: 'bg-emerald-100 text-emerald-700' },
+  { codigo: '3SGT', nome: '3º Sargento', nivel: 3, cor: 'bg-teal-100 text-teal-700' },
+  { codigo: '2SGT', nome: '2º Sargento', nivel: 4, cor: 'bg-cyan-100 text-cyan-700' },
+  { codigo: '1SGT', nome: '1º Sargento', nivel: 5, cor: 'bg-sky-100 text-sky-700' },
+  { codigo: 'SUBTEN', nome: 'Subtenente', nivel: 6, cor: 'bg-blue-100 text-blue-700' },
+  { codigo: 'ASP', nome: 'Aspirante', nivel: 7, cor: 'bg-indigo-100 text-indigo-700' },
+  { codigo: '2TEN', nome: '2º Tenente', nivel: 8, cor: 'bg-violet-100 text-violet-700' },
+  { codigo: '1TEN', nome: '1º Tenente', nivel: 9, cor: 'bg-purple-100 text-purple-700' },
+  { codigo: 'CAP', nome: 'Capitão', nivel: 10, cor: 'bg-fuchsia-100 text-fuchsia-700' },
+  { codigo: 'MAJ', nome: 'Major', nivel: 11, cor: 'bg-pink-100 text-pink-700' },
+  { codigo: 'TC', nome: 'Tenente-Coronel', nivel: 12, cor: 'bg-rose-100 text-rose-700' },
+  { codigo: 'CEL', nome: 'Coronel', nivel: 13, cor: 'bg-red-100 text-red-700' },
+] as const;
+
+// Unidades/Comandos da PM
+export const UNIDADES_PM = [
+  '1º Batalhão - Centro',
+  '2º Batalhão - Zona Norte',
+  '3º Batalhão - Zona Sul',
+  '4º Batalhão - Zona Leste',
+  '5º Batalhão - Zona Oeste',
+  'Rondas Ostensivas Tobias de Aguiar (ROTA)',
+  'Comando de Policiamento de Trânsito',
+  'Polícia Militar Ambiental',
+  'Polícia Militar Metropolitana',
+  'Comando de Operações Especiais',
+] as const;
+
+// Tipos de sangue
+export const TIPOS_SANGUINEOS = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as const;
+
+// ============================================================
+// PACIENTES PM - DADOS COMPLETOS
+// ============================================================
+
+export interface PacientePM {
+  id: string;
+  // Dados pessoais
+  nome: string;
+  cpf: string;
+  rg: string;
+  data_nascimento: string;
+  idade: number;
+  sexo: 'M' | 'F';
+  estado_civil: string;
+  nome_mae: string;
+  nome_pai?: string;
+  
+  // Dados funcionais
+  matricula: string;
+  patente: string;
+  patente_codigo: string;
+  unidade: string;
+  lotacao: string;
+  data_ingresso: string;
+  tempo_servico_anos: number;
+  
+  // Contato
+  telefone_pessoal: string;
+  telefone_funcional?: string;
+  email: string;
+  endereco: string;
+  bairro: string;
+  cidade: string;
+  cep: string;
+  
+  // Dados de saúde
+  tipo_sanguineo: string;
+  altura: number;
+  peso: number;
+  imc: number;
+  alergias: string[];
+  comorbidades: string[];
+  medicamentos_continuos: { nome: string; dosagem: string; frequencia: string }[];
+  cirurgias_previas: { tipo: string; data: string; hospital: string }[];
+  
+  // Dependentes
+  dependentes: { nome: string; parentesco: string; data_nascimento: string }[];
+  
+  // Documentação
+  foto_url?: string;
+  carteirinha_saude: string;
+  qr_code: string;
+  
+  // Histórico
+  historico_atendimentos: AtendimentoPM[];
+  
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AtendimentoPM {
+  id: string;
+  data: string;
+  tipo: 'Consulta' | 'Exame' | 'Cirurgia' | 'Procedimento' | 'Emergência' | 'Vacina';
+  especialidade: string;
+  medico: string;
+  cid: string;
+  diagnostico: string;
+  sintomas: string;
+  procedimentos: string[];
+  medicamentos_prescritos: { nome: string; quantidade: string; posologia: string }[];
+  exames_solicitados: string[];
+  status: 'Concluído' | 'Em Tratamento' | 'Aguardando';
+  evolucao?: string;
+  apto_para_servico: boolean;
+  dias_atestado: number;
+  observacoes: string;
+}
+
+// Pacientes PM - Dados completos
+export const mockPacientesPM: PacientePM[] = [
+  {
+    id: 'pm-001',
+    nome: 'João Carlos Silva',
+    cpf: '123.456.789-00',
+    rg: '12.345.678-9',
+    data_nascimento: '1975-08-15',
+    idade: 49,
+    sexo: 'M',
+    estado_civil: 'Casado',
+    nome_mae: 'Maria Aparecida Silva',
+    nome_pai: 'José Silva',
+    
+    matricula: 'PM-001234',
+    patente: 'Capitão',
+    patente_codigo: 'CAP',
+    unidade: '1º Batalhão - Centro',
+    lotacao: 'Seção de Operações',
+    data_ingresso: '2000-03-15',
+    tempo_servico_anos: 24,
+    
+    telefone_pessoal: '(11) 98765-4321',
+    telefone_funcional: '(11) 3333-1234',
+    email: 'joao.silva@pm.sp.gov.br',
+    endereco: 'Rua das Palmeiras, 123',
+    bairro: 'Jardim Paulista',
+    cidade: 'São Paulo',
+    cep: '01450-000',
+    
+    tipo_sanguineo: 'O+',
+    altura: 1.78,
+    peso: 82,
+    imc: 25.9,
+    alergias: ['Dipirona', 'Sulfas'],
+    comorbidades: ['Hipertensão Arterial', 'Diabetes Mellitus Tipo 2', 'Dislipidemia'],
+    medicamentos_continuos: [
+      { nome: 'Losartana 50mg', dosagem: '1 comprimido', frequencia: '1x ao dia' },
+      { nome: 'Metformina 850mg', dosagem: '1 comprimido', frequencia: '2x ao dia' },
+      { nome: 'Sinvastatina 20mg', dosagem: '1 comprimido', frequencia: 'À noite' },
+    ],
+    cirurgias_previas: [
+      { tipo: 'Apendicectomia', data: '2010-05-20', hospital: 'Hospital Militar' },
+      { tipo: 'Artroscopia no joelho esquerdo', data: '2018-11-10', hospital: 'Hospital da PM' },
+    ],
+    
+    dependentes: [
+      { nome: 'Ana Paula Silva', parentesco: 'Cônjuge', data_nascimento: '1978-04-22' },
+      { nome: 'Pedro Henrique Silva', parentesco: 'Filho', data_nascimento: '2005-09-10' },
+      { nome: 'Mariana Silva', parentesco: 'Filha', data_nascimento: '2008-03-15' },
+    ],
+    
+    carteirinha_saude: 'PMSP-001234-2024',
+    qr_code: 'PMSP-QR-001234',
+    
+    historico_atendimentos: [
+      {
+        id: 'atd-001',
+        data: '2024-01-15',
+        tipo: 'Consulta',
+        especialidade: 'Cardiologia',
+        medico: 'Dr. Ricardo Mendes',
+        cid: 'I10',
+        diagnostico: 'Hipertensão arterial sistêmica em acompanhamento',
+        sintomas: 'Cefaleia, tontura leve',
+        procedimentos: ['Aferição de PA', 'Eletrocardiograma'],
+        medicamentos_prescritos: [
+          { nome: 'Losartana 50mg', quantidade: '30 comprimidos', posologia: '1x ao dia' },
+        ],
+        exames_solicitados: ['Hemograma', 'Creatinina', 'Potássio', 'Colesterol total e frações'],
+        status: 'Concluído',
+        apto_para_servico: true,
+        dias_atestado: 0,
+        observacoes: 'PA controlada. Manter medicação. Retorno em 3 meses.',
+      },
+      {
+        id: 'atd-002',
+        data: '2024-02-20',
+        tipo: 'Exame',
+        especialidade: 'Laboratorial',
+        medico: 'Dra. Ana Paula Ferreira',
+        cid: '',
+        diagnostico: 'Acompanhamento laboratorial rotina',
+        sintomas: '',
+        procedimentos: ['Coleta de sangue'],
+        medicamentos_prescritos: [],
+        exames_solicitados: ['Glicemia de jejum', 'HbA1c', 'Colesterol', 'Triglicerídeos'],
+        status: 'Concluído',
+        apto_para_servico: true,
+        dias_atestado: 0,
+        observacoes: 'Resultados: Glicemia 145mg/dL (elevada), HbA1c 7,2%. Aumentar Metformina.',
+      },
+      {
+        id: 'atd-003',
+        data: '2024-03-10',
+        tipo: 'Emergência',
+        especialidade: 'Clínica Médica',
+        medico: 'Dr. Fernando Castro',
+        cid: 'R51',
+        diagnostico: 'Cefaleia tensional',
+        sintomas: 'Cefaleia intensa, náuseas, fotofobia',
+        procedimentos: ['Avaliação neurológica', 'Exame físico completo'],
+        medicamentos_prescritos: [
+          { nome: 'Dipirona 1g', quantidade: '10 comprimidos', posologia: 'Se dor, a cada 6h' },
+          { nome: 'Ondansetrona 8mg', quantidade: '5 comprimidos', posologia: 'Se náusea' },
+        ],
+        exames_solicitados: ['Tomografia de crânio (se persistir)'],
+        status: 'Concluído',
+        apto_para_servico: false,
+        dias_atestado: 2,
+        observacoes: 'Melhora significativa após medicação. Afastado por 48h. Retorno se sintomas persistirem.',
+      },
+    ],
+    
+    created_at: '2020-01-01',
+    updated_at: '2024-03-15',
+  },
+  
+  {
+    id: 'pm-002',
+    nome: 'Mariana Oliveira Santos',
+    cpf: '987.654.321-00',
+    rg: '98.765.432-1',
+    data_nascimento: '1982-04-22',
+    idade: 42,
+    sexo: 'F',
+    estado_civil: 'Solteira',
+    nome_mae: 'Rosa Maria Oliveira',
+    
+    matricula: 'PM-005678',
+    patente: '1º Tenente',
+    patente_codigo: '1TEN',
+    unidade: 'Rondas Ostensivas Tobias de Aguiar (ROTA)',
+    lotacao: 'Operador de Comunicações',
+    data_ingresso: '2005-07-10',
+    tempo_servico_anos: 19,
+    
+    telefone_pessoal: '(11) 97654-3210',
+    email: 'mariana.santos@pm.sp.gov.br',
+    endereco: 'Avenida Brasil, 456, Apto 302',
+    bairro: 'Jardim das Flores',
+    cidade: 'São Paulo',
+    cep: '04550-000',
+    
+    tipo_sanguineo: 'A+',
+    altura: 1.65,
+    peso: 63,
+    imc: 23.1,
+    alergias: ['Amoxicilina', 'Látex'],
+    comorbidades: ['Asma Brônquica', 'Rinite Alérgica'],
+    medicamentos_continuos: [
+      { nome: 'Budesonida spray nasal', dosagem: '1 jato em cada narina', frequencia: '2x ao dia' },
+      { nome: 'Salbutamol spray', dosagem: '2 jatos', frequencia: 'Se falta de ar' },
+    ],
+    cirurgias_previas: [],
+    
+    dependentes: [
+      { nome: 'Lucas Oliveira', parentesco: 'Filho', data_nascimento: '2012-06-18' },
+    ],
+    
+    carteirinha_saude: 'PMSP-005678-2024',
+    qr_code: 'PMSP-QR-005678',
+    
+    historico_atendimentos: [
+      {
+        id: 'atd-004',
+        data: '2024-02-05',
+        tipo: 'Consulta',
+        especialidade: 'Pneumologia',
+        medico: 'Dr. Carlos Eduardo Lima',
+        cid: 'J45',
+        diagnostico: 'Asma brônquica persistente moderada',
+        sintomas: 'Falta de ar aos esforços, chiado no peito',
+        procedimentos: ['Espirometria', 'Oximetria de pulso'],
+        medicamentos_prescritos: [
+          { nome: 'Formoterol + Budesonida', quantidade: '1 inalador', posologia: '2 jatos 2x ao dia' },
+        ],
+        exames_solicitados: ['Espirometria de controle', 'Raio X de tórax'],
+        status: 'Em Tratamento',
+        apto_para_servico: true,
+        dias_atestado: 0,
+        observacoes: 'Asma controlada. Autorizada para atividade operacional. Usar bombinha antes do expediente.',
+      },
+      {
+        id: 'atd-005',
+        data: '2024-03-22',
+        tipo: 'Vacina',
+        especialidade: 'Imunização',
+        medico: 'Dra. Fernanda Costa',
+        cid: '',
+        diagnostico: 'Vacinação anual contra gripe',
+        sintomas: '',
+        procedimentos: ['Vacina Influenza quadrivalente'],
+        medicamentos_prescritos: [],
+        exames_solicitados: [],
+        status: 'Concluído',
+        apto_para_servico: true,
+        dias_atestado: 0,
+        observacoes: 'Vacinação realizada sem intercorrências.',
+      },
+    ],
+    
+    created_at: '2020-01-01',
+    updated_at: '2024-03-22',
+  },
+  
+  {
+    id: 'pm-003',
+    nome: 'Roberto Dias Ferreira',
+    cpf: '456.789.123-00',
+    rg: '45.678.912-3',
+    data_nascimento: '1968-11-30',
+    idade: 55,
+    sexo: 'M',
+    estado_civil: 'Casado',
+    nome_mae: 'Tereza Dias Ferreira',
+    nome_pai: 'Antônio Ferreira',
+    
+    matricula: 'PM-009012',
+    patente: 'Coronel',
+    patente_codigo: 'CEL',
+    unidade: 'Comando de Operações Especiais',
+    lotacao: 'Comandante',
+    data_ingresso: '1990-02-01',
+    tempo_servico_anos: 34,
+    
+    telefone_pessoal: '(11) 96543-2109',
+    telefone_funcional: '(11) 3333-9999',
+    email: 'roberto.ferreira@pm.sp.gov.br',
+    endereco: 'Rua dos Oficiais, 789',
+    bairro: 'Morumbi',
+    cidade: 'São Paulo',
+    cep: '05650-000',
+    
+    tipo_sanguineo: 'B+',
+    altura: 1.82,
+    peso: 88,
+    imc: 26.6,
+    alergias: ['Nenhuma conhecida'],
+    comorbidades: ['Hipertensão Arterial', 'Pré-diabetes', 'Hérnia de Disco L4-L5'],
+    medicamentos_continuos: [
+      { nome: 'Atenolol 50mg', dosagem: '1 comprimido', frequencia: '1x ao dia' },
+      { nome: 'Hidroclorotiazida 25mg', dosagem: '1 comprimido', frequencia: '1x ao dia' },
+    ],
+    cirurgias_previas: [
+      { tipo: 'Herniorrafia inguinal', data: '2015-08-12', hospital: 'Hospital das Clínicas' },
+      { tipo: 'Artrodese lombar L4-L5', data: '2020-03-05', hospital: 'Hospital Albert Einstein' },
+    ],
+    
+    dependentes: [
+      { nome: 'Carolina Ferreira', parentesco: 'Cônjuge', data_nascimento: '1970-09-14' },
+      { nome: 'Gabriel Ferreira', parentesco: 'Filho', data_nascimento: '1995-12-03' },
+      { nome: 'Julia Ferreira', parentesco: 'Filha', data_nascimento: '1998-05-22' },
+    ],
+    
+    carteirinha_saude: 'PMSP-009012-2024',
+    qr_code: 'PMSP-QR-009012',
+    
+    historico_atendimentos: [
+      {
+        id: 'atd-006',
+        data: '2024-01-10',
+        tipo: 'Consulta',
+        especialidade: 'Ortopedia',
+        medico: 'Dr. Marcelo Augusto',
+        cid: 'M51',
+        diagnostico: 'Lombalgia crônica pós-operatória',
+        sintomas: 'Dor lombar intensa, irradiada para membro inferior esquerdo',
+        procedimentos: ['Exame físico ortopédico', 'Teste de Lasegue'],
+        medicamentos_prescritos: [
+          { nome: 'Pregabalina 75mg', quantidade: '30 cápsulas', posologia: '2x ao dia' },
+          { nome: 'Nortriptilina 25mg', quantidade: '30 comprimidos', posologia: 'À noite' },
+        ],
+        exames_solicitados: ['Ressonância magnética lombossacra', 'Densitometria óssea'],
+        status: 'Em Tratamento',
+        apto_para_servico: true,
+        dias_atestado: 0,
+        observacoes: 'Limitação física parcial. Recomendado evitar esforço físico excessivo. Autorizado para funções administrativas.',
+      },
+      {
+        id: 'atd-007',
+        data: '2024-03-15',
+        tipo: 'Cirurgia',
+        especialidade: 'Neurocirurgia',
+        medico: 'Dr. Paulo Roberto',
+        cid: 'M51',
+        diagnostico: 'Reintervenção na coluna lombar',
+        sintomas: 'Piora da dor, déficit sensitivo no L5 esquerdo',
+        procedimentos: ['Descompressão radicular L5', 'Artrodese L4-L5 revisão'],
+        medicamentos_prescritos: [
+          { nome: 'Oxicodona 10mg', quantidade: '20 comprimidos', posologia: 'A cada 8h (dor)' },
+          { nome: 'Dipirona 1g', quantidade: '30 comprimidos', posologia: 'A cada 6h' },
+        ],
+        exames_solicitados: ['RM pós-operatória em 30 dias'],
+        status: 'Concluído',
+        evolucao: 'Cirurgia realizada sem intercorrências.',
+        apto_para_servico: false,
+        dias_atestado: 45,
+        observacoes: 'Cirurgia realizada com sucesso. Alta hospitalar em 3 dias. Afastado por 45 dias para recuperação. Fisioterapia prescrita.',
+      },
+    ],
+    
+    created_at: '2020-01-01',
+    updated_at: '2024-03-15',
+  },
+  
+  {
+    id: 'pm-004',
+    nome: 'Fernando Costa Lima',
+    cpf: '789.123.456-00',
+    rg: '78.912.345-6',
+    data_nascimento: '1990-06-18',
+    idade: 34,
+    sexo: 'M',
+    estado_civil: 'Solteiro',
+    nome_mae: 'Sandra Lima',
+    
+    matricula: 'PM-015678',
+    patente: 'Sargento',
+    patente_codigo: '3SGT',
+    unidade: '3º Batalhão - Zona Sul',
+    lotacao: 'Policiamento Ostensivo',
+    data_ingresso: '2012-11-20',
+    tempo_servico_anos: 12,
+    
+    telefone_pessoal: '(11) 95432-1098',
+    email: 'fernando.lima@pm.sp.gov.br',
+    endereco: 'Rua Brigadeiro, 321',
+    bairro: 'Moema',
+    cidade: 'São Paulo',
+    cep: '04550-123',
+    
+    tipo_sanguineo: 'AB+',
+    altura: 1.75,
+    peso: 78,
+    imc: 25.4,
+    alergias: ['Penicilina'],
+    comorbidades: [],
+    medicamentos_continuos: [],
+    cirurgias_previas: [],
+    
+    dependentes: [],
+    
+    carteirinha_saude: 'PMSP-015678-2024',
+    qr_code: 'PMSP-QR-015678',
+    
+    historico_atendimentos: [
+      {
+        id: 'atd-008',
+        data: '2024-03-25',
+        tipo: 'Emergência',
+        especialidade: 'Traumatologia',
+        medico: 'Dr. Gustavo Henrique',
+        cid: 'S82',
+        diagnostico: 'Fratura de tíbia e perôneo direito',
+        sintomas: 'Dor intensa, deformidade, impotência funcional',
+        procedimentos: ['Imobilização', 'Redução fechada', 'Radiografia'],
+        medicamentos_prescritos: [
+          { nome: 'Dipirona 1g', quantidade: '20 comprimidos', posologia: 'A cada 6h' },
+          { nome: 'Tramadol 50mg', quantidade: '20 comprimidos', posologia: 'A cada 8h (dor forte)' },
+        ],
+        exames_solicitados: ['Radiografia de controle em 7 dias'],
+        status: 'Em Tratamento',
+        apto_para_servico: false,
+        dias_atestado: 60,
+        observacoes: 'Fratura em acidente de moto em serviço. Redução realizada. Plaster em gesso. Afastado por 60 dias. Acompanhamento ortopédico semanal.',
+      },
+    ],
+    
+    created_at: '2020-01-01',
+    updated_at: '2024-03-25',
+  },
+  
+  {
+    id: 'pm-005',
+    nome: 'Amanda Ribeiro Souza',
+    cpf: '321.654.987-00',
+    rg: '32.165.498-7',
+    data_nascimento: '1995-09-25',
+    idade: 29,
+    sexo: 'F',
+    estado_civil: 'Casada',
+    nome_mae: 'Helena Ribeiro',
+    
+    matricula: 'PM-023456',
+    patente: 'Cabo',
+    patente_codigo: 'CB',
+    unidade: 'Polícia Militar Ambiental',
+    lotacao: 'Patrulha Ambiental',
+    data_ingresso: '2018-03-05',
+    tempo_servico_anos: 6,
+    
+    telefone_pessoal: '(11) 94321-0987',
+    email: 'amanda.souza@pm.sp.gov.br',
+    endereco: 'Rua Verde, 567',
+    bairro: 'Vila Madalena',
+    cidade: 'São Paulo',
+    cep: '05450-000',
+    
+    tipo_sanguineo: 'O-',
+    altura: 1.68,
+    peso: 61,
+    imc: 21.6,
+    alergias: ['Poeira', 'Pólen'],
+    comorbidades: ['Rinite Alérgica', 'Sinusite'],
+    medicamentos_continuos: [
+      { nome: 'Loratadina 10mg', dosagem: '1 comprimido', frequencia: '1x ao dia (manhã)' },
+    ],
+    cirurgias_previas: [
+      { tipo: 'Colecistectomia videolaparoscópica', data: '2022-07-15', hospital: 'Hospital Militar' },
+    ],
+    
+    dependentes: [
+      { nome: 'Rafael Souza', parentesco: 'Cônjuge', data_nascimento: '1993-02-10' },
+    ],
+    
+    carteirinha_saude: 'PMSP-023456-2024',
+    qr_code: 'PMSP-QR-023456',
+    
+    historico_atendimentos: [
+      {
+        id: 'atd-009',
+        data: '2024-03-20',
+        tipo: 'Consulta',
+        especialidade: 'Ginecologia',
+        medico: 'Dra. Patricia Mendes',
+        cid: '',
+        diagnostico: 'Pré-natal de rotina',
+        sintomas: '',
+        procedimentos: ['Exame físico', 'Ausculta fetal'],
+        medicamentos_prescritos: [
+          { nome: 'Ácido Fólico 5mg', quantidade: '30 comprimidos', posologia: '1x ao dia' },
+          { nome: 'Sulfato Ferroso', quantidade: '30 comprimidos', posologia: '1x ao dia' },
+        ],
+        exames_solicitados: ['Ultrassom obstétrico', 'Hemograma', 'Glicemia', 'Exame de urina'],
+        status: 'Concluído',
+        apto_para_servico: true,
+        dias_atestado: 0,
+        observacoes: 'Gestação de 12 semanas. Evitar esforço físico excessivo. Autorizada para serviço administrativo.',
+      },
+    ],
+    
+    created_at: '2020-01-01',
+    updated_at: '2024-03-20',
+  },
+];
+
+// ============================================================
+// PROTOCOLOS MÉDICOS EM ANDAMENTO
+// ============================================================
+
+export interface ProtocoloMedicoPM {
+  id: string;
+  numero_protocolo: string;
+  paciente: PacientePM;
+  data_solicitacao: string;
+  tipo_atendimento: 'Consulta' | 'Exame' | 'Cirurgia' | 'Procedimento' | 'Internação';
+  especialidade: string;
+  cid: string;
+  diagnostico: string;
+  sintomas: string;
+  procedimentos: { codigo: string; descricao: string; quantidade: number; valor: number }[];
+  status: 'Triagem' | 'Auditoria Prévia' | 'Liberado' | 'Em Execução' | 'Aguardando Documentos' | 'Auditoria Final' | 'Finalizado' | 'Glosado';
+  prioridade: 'Normal' | 'Urgente' | 'Emergência';
+  medico_solicitante: string;
+  crm: string;
+  unidade_solicitante: string;
+  valor_total: number;
+  observacoes: string;
+}
+
+export const mockProtocolosPM: ProtocoloMedicoPM[] = [
+  {
+    id: 'prot-001',
+    numero_protocolo: 'PMSP-2024-0001',
+    paciente: mockPacientesPM[0], // Cap. João Carlos
+    data_solicitacao: '2024-03-25',
+    tipo_atendimento: 'Consulta',
+    especialidade: 'Endocrinologia',
+    cid: 'E11',
+    diagnostico: 'Diabetes Mellitus Tipo 2 - Revisão',
+    sintomas: 'Glicemia elevada, fadiga',
+    procedimentos: [
+      { codigo: '10101012', descricao: 'Consulta endocrinologia', quantidade: 1, valor: 280.00 },
+      { codigo: '20102015', descricao: 'HbA1c', quantidade: 1, valor: 85.00 },
+      { codigo: '20103020', descricao: 'Perfil lipídico', quantidade: 1, valor: 120.00 },
+    ],
+    status: 'Liberado',
+    prioridade: 'Normal',
+    medico_solicitante: 'Dr. Ricardo Mendes',
+    crm: '12345-SP',
+    unidade_solicitante: 'Hospital da Polícia Militar',
+    valor_total: 485.00,
+    observacoes: 'Paciente policial militar com diabetes descompensada. Necessita ajuste de medicação.',
+  },
+  {
+    id: 'prot-002',
+    numero_protocolo: 'PMSP-2024-0002',
+    paciente: mockPacientesPM[1], // 1º Ten Mariana
+    data_solicitacao: '2024-03-26',
+    tipo_atendimento: 'Exame',
+    especialidade: 'Pneumologia',
+    cid: 'J45',
+    diagnostico: 'Asma brônquica - Controle',
+    sintomas: 'Chiado no peito, falta de ar aos esforços',
+    procedimentos: [
+      { codigo: '20104025', descricao: 'Espirometria completa', quantidade: 1, valor: 250.00 },
+      { codigo: '20105030', descricao: 'Teste de reversibilidade broncodilatadora', quantidade: 1, valor: 180.00 },
+    ],
+    status: 'Auditoria Prévia',
+    prioridade: 'Urgente',
+    medico_solicitante: 'Dr. Carlos Eduardo Lima',
+    crm: '23456-SP',
+    unidade_solicitante: 'Hospital da Polícia Militar',
+    valor_total: 430.00,
+    observacoes: 'Policial lotada na ROTA. Necessita avaliação respiratória urgente para aptidão operacional.',
+  },
+  {
+    id: 'prot-003',
+    numero_protocolo: 'PMSP-2024-0003',
+    paciente: mockPacientesPM[2], // Cel. Roberto
+    data_solicitacao: '2024-03-20',
+    tipo_atendimento: 'Cirurgia',
+    especialidade: 'Neurocirurgia',
+    cid: 'M51',
+    diagnostico: 'Hérnia de disco L4-L5 - Reintervenção',
+    sintomas: 'Dor lombar intensa, déficit sensitivo L5',
+    procedimentos: [
+      { codigo: '30101040', descricao: 'Artrodese lombar L4-L5', quantidade: 1, valor: 12500.00 },
+      { codigo: '30102050', descricao: 'Descompressão radicular', quantidade: 1, valor: 3500.00 },
+      { codigo: '40103060', descricao: 'Internação UTI 2 dias', quantidade: 2, valor: 2400.00 },
+      { codigo: '40104070', descricao: 'Internação enfermaria 3 dias', quantidade: 3, valor: 1500.00 },
+    ],
+    status: 'Finalizado',
+    prioridade: 'Urgente',
+    medico_solicitante: 'Dr. Paulo Roberto',
+    crm: '34567-SP',
+    unidade_solicitante: 'Hospital Albert Einstein',
+    valor_total: 19900.00,
+    observacoes: 'Coronel da PM. Cirurgia realizada com sucesso. Afastado por 45 dias.',
+  },
+  {
+    id: 'prot-004',
+    numero_protocolo: 'PMSP-2024-0004',
+    paciente: mockPacientesPM[3], // Sgt. Fernando
+    data_solicitacao: '2024-03-25',
+    tipo_atendimento: 'Cirurgia',
+    especialidade: 'Traumatologia',
+    cid: 'S82',
+    diagnostico: 'Fratura de tíbia e perôneo',
+    sintomas: 'Fratura exposta, dor intensa',
+    procedimentos: [
+      { codigo: '30105080', descricao: 'Osteossíntese de tíbia com placa e parafusos', quantidade: 1, valor: 8500.00 },
+      { codigo: '30106090', descricao: 'Osteossíntese de perôneo', quantidade: 1, valor: 4200.00 },
+      { codigo: '40103100', descricao: 'Internação 5 dias', quantidade: 5, valor: 2500.00 },
+    ],
+    status: 'Em Execução',
+    prioridade: 'Emergência',
+    medico_solicitante: 'Dr. Gustavo Henrique',
+    crm: '45678-SP',
+    unidade_solicitante: 'Hospital das Clínicas',
+    valor_total: 15200.00,
+    observacoes: 'Acidente em serviço. Policial atropelado durante abordagem. Cirurgia emergencial realizada.',
+  },
+  {
+    id: 'prot-005',
+    numero_protocolo: 'PMSP-2024-0005',
+    paciente: mockPacientesPM[4], // Cabo Amanda
+    data_solicitacao: '2024-03-22',
+    tipo_atendimento: 'Procedimento',
+    especialidade: 'Obstetrícia',
+    cid: '',
+    diagnostico: 'Pré-natal de rotina',
+    sintomas: '',
+    procedimentos: [
+      { codigo: '20107110', descricao: 'Ultrassom obstétrico morfológico', quantidade: 1, valor: 350.00 },
+      { codigo: '20108120', descricao: 'Hemograma completo', quantidade: 1, valor: 45.00 },
+      { codigo: '20109130', descricao: 'Glicemia de jejum', quantidade: 1, valor: 25.00 },
+    ],
+    status: 'Aguardando Documentos',
+    prioridade: 'Normal',
+    medico_solicitante: 'Dra. Patricia Mendes',
+    crm: '56789-SP',
+    unidade_solicitante: 'Hospital da Polícia Militar',
+    valor_total: 420.00,
+    observacoes: 'Gestação de 20 semanas. Policial lotada na Ambiental. Gestação de baixo risco.',
+  },
+];
+
+// ============================================================
+// DADOS PARA LISTAGEM DA PÁGINA PRINCIPAL (Simplificados)
+// ============================================================
+
+// Pacientes simplificados para listagem
+export const pacientesMockLista = mockPacientesPM.map(p => ({
+  id: p.id,
+  nome: p.nome,
+  cpf: p.cpf,
+  matricula_pm: p.matricula,
+  patente: p.patente,
+  unidade_lotacao: p.unidade,
+  numero_carteirinha: p.carteirinha_saude,
+  alergias: p.alergias,
+  dependente: p.dependentes.length > 0 ? {
+    nome: p.dependentes[0].nome,
+    parentesco: p.dependentes[0].parentesco
+  } : undefined
+}));
+
+// Protocolos simplificados para listagem
+export const protocolosMockLista = mockProtocolosPM.map(p => ({
+  id: p.id,
+  numero_protocolo: p.numero_protocolo,
+  paciente_id: p.paciente.id,
+  paciente_nome: p.paciente.nome,
+  paciente_patente: p.paciente.patente,
+  status: p.status.toLowerCase().replace(/ /g, '_'),
+  tipo_atendimento: p.tipo_atendimento,
+  especialidade: p.especialidade,
+  prioridade: p.prioridade.toLowerCase(),
+  valor_total: p.valor_total,
+  valor_glosado: 0, // Simplificado
+  data_solicitacao: p.data_solicitacao
+}));
+
+// ============================================================
+// DASHBOARD E ESTATÍSTICAS
+// ============================================================
+
+export const statsFunsauPM = {
+  // Novos campos para a página principal
+  atendimentos_dia: 12,
+  em_auditoria: 8,
+  aprovados: 45,
+  glosados: 3,
+  valor_processado: 'R$ 158.750,50',
+  
+  // Campos antigos mantidos para compatibilidade
+  total_policiais: 245,
+  atendimentos_mes: 89,
+  cirurgias_realizadas: 12,
+  internacoes: 8,
+  afastamentos_saude: 15,
+  valor_mes: 158750.50,
+  exames_realizados: 234,
+  consultas: 145,
+  emergencias: 23,
+  
+  // Por patente
+  por_patente: [
+    { patente: 'Soldado', quantidade: 89 },
+    { patente: 'Cabo', quantidade: 56 },
+    { patente: 'Sargento', quantidade: 48 },
+    { patente: 'Tenente', quantidade: 32 },
+    { patente: 'Capitão', quantidade: 15 },
+    { patente: 'Major', quantidade: 8 },
+    { patente: 'Coronel', quantidade: 4 },
+  ],
+  
+  // Por unidade
+  por_unidade: [
+    { unidade: '1º Batalhão', atendimentos: 23 },
+    { unidade: '2º Batalhão', atendimentos: 18 },
+    { unidade: '3º Batalhão', atendimentos: 15 },
+    { unidade: 'ROTA', atendimentos: 12 },
+    { unidade: 'Ambiental', atendimentos: 8 },
+    { unidade: 'CPO', atendimentos: 13 },
+  ],
+};
+
+// ============================================================
+// PROFISSIONAIS DE SAÚDE
+// ============================================================
+
+export const mockMedicos = [
+  { id: 'med-001', nome: 'Dr. Ricardo Mendes', crm: '12345-SP', especialidade: 'Clínica Geral', unidade: 'Hospital da PM' },
+  { id: 'med-002', nome: 'Dra. Ana Paula Ferreira', crm: '23456-SP', especialidade: 'Cardiologia', unidade: 'Hospital da PM' },
+  { id: 'med-003', nome: 'Dr. Fernando Castro', crm: '34567-SP', especialidade: 'Ortopedia', unidade: 'Hospital da PM' },
+  { id: 'med-004', nome: 'Dr. Carlos Eduardo Lima', crm: '45678-SP', especialidade: 'Pneumologia', unidade: 'Hospital das Clínicas' },
+  { id: 'med-005', nome: 'Dr. Marcelo Augusto', crm: '56789-SP', especialidade: 'Neurocirurgia', unidade: 'Hospital Albert Einstein' },
+  { id: 'med-006', nome: 'Dra. Patricia Mendes', crm: '67890-SP', especialidade: 'Ginecologia/Obstetrícia', unidade: 'Hospital da PM' },
+  { id: 'med-007', nome: 'Dr. Gustavo Henrique', crm: '78901-SP', especialidade: 'Traumatologia', unidade: 'Hospital das Clínicas' },
+  { id: 'med-008', nome: 'Dra. Fernanda Costa', crm: '89012-SP', especialidade: 'Medicina do Trabalho', unidade: 'Hospital da PM' },
+];
+
+// ============================================================
+// AUDITORIAS E GLOSAS
+// ============================================================
+
+export const mockAuditorias = [
+  {
+    id: 'aud-001',
+    protocolo: 'PMSP-2024-0001',
+    paciente: 'João Carlos Silva',
+    tipo: 'Prévia',
+    status: 'Aprovado',
+    valor_solicitado: 485.00,
+    valor_aprovado: 485.00,
+    glosa: 0,
+    auditor: 'Dr. Roberto Almeida',
+    data: '2024-03-26',
+    observacoes: 'Procedimentos adequados ao quadro clínico. Aprovado.',
+  },
+  {
+    id: 'aud-002',
+    protocolo: 'PMSP-2024-0002',
+    paciente: 'Mariana Oliveira Santos',
+    tipo: 'Prévia',
+    status: 'Aprovado com ressalvas',
+    valor_solicitado: 430.00,
+    valor_aprovado: 250.00,
+    glosa: 180.00,
+    auditor: 'Dra. Carla Nunes',
+    data: '2024-03-27',
+    observacoes: 'Teste de reversibilidade não justificado. Glosado.',
+  },
+  {
+    id: 'aud-003',
+    protocolo: 'PMSP-2024-0003',
+    paciente: 'Roberto Dias Ferreira',
+    tipo: 'Final',
+    status: 'Aprovado',
+    valor_solicitado: 19900.00,
+    valor_aprovado: 19900.00,
+    glosa: 0,
+    auditor: 'Dr. Paulo Henrique',
+    data: '2024-03-25',
+    observacoes: 'Cirurgia de alta complexidade. Procedimento adequado.',
+  },
+];
+
+// ============================================================
+// NOTIFICAÇÕES E ALERTAS
+// ============================================================
+
+export const mockNotificacoes = [
+  { id: 1, tipo: 'urgente', mensagem: 'Sgt. Fernando Costa - Cirurgia agendada para amanhã 08h', data: '2024-03-27', lida: false },
+  { id: 2, tipo: 'aviso', mensagem: 'Cabo Amanda - Exames de pré-natal liberados', data: '2024-03-26', lida: false },
+  { id: 3, tipo: 'info', mensagem: 'Nova vacinação contra gripe disponível', data: '2024-03-25', lida: true },
+  { id: 4, tipo: 'alerta', mensagem: 'Atualização do Brasíndice v24.02 disponível', data: '2024-03-24', lida: false },
+];
+
+// ============================================================
+// DADOS PARA MÓDULO BAIRROS (LEGADO - Mantido para compatibilidade)
+// ============================================================
+
+export const mockBairros = [
+  { id: 'nazare', nome: 'Nazaré', zona: 'Central', populacao: 45000, demandas: 78, cidade: 'Belém', estado: 'PA', imagem_url: 'https://images.unsplash.com/photo-1568667256549-094345857637?w=400&h=300&fit=crop', total_moradores: 45000, problemas_pendentes: 12, problemas_resolvidos: 45 },
+  { id: 'campina', nome: 'Campina', zona: 'Central', populacao: 38000, demandas: 65, cidade: 'Belém', estado: 'PA', imagem_url: 'https://images.unsplash.com/photo-1599692666424-38b38c4d24ea?w=400&h=300&fit=crop', total_moradores: 38000, problemas_pendentes: 8, problemas_resolvidos: 38 },
+  { id: 'umarizal', nome: 'Umarizal', zona: 'Central', populacao: 52000, demandas: 42, cidade: 'Belém', estado: 'PA', imagem_url: 'https://images.unsplash.com/photo-1582578598774-a377d4b32223?w=400&h=300&fit=crop', total_moradores: 52000, problemas_pendentes: 15, problemas_resolvidos: 52 },
+  { id: 'batista-campos', nome: 'Batista Campos', zona: 'Central', populacao: 35000, demandas: 38, cidade: 'Belém', estado: 'PA', imagem_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop', total_moradores: 35000, problemas_pendentes: 6, problemas_resolvidos: 35 },
+  { id: 'marco', nome: 'Marco', zona: 'Norte', populacao: 42000, demandas: 55, cidade: 'Belém', estado: 'PA', imagem_url: 'https://images.unsplash.com/photo-1574958269340-fa927503f3dd?w=400&h=300&fit=crop', total_moradores: 42000, problemas_pendentes: 10, problemas_resolvidos: 42 },
+  { id: 'jurunas', nome: 'Jurunas', zona: 'Oeste', populacao: 68000, demandas: 89, cidade: 'Belém', estado: 'PA', imagem_url: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=400&h=300&fit=crop', total_moradores: 68000, problemas_pendentes: 18, problemas_resolvidos: 68 },
+  { id: 'guama', nome: 'Guamá', zona: 'Sul', populacao: 55000, demandas: 72, cidade: 'Belém', estado: 'PA', imagem_url: 'https://images.unsplash.com/photo-1562774053-701939374585?w=400&h=300&fit=crop', total_moradores: 55000, problemas_pendentes: 14, problemas_resolvidos: 55 },
+  { id: 'telegrafo', nome: 'Telégrafo', zona: 'Leste', populacao: 28000, demandas: 35, cidade: 'Belém', estado: 'PA', imagem_url: 'https://images.unsplash.com/photo-1576765608535-5b51f8d6f5c5?w=400&h=300&fit=crop', total_moradores: 28000, problemas_pendentes: 5, problemas_resolvidos: 28 },
+  { id: 'criacao', nome: 'Cremação', zona: 'Norte', populacao: 32000, demandas: 41, cidade: 'Belém', estado: 'PA', imagem_url: 'https://images.unsplash.com/photo-1519331379826-f2f22d1942ab?w=400&h=300&fit=crop', total_moradores: 32000, problemas_pendentes: 7, problemas_resolvidos: 32 },
+  { id: 'sacramenta', nome: 'Sacramenta', zona: 'Central', populacao: 25000, demandas: 28, cidade: 'Belém', estado: 'PA', imagem_url: 'https://images.unsplash.com/photo-1496442226666-8d4a0e62e6e9?w=400&h=300&fit=crop', total_moradores: 25000, problemas_pendentes: 4, problemas_resolvidos: 25 },
+];
+
+// ============================================================
+// DADOS PARA MÓDULO GABINETE (LEGADO - Mantido para compatibilidade)
+// ============================================================
+
+export const mockAtendimentos = [
+  { 
+    id: 'at1', 
+    solicitante: 'João da Silva', 
+    tipo: 'Reunião', 
+    data: '2024-03-25', 
+    status: 'Confirmado',
+    assunto: 'Infraestrutura escolar'
+  },
+  { 
+    id: 'at2', 
+    solicitante: 'Maria Oliveira', 
+    tipo: 'Audiência', 
+    data: '2024-03-26', 
+    status: 'Pendente',
+    assunto: 'Regularização fundiária'
+  },
+  { 
+    id: 'at3', 
+    solicitante: 'Pedro Costa', 
+    tipo: 'Visita', 
+    data: '2024-03-27', 
+    status: 'Confirmado',
+    assunto: 'Inauguração do Centro Esportivo'
+  },
+];
+
+export const mockIndicacoes = [
+  { id: 'ind1', numero: '001/2024', assunto: 'Reforma de escola', autor: 'Vereador A', status: 'Em tramitação' },
+  { id: 'ind2', numero: '002/2024', assunto: 'Melhoria viária', autor: 'Vereador B', status: 'Aprovada' },
+  { id: 'ind3', numero: '003/2024', assunto: 'Iluminação pública', autor: 'Vereador C', status: 'Pendente' },
+];
+
+// ============================================================
+// FUNÇÕES AUXILIARES
+// ============================================================
+
+export const getPacienteById = (id: string): PacientePM | undefined => {
+  return mockPacientesPM.find(p => p.id === id);
+};
+
+export const getPacienteByCPF = (cpf: string): PacientePM | undefined => {
+  return mockPacientesPM.find(p => p.cpf === cpf);
+};
+
+export const getProtocolosByPaciente = (pacienteId: string): ProtocoloMedicoPM[] => {
+  return mockProtocolosPM.filter(p => p.paciente.id === pacienteId);
+};
+
+export const getPacientesByPatente = (patente: string): PacientePM[] => {
+  return mockPacientesPM.filter(p => p.patente === patente);
+};
+
+export const getPacientesByUnidade = (unidade: string): PacientePM[] => {
+  return mockPacientesPM.filter(p => p.unidade.includes(unidade));
+};
+
+export const calcularIMC = (peso: number, altura: number): number => {
+  return parseFloat((peso / (altura * altura)).toFixed(1));
+};
+
+export const classificarIMC = (imc: number): string => {
+  if (imc < 18.5) return 'Abaixo do peso';
+  if (imc < 25) return 'Peso normal';
+  if (imc < 30) return 'Sobrepeso';
+  return 'Obesidade';
+};

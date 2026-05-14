@@ -1,0 +1,688 @@
+[00:00:02.671] Server  LOG     ✓ Ready in 2s
+[00:00:04.198] Server  WARN    ⚠ Cross origin request detected from 10.252.36.39 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[00:29:12.628] Server  LOG     ✓ Compiled in 2.4s
+[00:29:26.620] Server  ERROR   ⨯ ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-client] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+
+
+./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-ssr] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+
+[00:29:26.775] Browser ERROR   ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:29:26.775] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-client] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:26.775] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-ssr] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:27.361] Browser ERROR   ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:29:27.361] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-client] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:27.361] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-ssr] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:27.403] Server  ERROR   ⨯ ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-client] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+
+
+./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-ssr] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+
+[00:29:27.663] Browser ERROR   uncaughtError: Error: ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:29:27.819] Browser ERROR   ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:29:27.819] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-client] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:27.819] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-ssr] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:27.819] Browser ERROR   ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:29:27.819] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-client] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:27.819] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-ssr] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-client] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-ssr] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-client] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-ssr] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-client] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-ssr] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/components/CascadeCard.tsx:1:1
+Module not found: Can't resolve './seu-arquivo-de-dados'
+> 1 | import { CascadeCard, CORES_SAUDE_MUNICIPAL, UNIDADES_BASICAS_SAUDE, HOSPITAIS_MUNICIPAIS, SERVICOS_MOVEIS, UNIDADES_PRONTO_ATENDIMENTO, INDICADORES_SAUDE_MUNICIPAL } from "./seu-arquivo-de-dados";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // 1. Dados macro para a tela inicial (Nível 1)
+  4 | const CATEGORIAS_SAUDE = [
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/components/CascadeCard.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-client] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]
+[00:29:28.751] Browser ERROR   ./app/saude-municipal/page.tsx:27:1
+Export CascadeCard doesn't exist in target module
+  25 |   INDICADORES_SAUDE_MUNICIPAL,
+  26 | } from "@/lib/dados-saude-municipal";
+> 27 | import { CascadeCard } from "./components/CascadeCard";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  28 |
+  29 | export default function GestaoSaudeMunicipal() {
+  30 |   const umsCount = UNIDADES_BASICAS_SAUDE.filter((u) => u.tipo === "UMS").length;
+
+The export CascadeCard was not found in module [project]/app/saude-municipal/components/CascadeCard.tsx [app-ssr] (ecmascript).
+Did you mean to import default?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/saude-municipal/page.tsx [Client Component Browser]
+    ./app/saude-municipal/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/saude-municipal/page.tsx [Client Component SSR]
+    ./app/saude-municipal/page.tsx [Server Component]

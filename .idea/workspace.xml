@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="680fb3c4-7005-4e38-9bb3-59f267593fa7" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeAgentChatHistory">
+    <sessions>
+      <ChatSession>
+        <option name="id" value="716854ea-4b4a-4275-ad44-c91f08879f72" />
+        <option name="title" value="poe" />
+        <option name="createdAt" value="1773141192414" />
+        <option name="backendSessionId" value="a6db1269-ee95-4a15-89cd-0083a2b7e8cc" />
+        <messages>
+          <option value="You: poe" />
+          <option value="Agent: I'm sorry, I don't understand what &quot;poepoe&quot; means. Could you please clarify your request?" />
+          <option value="You: me ajude a fazer um app com este layout:Crie um template Next.js moderno com as seguintes especificações:&#10;&#10;###  Stack Tecnológica&#10;- **Next.js 16** com App Router&#10;- **React 19**&#10;- **TypeScript 5.9** (modo strict)&#10;- **Tailwind CSS 4** (CSS-first config)&#10;- **Bun** como package manager&#10;&#10;###  Estrutura do Projeto&#10;src/&#10;├── app/                    # Next.js App Router&#10;│   ├── layout.tsx          # Root layout + metadata&#10;│   ├── page.tsx            # Home page&#10;│   ├── globals.css         # Tailwind imports&#10;│   └── favicon.ico&#10;├── components/             # (criar quando necessário)&#10;│   ├── ui/                 # Componentes reutilizáveis&#10;│   ├── layout/             # Header, Footer&#10;│   └── sections/           # Seções de página&#10;└── lib/                    # Utilitários&#10;&#10;###  Configurações Necessárias&#10;1. TypeScript: path alias &quot;@/*&quot; → &quot;src/*&quot;, target ESNext&#10;2. Next.js: App Router habilitado&#10;3. Tailwind CSS 4: usar @tailwindcss/postcss plugin&#10;4. ESLint: eslint-config-next (flat config)&#10;5. Scripts package.json:&#10;   - bun dev, bun build, bun start&#10;   - bun lint, bun typecheck&#10;&#10;###  Memory Bank System (ESSENCIAL)&#10;Crie pasta `.kilocode/rules/memory-bank/` com:&#10;- brief.md      → Objetivos e requisitos&#10;- product.md    → Fluxos e UX&#10;- architecture.md → Padrões de código&#10;- tech.md       → Stack técnico&#10;- context.md    → Estado atual&#10;&#10;###  Recipe System&#10;Crie `.kilocode/recipes/` para funcionalidades comuns:&#10;- add-database.md (Drizzle + SQLite)&#10;- add-auth.md (quando necessário)&#10;&#10;### ️ Backend (PocketBase)&#10;Configure PocketBase em ~/pocketbase:&#10;- Download automático do latest release&#10;- Comando: ./pocketbase serve&#10;- Porta padrão: 8090&#10;- URL Admin: http://127.0.0.1:8090/_/&#10;&#10;### ⚡ Regras de Desenvolvimento&#10;- Usar Bun (nunca npm/yarn)&#10;- Não rodar &quot;next dev&quot; ou &quot;bun dev&quot; (sandbox gerencia)&#10;- Server Components por padrão&#10;- &quot;use client&quot; apenas quando necessário&#10;- Sempre commitar e push após mudanças:&#10;  bun typecheck &amp;&amp; bun lint &amp;&amp; git add -A &amp;&amp; git commit -m &quot;msg&quot; &amp;&amp; git push&#10;&#10;###  Objetivo&#10;Template minimalista, bem documentado, pronto para expansão via IA. Foco em clean code, type safety e boas práticas.&#10;&#10;Crie todos os arquivos de configuração, o memory bank, e deixe o projeto pronto para desenvolvimento." />
+          <option value="Agent: No answer received" />
+          <option value="You: nada" />
+          <option value="Agent: No answer received" />
+          <option value="You: oi" />
+          <option value="Agent: No answer received" />
+        </messages>
+        <uiMessages>
+          <UiMessage>
+            <option name="id" value="03ff065e-b71e-4d68-9aba-1328bc666e79" />
+            <option name="role" value="user" />
+            <option name="text" value="poe" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141195027" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="f1a6afd9-b2e6-4182-b5d6-c70e11d86d00" />
+            <option name="role" value="assistant" />
+            <option name="messageID" value="msg_0" />
+            <option name="text" value="I'm sorry, I don't understand what &quot;poepoe&quot; means. Could you please clarify your request?" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141196829" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="de4ae186-a8c0-4060-a68d-faa2dce44431" />
+            <option name="role" value="user" />
+            <option name="text" value="me ajude a fazer um app com este layout:Crie um template Next.js moderno com as seguintes especificações:&#10;&#10;###  Stack Tecnológica&#10;- **Next.js 16** com App Router&#10;- **React 19**&#10;- **TypeScript 5.9** (modo strict)&#10;- **Tailwind CSS 4** (CSS-first config)&#10;- **Bun** como package manager&#10;&#10;###  Estrutura do Projeto&#10;src/&#10;├── app/                    # Next.js App Router&#10;│   ├── layout.tsx          # Root layout + metadata&#10;│   ├── page.tsx            # Home page&#10;│   ├── globals.css         # Tailwind imports&#10;│   └── favicon.ico&#10;├── components/             # (criar quando necessário)&#10;│   ├── ui/                 # Componentes reutilizáveis&#10;│   ├── layout/             # Header, Footer&#10;│   └── sections/           # Seções de página&#10;└── lib/                    # Utilitários&#10;&#10;###  Configurações Necessárias&#10;1. TypeScript: path alias &quot;@/*&quot; → &quot;src/*&quot;, target ESNext&#10;2. Next.js: App Router habilitado&#10;3. Tailwind CSS 4: usar @tailwindcss/postcss plugin&#10;4. ESLint: eslint-config-next (flat config)&#10;5. Scripts package.json:&#10;   - bun dev, bun build, bun start&#10;   - bun lint, bun typecheck&#10;&#10;###  Memory Bank System (ESSENCIAL)&#10;Crie pasta `.kilocode/rules/memory-bank/` com:&#10;- brief.md      → Objetivos e requisitos&#10;- product.md    → Fluxos e UX&#10;- architecture.md → Padrões de código&#10;- tech.md       → Stack técnico&#10;- context.md    → Estado atual&#10;&#10;###  Recipe System&#10;Crie `.kilocode/recipes/` para funcionalidades comuns:&#10;- add-database.md (Drizzle + SQLite)&#10;- add-auth.md (quando necessário)&#10;&#10;### ️ Backend (PocketBase)&#10;Configure PocketBase em ~/pocketbase:&#10;- Download automático do latest release&#10;- Comando: ./pocketbase serve&#10;- Porta padrão: 8090&#10;- URL Admin: http://127.0.0.1:8090/_/&#10;&#10;### ⚡ Regras de Desenvolvimento&#10;- Usar Bun (nunca npm/yarn)&#10;- Não rodar &quot;next dev&quot; ou &quot;bun dev&quot; (sandbox gerencia)&#10;- Server Components por padrão&#10;- &quot;use client&quot; apenas quando necessário&#10;- Sempre commitar e push após mudanças:&#10;  bun typecheck &amp;&amp; bun lint &amp;&amp; git add -A &amp;&amp; git commit -m &quot;msg&quot; &amp;&amp; git push&#10;&#10;###  Objetivo&#10;Template minimalista, bem documentado, pronto para expansão via IA. Foco em clean code, type safety e boas práticas.&#10;&#10;Crie todos os arquivos de configuração, o memory bank, e deixe o projeto pronto para desenvolvimento." />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141230079" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="ec31f974-ff1b-44f1-a668-92cdc861da58" />
+            <option name="role" value="assistant" />
+            <option name="messageID" value="msg_0" />
+            <option name="text" value="No answer received" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141236364" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="1caf25b1-e229-4c92-956c-dc1e0b8e0060" />
+            <option name="role" value="user" />
+            <option name="text" value="nada" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141283381" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="e35d4452-39b1-474e-89f6-3261779ac3bf" />
+            <option name="role" value="assistant" />
+            <option name="messageID" value="msg_0" />
+            <option name="text" value="No answer received" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141290002" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="73a927bb-ed91-4bd7-b9ca-790696c85942" />
+            <option name="role" value="user" />
+            <option name="text" value="oi" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773142061079" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="ebf4f6c6-b83c-4c70-8d16-0cf01390fb28" />
+            <option name="role" value="assistant" />
+            <option name="messageID" value="msg_0" />
+            <option name="text" value="No answer received" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773142068899" />
+          </UiMessage>
+        </uiMessages>
+      </ChatSession>
+      <ChatSession>
+        <option name="id" value="597860c1-80b0-4cc1-ae03-ace19cadc76d" />
+        <option name="title" value="oie" />
+        <option name="createdAt" value="1773141176830" />
+        <option name="backendSessionId" value="3b1b8689-f26e-42c9-b38e-2d5f7a558adf" />
+        <messages>
+          <option value="You: oie" />
+          <option value="Agent: Olá! Como posso ajudar?" />
+        </messages>
+        <uiMessages>
+          <UiMessage>
+            <option name="id" value="c87630c8-d5b8-4348-9358-5d3bd7562762" />
+            <option name="role" value="user" />
+            <option name="text" value="oie" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141182535" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="6bcf73d8-edf1-4f9a-aff5-b0497a30f559" />
+            <option name="role" value="assistant" />
+            <option name="messageID" value="msg_0" />
+            <option name="text" value="Olá! Como posso ajudar?" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141184450" />
+          </UiMessage>
+        </uiMessages>
+      </ChatSession>
+      <ChatSession>
+        <option name="id" value="672c66d1-234c-4ed0-86eb-0c37c2f67424" />
+        <option name="title" value="oi" />
+        <option name="createdAt" value="1773140707815" />
+        <option name="backendSessionId" value="f64f6640-7176-4c7b-8030-6286f6835c72" />
+        <messages>
+          <option value="You: oi" />
+          <option value="Agent: Error: HTTP 401 - {&quot;error&quot;:{&quot;message&quot;:&quot;Invalid Authentication&quot;,&quot;type&quot;:&quot;invalid_authentication_error&quot;}}" />
+          <option value="You: oi" />
+          <option value="Agent: Error: HTTP 401 - {&quot;error&quot;:{&quot;message&quot;:&quot;Invalid Authentication&quot;,&quot;type&quot;:&quot;invalid_authentication_error&quot;}}" />
+          <option value="You: oi" />
+          <option value="Agent: Error: HTTP 401 - {&quot;error&quot;:{&quot;message&quot;:&quot;Invalid Authentication&quot;,&quot;type&quot;:&quot;invalid_authentication_error&quot;}}" />
+          <option value="You: oi" />
+          <option value="Agent: I'm sorry, but I'm encountering an &quot;Invalid Authentication&quot; error, which means I can't use my tools to assist you at the moment. This is an internal issue and not related to your input. I won't be able to proceed until this is resolved." />
+        </messages>
+        <uiMessages>
+          <UiMessage>
+            <option name="id" value="98607b66-7484-4af8-8c13-a214bffe7242" />
+            <option name="role" value="user" />
+            <option name="text" value="oi" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773140793781" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="a7f8e125-d286-4c0f-9e8e-97640bbb95a9" />
+            <option name="role" value="assistant" />
+            <option name="messageID" value="msg_0" />
+            <option name="text" value="Error: HTTP 401 - {&quot;error&quot;:{&quot;message&quot;:&quot;Invalid Authentication&quot;,&quot;type&quot;:&quot;invalid_authentication_error&quot;}}" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773140797198" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="fed38d54-00cf-4795-b158-4a8c6927f21a" />
+            <option name="role" value="user" />
+            <option name="text" value="oi" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773140825406" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="45c71d04-a474-4fba-8b67-1fa8b34dac72" />
+            <option name="role" value="assistant" />
+            <option name="messageID" value="msg_0" />
+            <option name="text" value="Error: HTTP 401 - {&quot;error&quot;:{&quot;message&quot;:&quot;Invalid Authentication&quot;,&quot;type&quot;:&quot;invalid_authentication_error&quot;}}" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773140828745" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="9230e049-014b-4463-9af8-3daaced273bd" />
+            <option name="role" value="user" />
+            <option name="text" value="oi" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141036175" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="a38ffd95-349c-4254-8ced-482839dda2b8" />
+            <option name="role" value="assistant" />
+            <option name="messageID" value="msg_0" />
+            <option name="text" value="Error: HTTP 401 - {&quot;error&quot;:{&quot;message&quot;:&quot;Invalid Authentication&quot;,&quot;type&quot;:&quot;invalid_authentication_error&quot;}}" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141036833" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="d5e26d94-deaa-4538-877a-73ad00114fa9" />
+            <option name="role" value="user" />
+            <option name="text" value="oi" />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141145927" />
+          </UiMessage>
+          <UiMessage>
+            <option name="id" value="d74d3854-d218-49d6-8359-7aa49cbbe094" />
+            <option name="role" value="assistant" />
+            <option name="messageID" value="msg_0" />
+            <option name="text" value="I'm sorry, but I'm encountering an &quot;Invalid Authentication&quot; error, which means I can't use my tools to assist you at the moment. This is an internal issue and not related to your input. I won't be able to proceed until this is resolved." />
+            <option name="thought" value="" />
+            <option name="timestamp" value="1773141148439" />
+          </UiMessage>
+        </uiMessages>
+      </ChatSession>
+    </sessions>
+    <option name="currentSessionId" value="716854ea-4b4a-4275-ad44-c91f08879f72" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="104" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="3AiZe4ee3dBjpbt06MKuE9XkHFp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\-\\WebstormProjects\\Gestao publica\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecapSpentCounter">
+    <option name="endsOfQuotaMs" value="1780912827009" />
+    <option name="spentUsd" value="0.036393996" />
+  </component>
+  <component name="RecapUselessUpdatesCounter">
+    <option name="suspendCountdown" value="0" />
+  </component>
+  <component name="RunManager" selected="npm.Next.js: server-side">
+    <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="Next.js: server-side" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.32098.39" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="680fb3c4-7005-4e38-9bb3-59f267593fa7" name="Changes" comment="" />
+      <created>1773077443812</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773077443812</updated>
+      <workItem from="1773077444953" duration="2054000" />
+      <workItem from="1773140193173" duration="1588000" />
+      <workItem from="1773141885524" duration="889000" />
+      <workItem from="1773142796648" duration="5352000" />
+      <workItem from="1773148969994" duration="2722000" />
+      <workItem from="1773155491407" duration="5798000" />
+      <workItem from="1773169233677" duration="2878000" />
+      <workItem from="1773172323389" duration="4787000" />
+      <workItem from="1774009270720" duration="207000" />
+      <workItem from="1774009704572" duration="700000" />
+      <workItem from="1774010557303" duration="46000" />
+      <workItem from="1774010622758" duration="30993000" />
+      <workItem from="1774531098615" duration="11173000" />
+      <workItem from="1774556229244" duration="10334000" />
+      <workItem from="1775069591753" duration="3070000" />
+      <workItem from="1776424250043" duration="40000" />
+      <workItem from="1778603496729" duration="6004000" />
+      <workItem from="1778694105898" duration="6264000" />
+      <workItem from="1778768544577" duration="2472000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

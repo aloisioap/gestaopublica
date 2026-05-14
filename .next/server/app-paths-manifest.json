@@ -1,0 +1,21 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/bairro/[id]/[categoria]/page": "app/bairro/[id]/[categoria]/page.js",
+  "/bairro/[id]/page": "app/bairro/[id]/page.js",
+  "/bairro/page": "app/bairro/page.js",
+  "/diagnostico/page": "app/diagnostico/page.js",
+  "/funsau/[categoria]/page": "app/funsau/[categoria]/page.js",
+  "/funsau/execucao/page": "app/funsau/execucao/page.js",
+  "/funsau/paciente/[id]/page": "app/funsau/paciente/[id]/page.js",
+  "/funsau/page": "app/funsau/page.js",
+  "/gabinete/[categoria]/page": "app/gabinete/[categoria]/page.js",
+  "/gabinete/page": "app/gabinete/page.js",
+  "/page": "app/page.js",
+  "/saude-municipal/page": "app/saude-municipal/page.js",
+  "/trt/auditor/page": "app/trt/auditor/page.js",
+  "/trt/gestor/page": "app/trt/gestor/page.js",
+  "/trt/page": "app/trt/page.js",
+  "/trt/prestador/page": "app/trt/prestador/page.js",
+  "/trt/usuario/page": "app/trt/usuario/page.js"
+}

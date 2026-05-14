@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/trt/layout,_N_T_/trt/prestador/layout,_N_T_/trt/prestador/page,_N_T_/trt/prestador"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/trt/prestador/__PAGE__",
+    "/trt/prestador",
+    "/trt",
+    "/_index",
+    "/_head"
+  ]
+}

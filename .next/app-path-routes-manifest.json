@@ -1,0 +1,21 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/bairro/[id]/[categoria]/page": "/bairro/[id]/[categoria]",
+  "/bairro/[id]/page": "/bairro/[id]",
+  "/bairro/page": "/bairro",
+  "/diagnostico/page": "/diagnostico",
+  "/funsau/[categoria]/page": "/funsau/[categoria]",
+  "/funsau/execucao/page": "/funsau/execucao",
+  "/funsau/paciente/[id]/page": "/funsau/paciente/[id]",
+  "/funsau/page": "/funsau",
+  "/gabinete/[categoria]/page": "/gabinete/[categoria]",
+  "/gabinete/page": "/gabinete",
+  "/page": "/",
+  "/saude-municipal/page": "/saude-municipal",
+  "/trt/auditor/page": "/trt/auditor",
+  "/trt/gestor/page": "/trt/gestor",
+  "/trt/page": "/trt",
+  "/trt/prestador/page": "/trt/prestador",
+  "/trt/usuario/page": "/trt/usuario"
+}

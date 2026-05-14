@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/-/WebstormProjects/Gestao%20publica/app/bairro/%5Bid%5D/%5Bcategoria%5D/loading.tsx"],"sourcesContent":["import { Loader2 } from \"lucide-react\";\r\n\r\nexport default function Loading() {\r\n  return (\r\n    <div className=\"min-h-screen flex items-center justify-center bg-slate-50\">\r\n      <Loader2 className=\"h-8 w-8 animate-spin text-blue-600\" />\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;;;AAEe,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC,4NAAO;YAAC,WAAU;;;;;;;;;;;AAGzB"}}]
+}
