@@ -113,7 +113,7 @@ export default async function ItemDetailsPage({ params }: Props) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-            {getDetailSections(details).map((section) => (
+            {getDetailSections(details).map((section: any) => (
               <div key={section.id} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
                 <div className="flex items-center justify-between gap-3">
                   <div>
