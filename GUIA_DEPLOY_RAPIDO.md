@@ -48,7 +48,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=sua-chave-anon-aqui
 ```
 
 ---
-//teste 
+//teste asd
 ### ETAPA 3: Deploy na Vercel
 
 1. **Suba o código no GitHub:**
