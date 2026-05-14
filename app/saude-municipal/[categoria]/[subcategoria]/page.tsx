@@ -125,7 +125,7 @@ export default async function SubcategoryPage({ params }: Props) {
               key={item.id}
               title={item.nome}
               subtitle={getSubtitle(item)}
-              description={item.descricao}
+              description={getItemDescription(item)}
               stats={getSummaryStats(item)}
               icon={getItemIcon(subcategoria)}
               href={`/saude-municipal/${categoria}/${subcategoria}/${item.id}`}
@@ -158,6 +158,10 @@ function getSubtitle(item: any) {
   if (item.tipo) return item.tipo;
   if (item.sigla) return item.sigla;
   return "Unidade";
+}
+
+function getItemDescription(item: any) {
+  return (item as any).descricao ?? (item as any).sigla ?? (item as any).tipo ?? "-";
 }
 
 function getSummaryStats(item: any) {
