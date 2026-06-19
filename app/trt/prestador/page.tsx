@@ -163,7 +163,7 @@ export default function AreaPrestadorTRT() {
       const processos = PROCESSOS_LIBERADOS.filter((p) => p.matricula === servidor.matricula);
       setProcessosServidor(processos);
     } else {
-      alert("Servidor não encontrado. Tente: TRT0001, TRT0002, TRT0003, TRT0004 ou TRT0005");
+      alert("Beneficiário não encontrado. Tente: TRT0001, TRT0002, TRT0003, TRT0004 ou TRT0005");
       setProcessosServidor([]);
     }
   };
@@ -286,12 +286,12 @@ export default function AreaPrestadorTRT() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
-        {/* Validação de Servidor */}
+        {/* Validação de Beneficiário */}
         <Card className="mb-6 border-2" style={{ borderColor: CORES_TRT.terciaria }}>
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2" style={{ color: CORES_TRT.primaria }}>
               <QrCode className="h-5 w-5" />
-              Validação de Servidor
+              Validação de Beneficiário
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -299,7 +299,7 @@ export default function AreaPrestadorTRT() {
               <div className="flex-1">
                 <div className="flex gap-2">
                   <Input
-                    placeholder="Digite a matrícula do servidor (ex: TRT0001)"
+                    placeholder="Digite a matrícula do beneficiário (ex: TRT0001)"
                     value={matriculaBusca}
                     onChange={(e) => setMatriculaBusca(e.target.value)}
                     className="flex-1"
@@ -320,7 +320,7 @@ export default function AreaPrestadorTRT() {
 
             {servidorEncontrado && (
               <div className="mt-4 space-y-4">
-                {/* Dados do Servidor */}
+                {/* Dados do Beneficiário */}
                 <div
                   className="p-4 rounded-lg border-l-4"
                   style={{ backgroundColor: `${CORES_TRT.sucesso}10`, borderLeftColor: CORES_TRT.sucesso }}

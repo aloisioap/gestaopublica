@@ -181,7 +181,7 @@ export default function PortalUsuarioTRT() {
                 </Button>
               </Link>
               <div>
-                <h1 className="text-xl font-bold">Portal do Servidor</h1>
+                <h1 className="text-xl font-bold">Portal do Beneficiário</h1>
                 <p className="text-sm opacity-90">TRT 8ª Região</p>
               </div>
             </div>

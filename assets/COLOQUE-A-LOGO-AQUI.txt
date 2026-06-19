@@ -1,0 +1,17 @@
+LOGO AUMED — instruções
+========================
+
+Salve a imagem oficial da logo AUMED NESTA PASTA com EXATAMENTE este nome:
+
+    aumed-logo.png
+
+Caminho final esperado:
+    assets/aumed-logo.png
+
+O arquivo arte-ti.html já aponta para esse caminho.
+Enquanto o PNG não estiver aqui, a arte mostra automaticamente
+uma versão vetorial (SVG) da logo como reserva.
+
+Dica: a logo enviada é horizontal (ícone verde + "AUMED" + tagline).
+Use de preferência um PNG com fundo TRANSPARENTE para encaixar
+perfeitamente no cabeçalho branco da arte.

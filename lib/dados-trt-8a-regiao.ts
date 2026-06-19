@@ -21,7 +21,7 @@ export const CORES_TRT = {
 export const IDENTIDADE_TRT = {
   nome: 'TRT 8ª Região',
   subtitulo: 'Tribunal Regional do Trabalho do Pará e Amapá',
-  lema: 'Justiça do Trabalho na Amazônia',
+  lema: 'PAS / TRT - 8ª Região',
   brasao: '/images/trt8-brasao.png',
   fundo: '/images/trt8-fundo-amazonia.jpg',
 } as const;

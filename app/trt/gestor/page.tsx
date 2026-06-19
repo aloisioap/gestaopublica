@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   ArrowLeft,
   TrendingUp,
+  TrendingDown,
   Users,
   Building2,
   DollarSign,
@@ -24,6 +25,15 @@ import {
   Activity,
   User,
   Droplet,
+  Clock,
+  Zap,
+  ChevronRight,
+  ClipboardList,
+  Target,
+  RefreshCw,
+  ArrowUpRight,
+  ArrowDownRight,
+  Bell,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -38,7 +48,7 @@ import {
   HISTORICO_SAUDE_TRT,
 } from "@/lib/dados-trt-8a-regiao";
 
-// Mock de utilização por servidor
+// Mock de utilização por beneficiário
 const UTILIZACAO_SERVIDORES = [
   {
     matricula: "TRT0001",
@@ -102,13 +112,109 @@ const UTILIZACAO_SERVIDORES = [
   },
 ];
 
+const PROCESSOS_PENDENTES = [
+  {
+    id: "PROC-001",
+    beneficiario: "Maria Santos Oliveira",
+    matricula: "TRT0001",
+    tipo: "Consulta",
+    descricao: "Cardiologia - 1ª Consulta",
+    data_solicitacao: "2024-06-08",
+    prazo: "2024-06-15",
+    prioridade: "alta",
+    status: "Aguardando Autorização",
+  },
+  {
+    id: "PROC-002",
+    beneficiario: "João Carlos Silva",
+    matricula: "TRT0002",
+    tipo: "Exame",
+    descricao: "Ressonância Magnética Lombar",
+    data_solicitacao: "2024-06-09",
+    prazo: "2024-06-14",
+    prioridade: "alta",
+    status: "Em Análise",
+  },
+  {
+    id: "PROC-003",
+    beneficiario: "Ana Paula Costa",
+    matricula: "TRT0003",
+    tipo: "Internação",
+    descricao: "Cirurgia de Joelho - Eletiva",
+    data_solicitacao: "2024-06-05",
+    prazo: "2024-06-20",
+    prioridade: "normal",
+    status: "Em Análise",
+  },
+  {
+    id: "PROC-004",
+    beneficiario: "Pedro Henrique Lima",
+    matricula: "TRT0004",
+    tipo: "Exame",
+    descricao: "Hemograma Completo",
+    data_solicitacao: "2024-06-10",
+    prazo: "2024-06-17",
+    prioridade: "normal",
+    status: "Aguardando Autorização",
+  },
+  {
+    id: "PROC-005",
+    beneficiario: "Fernanda Souza",
+    matricula: "TRT0005",
+    tipo: "Consulta",
+    descricao: "Dermatologia - Retorno",
+    data_solicitacao: "2024-06-11",
+    prazo: "2024-06-25",
+    prioridade: "baixa",
+    status: "Autorizado",
+  },
+  {
+    id: "PROC-006",
+    beneficiario: "Maria Santos Oliveira",
+    matricula: "TRT0001",
+    tipo: "Exame",
+    descricao: "Ecocardiograma",
+    data_solicitacao: "2024-06-12",
+    prazo: "2024-06-19",
+    prioridade: "alta",
+    status: "Aguardando Autorização",
+  },
+];
+
+const FATURAS_KANBAN = {
+  pendentes: [
+    { id: "FAT-001", credenciado: "Hospital Metropolitano", valor: 12500, mes: "Jun/24" },
+    { id: "FAT-002", credenciado: "Clínica São Lucas", valor: 3800, mes: "Jun/24" },
+    { id: "FAT-008", credenciado: "Dr. Ana Paula Santos", valor: 900, mes: "Jun/24" },
+  ],
+  em_auditoria: [
+    { id: "FAT-003", credenciado: "Lab Einstein", valor: 5200, mes: "Mai/24" },
+    { id: "FAT-004", credenciado: "Dr. Roberto Fernandes", valor: 1500, mes: "Mai/24" },
+  ],
+  glosadas: [
+    { id: "FAT-005", credenciado: "Hospital Ortopédico", valor: 8900, mes: "Abr/24", motivo: "Documentação incompleta" },
+  ],
+  pagas: [
+    { id: "FAT-006", credenciado: "Clínica Cardiológica", valor: 6700, mes: "Mar/24" },
+    { id: "FAT-007", credenciado: "Lab Belém", valor: 2100, mes: "Mar/24" },
+  ],
+};
+
+const METAS_PERIODO = [
+  { label: "Taxa de Glosa", atual: 8.5, meta: 10, unidade: "%", menor_melhor: true },
+  { label: "Tempo Médio Auditoria", atual: 4.2, meta: 5, unidade: "dias", menor_melhor: true },
+  { label: "Faturas Processadas", atual: 142, meta: 160, unidade: "un", menor_melhor: false },
+  { label: "Satisfação Credenciados", atual: 4.1, meta: 4.0, unidade: "/5", menor_melhor: false },
+];
+
 export default function PainelGestorTRT() {
   const [periodo] = useState("2024");
   const [buscaServidor, setBuscaServidor] = useState("");
+  const [buscaProcesso, setBuscaProcesso] = useState("");
   const [servidorSelecionado, setServidorSelecionado] = useState<typeof UTILIZACAO_SERVIDORES[0] | null>(null);
   const [modalServidorAberto, setModalServidorAberto] = useState(false);
+  const [ultimaAtualizacao] = useState(new Date());
 
-  // Dados simulados para gráficos
   const dadosMensais = [
     { mes: "Jan", consultas: 45, exames: 32, internacoes: 8, cirurgias: 3, valor: 125000 },
     { mes: "Fev", consultas: 52, exames: 38, internacoes: 6, cirurgias: 4, valor: 142000 },
@@ -128,7 +234,7 @@ export default function PainelGestorTRT() {
     {
       id: 2,
       tipo: "frequencia",
-      mensagem: "Servidor TRT0001 realizou 4 consultas no mesmo mês",
+      mensagem: "Beneficiário TRT0001 realizou 4 consultas no mesmo mês",
       severidade: "media",
     },
     {
@@ -136,6 +242,12 @@ export default function PainelGestorTRT() {
       tipo: "documentacao",
       mensagem: "Fatura FAT-2024-003 pendente de documentação",
       severidade: "baixa",
+    },
+    {
+      id: 4,
+      tipo: "prazo",
+      mensagem: "PROC-002 vence em 2 dias sem autorização emitida",
+      severidade: "alta",
     },
   ];
 
@@ -145,7 +257,7 @@ export default function PainelGestorTRT() {
   };
 
   const getHistoricoServidor = (matricula: string) => {
-    return HISTORICO_SAUDE_TRT.filter((h) => h.matricula === matricula).map(h => ({...h}));
+    return HISTORICO_SAUDE_TRT.filter((h) => h.matricula === matricula).map(h => ({ ...h }));
   };
 
   const getDadosServidor = (matricula: string) => {
@@ -157,6 +269,25 @@ export default function PainelGestorTRT() {
       s.nome.toLowerCase().includes(buscaServidor.toLowerCase()) ||
       s.matricula.toLowerCase().includes(buscaServidor.toLowerCase())
   );
+
+  const processosFiltrados = PROCESSOS_PENDENTES.filter(
+    (p) =>
+      p.beneficiario.toLowerCase().includes(buscaProcesso.toLowerCase()) ||
+      p.descricao.toLowerCase().includes(buscaProcesso.toLowerCase()) ||
+      p.status.toLowerCase().includes(buscaProcesso.toLowerCase())
+  );
+
+  const maxValorMensal = Math.max(...dadosMensais.map((m) => m.valor));
+  const totalAtendimentosMes = dadosMensais[dadosMensais.length - 1];
+  const totalAtendimentosMesAnterior = dadosMensais[dadosMensais.length - 2];
+  const variacaoAtendimentos = (
+    ((totalAtendimentosMes.consultas + totalAtendimentosMes.exames) -
+      (totalAtendimentosMesAnterior.consultas + totalAtendimentosMesAnterior.exames)) /
+    (totalAtendimentosMesAnterior.consultas + totalAtendimentosMesAnterior.exames)) * 100;
+
+  const processosUrgentes = PROCESSOS_PENDENTES.filter(
+    (p) => p.prioridade === "alta" && p.status !== "Autorizado"
+  ).length;
 
   return (
     <main className="min-h-screen" style={{ backgroundColor: CORES_TRT.fundo }}>
@@ -186,6 +317,16 @@ export default function PainelGestorTRT() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              {processosUrgentes > 0 && (
+                <Badge className="bg-red-500 text-white border-0">
+                  <Bell className="h-3 w-3 mr-1" />
+                  {processosUrgentes} urgentes
+                </Badge>
+              )}
+              <Badge variant="secondary" className="bg-white/20 text-white border-0">
+                <RefreshCw className="h-3 w-3 mr-1" />
+                {ultimaAtualizacao.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}
+              </Badge>
               <Badge variant="secondary" className="bg-white/20 text-white border-0">
                 <Calendar className="h-3 w-3 mr-1" />
                 {periodo}
@@ -200,21 +341,22 @@ export default function PainelGestorTRT() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
-        {/* KPIs Principais */}
+        {/* KPIs Principais com Tendências */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <Card className="border-l-4" style={{ borderLeftColor: CORES_TRT.primaria }}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-slate-500">Total Servidores</p>
+                  <p className="text-sm text-slate-500">Total Beneficiários</p>
                   <p className="text-2xl font-bold" style={{ color: CORES_TRT.primaria }}>
                     {ESTATISTICAS_TRT.total_servidores}
                   </p>
+                  <div className="flex items-center gap-1 mt-1">
+                    <ArrowUpRight className="h-3 w-3 text-green-500" />
+                    <span className="text-xs text-green-600">+3 este mês</span>
+                  </div>
                 </div>
-                <div
-                  className="p-2 rounded-lg"
-                  style={{ backgroundColor: `${CORES_TRT.primaria}20` }}
-                >
+                <div className="p-2 rounded-lg" style={{ backgroundColor: `${CORES_TRT.primaria}20` }}>
                   <Users className="h-6 w-6" style={{ color: CORES_TRT.primaria }} />
                 </div>
               </div>
@@ -229,11 +371,12 @@ export default function PainelGestorTRT() {
                   <p className="text-2xl font-bold" style={{ color: CORES_TRT.primaria }}>
                     {ESTATISTICAS_TRT.total_credenciados}
                   </p>
+                  <div className="flex items-center gap-1 mt-1">
+                    <ArrowUpRight className="h-3 w-3 text-green-500" />
+                    <span className="text-xs text-green-600">+1 novo</span>
+                  </div>
                 </div>
-                <div
-                  className="p-2 rounded-lg"
-                  style={{ backgroundColor: `${CORES_TRT.terciaria}20` }}
-                >
+                <div className="p-2 rounded-lg" style={{ backgroundColor: `${CORES_TRT.terciaria}20` }}>
                   <Building2 className="h-6 w-6" style={{ color: CORES_TRT.terciaria }} />
                 </div>
               </div>
@@ -248,11 +391,12 @@ export default function PainelGestorTRT() {
                   <p className="text-xl font-bold" style={{ color: CORES_TRT.primaria }}>
                     R$ {(ESTATISTICAS_TRT.valor_total_processado / 1000000).toFixed(2)}M
                   </p>
+                  <div className="flex items-center gap-1 mt-1">
+                    <ArrowDownRight className="h-3 w-3 text-amber-500" />
+                    <span className="text-xs text-amber-600">-2.1% vs mai</span>
+                  </div>
                 </div>
-                <div
-                  className="p-2 rounded-lg"
-                  style={{ backgroundColor: `${CORES_TRT.secundaria}20` }}
-                >
+                <div className="p-2 rounded-lg" style={{ backgroundColor: `${CORES_TRT.secundaria}20` }}>
                   <DollarSign className="h-6 w-6" style={{ color: CORES_TRT.secundaria }} />
                 </div>
               </div>
@@ -267,11 +411,12 @@ export default function PainelGestorTRT() {
                   <p className="text-2xl font-bold" style={{ color: CORES_TRT.primaria }}>
                     {ESTATISTICAS_TRT.taxa_glosa_media}%
                   </p>
+                  <div className="flex items-center gap-1 mt-1">
+                    <ArrowDownRight className="h-3 w-3 text-green-500" />
+                    <span className="text-xs text-green-600">-0.8% melhorou</span>
+                  </div>
                 </div>
-                <div
-                  className="p-2 rounded-lg"
-                  style={{ backgroundColor: `${CORES_TRT.destaque}20` }}
-                >
+                <div className="p-2 rounded-lg" style={{ backgroundColor: `${CORES_TRT.destaque}20` }}>
                   <AlertTriangle className="h-6 w-6" style={{ color: CORES_TRT.destaque }} />
                 </div>
               </div>
@@ -279,16 +424,68 @@ export default function PainelGestorTRT() {
           </Card>
         </div>
 
+        {/* Metas do Período */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+          {METAS_PERIODO.map((meta) => {
+            const atingido = meta.menor_melhor ? meta.atual <= meta.meta : meta.atual >= meta.meta;
+            const pct = meta.menor_melhor
+              ? Math.min(100, (meta.atual / meta.meta) * 100)
+              : Math.min(100, (meta.atual / meta.meta) * 100);
+            return (
+              <Card key={meta.label} className="overflow-hidden">
+                <CardContent className="p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs text-slate-500 font-medium">{meta.label}</span>
+                    <Target
+                      className="h-3.5 w-3.5"
+                      style={{ color: atingido ? CORES_TRT.sucesso : CORES_TRT.alerta }}
+                    />
+                  </div>
+                  <div className="flex items-end gap-1 mb-2">
+                    <span className="text-lg font-bold" style={{ color: CORES_TRT.primaria }}>
+                      {meta.atual}
+                    </span>
+                    <span className="text-xs text-slate-400 mb-0.5">{meta.unidade}</span>
+                    <span className="text-xs text-slate-400 mb-0.5 ml-1">/ meta {meta.meta}</span>
+                  </div>
+                  <div className="w-full bg-slate-100 rounded-full h-1.5">
+                    <div
+                      className="h-1.5 rounded-full transition-all"
+                      style={{
+                        width: `${pct}%`,
+                        backgroundColor: atingido ? CORES_TRT.sucesso : CORES_TRT.alerta,
+                      }}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
         {/* Abas */}
         <Tabs defaultValue="dashboard" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:inline-flex">
+          <TabsList className="flex flex-wrap gap-1 h-auto lg:inline-flex">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               Dashboard
             </TabsTrigger>
+            <TabsTrigger value="gestao-vista" className="flex items-center gap-2">
+              <Zap className="h-4 w-4" />
+              Gestão à Vista
+            </TabsTrigger>
+            <TabsTrigger value="processos" className="flex items-center gap-2 relative">
+              <ClipboardList className="h-4 w-4" />
+              Processos
+              {processosUrgentes > 0 && (
+                <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full text-white text-xs flex items-center justify-center">
+                  {processosUrgentes}
+                </span>
+              )}
+            </TabsTrigger>
             <TabsTrigger value="servidores" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
-              Servidores
+              Beneficiários
             </TabsTrigger>
             <TabsTrigger value="credenciados" className="flex items-center gap-2">
               <Building2 className="h-4 w-4" />
@@ -297,6 +494,11 @@ export default function PainelGestorTRT() {
             <TabsTrigger value="alertas" className="flex items-center gap-2">
               <AlertTriangle className="h-4 w-4" />
               Alertas
+              {alertas.filter((a) => a.severidade === "alta").length > 0 && (
+                <Badge className="bg-red-500 text-white text-xs px-1 py-0 h-4">
+                  {alertas.filter((a) => a.severidade === "alta").length}
+                </Badge>
+              )}
             </TabsTrigger>
             <TabsTrigger value="relatorios" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
@@ -304,93 +506,96 @@ export default function PainelGestorTRT() {
             </TabsTrigger>
           </TabsList>
 
+          {/* ─── DASHBOARD ─── */}
           <TabsContent value="dashboard" className="space-y-4">
-            {/* Gráfico Mensal (Simulado com Cards) */}
+            {/* Gráfico de barras mensal melhorado */}
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle style={{ color: CORES_TRT.primaria }}>
-                  Evolução Mensal - Atendimentos
+                  Evolução Mensal — Atendimentos & Custo
                 </CardTitle>
+                <div className="flex items-center gap-1 text-xs text-slate-400">
+                  <TrendingUp className="h-3.5 w-3.5 text-green-500" />
+                  <span className="text-green-600 font-medium">
+                    {variacaoAtendimentos > 0 ? "+" : ""}
+                    {variacaoAtendimentos.toFixed(1)}% vs mês anterior
+                  </span>
+                </div>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {dadosMensais.map((mes) => (
-                    <div key={mes.mes} className="space-y-2">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="font-medium w-12">{mes.mes}</span>
-                        <div className="flex-1 mx-4 space-y-1">
-                          <div className="flex gap-1">
+                <div className="space-y-3">
+                  {dadosMensais.map((mes) => {
+                    const totalAtend = mes.consultas + mes.exames + mes.internacoes + mes.cirurgias;
+                    const maxTotal = Math.max(...dadosMensais.map((m) => m.consultas + m.exames + m.internacoes + m.cirurgias));
+                    return (
+                      <div key={mes.mes} className="flex items-center gap-3 text-sm">
+                        <span className="font-medium w-8 text-slate-600">{mes.mes}</span>
+                        <div className="flex-1 space-y-1">
+                          {/* Barra de atendimentos */}
+                          <div className="flex items-center gap-1 h-5">
                             <div
-                              className="h-4 rounded-l"
-                              style={{
-                                width: `${(mes.consultas / 70) * 100}%`,
-                                backgroundColor: CORES_TRT.info,
-                              }}
+                              className="h-4 rounded transition-all flex items-center justify-end pr-1"
+                              style={{ width: `${(mes.consultas / maxTotal) * 100}%`, backgroundColor: CORES_TRT.info, minWidth: 4 }}
                               title={`Consultas: ${mes.consultas}`}
                             />
                             <div
-                              className="h-4"
-                              style={{
-                                width: `${(mes.exames / 70) * 100}%`,
-                                backgroundColor: CORES_TRT.terciaria,
-                              }}
+                              className="h-4 transition-all"
+                              style={{ width: `${(mes.exames / maxTotal) * 100}%`, backgroundColor: CORES_TRT.terciaria, minWidth: 4 }}
                               title={`Exames: ${mes.exames}`}
                             />
                             <div
-                              className="h-4"
-                              style={{
-                                width: `${(mes.internacoes / 70) * 100}%`,
-                                backgroundColor: CORES_TRT.destaque,
-                              }}
+                              className="h-4 transition-all"
+                              style={{ width: `${(mes.internacoes / maxTotal) * 100}%`, backgroundColor: CORES_TRT.destaque, minWidth: mes.internacoes > 0 ? 4 : 0 }}
                               title={`Internações: ${mes.internacoes}`}
                             />
                             <div
-                              className="h-4 rounded-r"
-                              style={{
-                                width: `${(mes.cirurgias / 70) * 100}%`,
-                                backgroundColor: CORES_TRT.erro,
-                              }}
+                              className="h-4 rounded transition-all"
+                              style={{ width: `${(mes.cirurgias / maxTotal) * 100}%`, backgroundColor: CORES_TRT.erro, minWidth: mes.cirurgias > 0 ? 4 : 0 }}
                               title={`Cirurgias: ${mes.cirurgias}`}
                             />
                           </div>
+                          {/* Barra de custo */}
+                          <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div
+                              className="h-2 rounded-full transition-all"
+                              style={{
+                                width: `${(mes.valor / maxValorMensal) * 100}%`,
+                                backgroundColor: CORES_TRT.secundaria,
+                                opacity: 0.7,
+                              }}
+                              title={`Custo: R$ ${(mes.valor / 1000).toFixed(0)}k`}
+                            />
+                          </div>
                         </div>
-                        <span className="text-slate-600 w-24 text-right">
-                          R$ {(mes.valor / 1000).toFixed(0)}k
-                        </span>
+                        <div className="text-right w-28">
+                          <p className="font-semibold text-slate-700">
+                            R$ {(mes.valor / 1000).toFixed(0)}k
+                          </p>
+                          <p className="text-xs text-slate-400">{totalAtend} atend.</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
-                {/* Legenda */}
-                <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded" style={{ backgroundColor: CORES_TRT.info }} />
-                    <span className="text-sm text-slate-600">Consultas</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-3 h-3 rounded"
-                      style={{ backgroundColor: CORES_TRT.terciaria }}
-                    />
-                    <span className="text-sm text-slate-600">Exames</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-3 h-3 rounded"
-                      style={{ backgroundColor: CORES_TRT.destaque }}
-                    />
-                    <span className="text-sm text-slate-600">Internações</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded" style={{ backgroundColor: CORES_TRT.erro }} />
-                    <span className="text-sm text-slate-600">Cirurgias</span>
-                  </div>
+                <div className="flex flex-wrap gap-4 mt-5 pt-4 border-t">
+                  {[
+                    { cor: CORES_TRT.info, label: "Consultas" },
+                    { cor: CORES_TRT.terciaria, label: "Exames" },
+                    { cor: CORES_TRT.destaque, label: "Internações" },
+                    { cor: CORES_TRT.erro, label: "Cirurgias" },
+                    { cor: CORES_TRT.secundaria, label: "Custo (R$)" },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded" style={{ backgroundColor: item.cor }} />
+                      <span className="text-xs text-slate-600">{item.label}</span>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Distribuição por Estado */}
+            {/* Distribuição + Custos por Categoria */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
                 <CardHeader>
@@ -400,30 +605,33 @@ export default function PainelGestorTRT() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-5 w-5" style={{ color: CORES_TRT.terciaria }} />
-                        <span className="font-medium">Pará (PA)</span>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold">{ESTATISTICAS_TRT.por_estado.PA}</p>
-                        <p className="text-xs text-slate-500">
-                          {((ESTATISTICAS_TRT.por_estado.PA / ESTATISTICAS_TRT.total_servidores) * 100).toFixed(0)}%
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-5 w-5" style={{ color: CORES_TRT.destaque }} />
-                        <span className="font-medium">Amapá (AP)</span>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold">{ESTATISTICAS_TRT.por_estado.AP}</p>
-                        <p className="text-xs text-slate-500">
-                          {((ESTATISTICAS_TRT.por_estado.AP / ESTATISTICAS_TRT.total_servidores) * 100).toFixed(0)}%
-                        </p>
-                      </div>
-                    </div>
+                    {[
+                      { estado: "Pará (PA)", key: "PA", cor: CORES_TRT.terciaria },
+                      { estado: "Amapá (AP)", key: "AP", cor: CORES_TRT.destaque },
+                    ].map(({ estado, key, cor }) => {
+                      const qtd = ESTATISTICAS_TRT.por_estado[key as "PA" | "AP"];
+                      const pct = ((qtd / ESTATISTICAS_TRT.total_servidores) * 100).toFixed(0);
+                      return (
+                        <div key={key} className="p-3 bg-slate-50 rounded-lg">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2">
+                              <MapPin className="h-4 w-4" style={{ color: cor }} />
+                              <span className="font-medium text-sm">{estado}</span>
+                            </div>
+                            <div className="text-right">
+                              <span className="font-bold">{qtd}</span>
+                              <span className="text-xs text-slate-400 ml-1">({pct}%)</span>
+                            </div>
+                          </div>
+                          <div className="w-full bg-slate-200 rounded-full h-2">
+                            <div
+                              className="h-2 rounded-full"
+                              style={{ width: `${pct}%`, backgroundColor: cor }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>
@@ -431,31 +639,409 @@ export default function PainelGestorTRT() {
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base" style={{ color: CORES_TRT.primaria }}>
-                    Custos por Categoria
+                    Procedimentos por Categoria
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    {Object.entries(ESTATISTICAS_TRT.por_categoria).map(([cat, qtd]) => (
-                      <div key={cat} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                        <span className="capitalize">{cat}</span>
-                        <Badge variant="secondary">{qtd}</Badge>
-                      </div>
-                    ))}
+                  <div className="space-y-2">
+                    {Object.entries(ESTATISTICAS_TRT.por_categoria).map(([cat, qtd]) => {
+                      const total = Object.values(ESTATISTICAS_TRT.por_categoria).reduce((a, b) => a + b, 0);
+                      const pct = ((qtd / total) * 100).toFixed(0);
+                      const corCat =
+                        cat === "consultas" ? CORES_TRT.info :
+                        cat === "exames" ? CORES_TRT.terciaria :
+                        cat === "internacoes" ? CORES_TRT.destaque : CORES_TRT.erro;
+                      return (
+                        <div key={cat} className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                          <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: corCat }} />
+                          <span className="capitalize text-sm flex-1">{cat}</span>
+                          <div className="flex-1 mx-2">
+                            <div className="w-full bg-slate-100 rounded-full h-1.5">
+                              <div
+                                className="h-1.5 rounded-full"
+                                style={{ width: `${pct}%`, backgroundColor: corCat }}
+                              />
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Badge variant="secondary" className="text-xs">{qtd}</Badge>
+                            <span className="text-xs text-slate-400">{pct}%</span>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>
             </div>
+
+            {/* Resumo rápido do mês atual */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base" style={{ color: CORES_TRT.primaria }}>
+                  Resumo — Junho 2024
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { label: "Consultas", valor: totalAtendimentosMes.consultas, cor: CORES_TRT.info, icone: <Stethoscope className="h-4 w-4" /> },
+                    { label: "Exames", valor: totalAtendimentosMes.exames, cor: CORES_TRT.terciaria, icone: <Microscope className="h-4 w-4" /> },
+                    { label: "Internações", valor: totalAtendimentosMes.internacoes, cor: CORES_TRT.destaque, icone: <HeartPulse className="h-4 w-4" /> },
+                    { label: "Cirurgias", valor: totalAtendimentosMes.cirurgias, cor: CORES_TRT.erro, icone: <Activity className="h-4 w-4" /> },
+                  ].map((item) => (
+                    <div key={item.label} className="text-center p-3 rounded-lg border" style={{ borderColor: `${item.cor}30`, backgroundColor: `${item.cor}08` }}>
+                      <div className="flex justify-center mb-1" style={{ color: item.cor }}>{item.icone}</div>
+                      <p className="text-2xl font-bold" style={{ color: item.cor }}>{item.valor}</p>
+                      <p className="text-xs text-slate-500">{item.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
-          <TabsContent value="servidores" className="space-y-4">
-            {/* Busca */}
+          {/* ─── GESTÃO À VISTA ─── */}
+          <TabsContent value="gestao-vista" className="space-y-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-2">
+              {[
+                { label: "Pendentes", qtd: FATURAS_KANBAN.pendentes.length, cor: CORES_TRT.alerta },
+                { label: "Em Auditoria", qtd: FATURAS_KANBAN.em_auditoria.length, cor: CORES_TRT.info },
+                { label: "Glosadas", qtd: FATURAS_KANBAN.glosadas.length, cor: CORES_TRT.erro },
+                { label: "Pagas", qtd: FATURAS_KANBAN.pagas.length, cor: CORES_TRT.sucesso },
+              ].map((item) => (
+                <Card key={item.label} className="border-t-4" style={{ borderTopColor: item.cor }}>
+                  <CardContent className="p-3 text-center">
+                    <p className="text-2xl font-bold" style={{ color: item.cor }}>{item.qtd}</p>
+                    <p className="text-xs text-slate-500">{item.label}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Kanban de faturas */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Pendentes */}
+              <div>
+                <div className="flex items-center gap-2 mb-3 px-1">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: CORES_TRT.alerta }} />
+                  <h3 className="font-semibold text-sm text-slate-700">Aguardando</h3>
+                  <Badge variant="secondary" className="ml-auto">{FATURAS_KANBAN.pendentes.length}</Badge>
+                </div>
+                <div className="space-y-2">
+                  {FATURAS_KANBAN.pendentes.map((f) => (
+                    <Card key={f.id} className="border-l-4 hover:shadow-md transition-shadow cursor-pointer" style={{ borderLeftColor: CORES_TRT.alerta }}>
+                      <CardContent className="p-3">
+                        <p className="font-medium text-sm">{f.credenciado}</p>
+                        <p className="text-xs text-slate-500">{f.id} · {f.mes}</p>
+                        <p className="font-bold mt-1 text-sm" style={{ color: CORES_TRT.primaria }}>
+                          R$ {f.valor.toLocaleString("pt-BR")}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Em Auditoria */}
+              <div>
+                <div className="flex items-center gap-2 mb-3 px-1">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: CORES_TRT.info }} />
+                  <h3 className="font-semibold text-sm text-slate-700">Em Auditoria</h3>
+                  <Badge variant="secondary" className="ml-auto">{FATURAS_KANBAN.em_auditoria.length}</Badge>
+                </div>
+                <div className="space-y-2">
+                  {FATURAS_KANBAN.em_auditoria.map((f) => (
+                    <Card key={f.id} className="border-l-4 hover:shadow-md transition-shadow cursor-pointer" style={{ borderLeftColor: CORES_TRT.info }}>
+                      <CardContent className="p-3">
+                        <p className="font-medium text-sm">{f.credenciado}</p>
+                        <p className="text-xs text-slate-500">{f.id} · {f.mes}</p>
+                        <p className="font-bold mt-1 text-sm" style={{ color: CORES_TRT.primaria }}>
+                          R$ {f.valor.toLocaleString("pt-BR")}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Glosadas */}
+              <div>
+                <div className="flex items-center gap-2 mb-3 px-1">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: CORES_TRT.erro }} />
+                  <h3 className="font-semibold text-sm text-slate-700">Glosadas</h3>
+                  <Badge variant="secondary" className="ml-auto">{FATURAS_KANBAN.glosadas.length}</Badge>
+                </div>
+                <div className="space-y-2">
+                  {FATURAS_KANBAN.glosadas.map((f) => (
+                    <Card key={f.id} className="border-l-4 hover:shadow-md transition-shadow cursor-pointer" style={{ borderLeftColor: CORES_TRT.erro }}>
+                      <CardContent className="p-3">
+                        <p className="font-medium text-sm">{f.credenciado}</p>
+                        <p className="text-xs text-slate-500">{f.id} · {f.mes}</p>
+                        <p className="font-bold mt-1 text-sm" style={{ color: CORES_TRT.erro }}>
+                          R$ {f.valor.toLocaleString("pt-BR")}
+                        </p>
+                        {"motivo" in f && (
+                          <p className="text-xs text-red-500 mt-1">{f.motivo}</p>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Pagas */}
+              <div>
+                <div className="flex items-center gap-2 mb-3 px-1">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: CORES_TRT.sucesso }} />
+                  <h3 className="font-semibold text-sm text-slate-700">Pagas</h3>
+                  <Badge variant="secondary" className="ml-auto">{FATURAS_KANBAN.pagas.length}</Badge>
+                </div>
+                <div className="space-y-2">
+                  {FATURAS_KANBAN.pagas.map((f) => (
+                    <Card key={f.id} className="border-l-4 hover:shadow-md transition-shadow cursor-pointer" style={{ borderLeftColor: CORES_TRT.sucesso }}>
+                      <CardContent className="p-3">
+                        <p className="font-medium text-sm">{f.credenciado}</p>
+                        <p className="text-xs text-slate-500">{f.id} · {f.mes}</p>
+                        <p className="font-bold mt-1 text-sm" style={{ color: CORES_TRT.sucesso }}>
+                          R$ {f.valor.toLocaleString("pt-BR")}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Resumo financeiro kanban */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base" style={{ color: CORES_TRT.primaria }}>
+                  Resumo Financeiro — Faturas
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                  {[
+                    {
+                      label: "A Pagar",
+                      valor: FATURAS_KANBAN.pendentes.reduce((a, f) => a + f.valor, 0),
+                      cor: CORES_TRT.alerta,
+                    },
+                    {
+                      label: "Em Análise",
+                      valor: FATURAS_KANBAN.em_auditoria.reduce((a, f) => a + f.valor, 0),
+                      cor: CORES_TRT.info,
+                    },
+                    {
+                      label: "Glosado",
+                      valor: FATURAS_KANBAN.glosadas.reduce((a, f) => a + f.valor, 0),
+                      cor: CORES_TRT.erro,
+                    },
+                    {
+                      label: "Pago (histórico)",
+                      valor: FATURAS_KANBAN.pagas.reduce((a, f) => a + f.valor, 0),
+                      cor: CORES_TRT.sucesso,
+                    },
+                  ].map((item) => (
+                    <div key={item.label} className="p-3 rounded-lg bg-slate-50">
+                      <p className="text-xs text-slate-500 mb-1">{item.label}</p>
+                      <p className="text-lg font-bold" style={{ color: item.cor }}>
+                        R$ {item.valor.toLocaleString("pt-BR")}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* ─── PROCESSOS ─── */}
+          <TabsContent value="processos" className="space-y-4">
+            {/* Resumo status processos */}
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                {
+                  label: "Aguardando",
+                  qtd: PROCESSOS_PENDENTES.filter((p) => p.status === "Aguardando Autorização").length,
+                  cor: CORES_TRT.alerta,
+                },
+                {
+                  label: "Em Análise",
+                  qtd: PROCESSOS_PENDENTES.filter((p) => p.status === "Em Análise").length,
+                  cor: CORES_TRT.info,
+                },
+                {
+                  label: "Autorizados",
+                  qtd: PROCESSOS_PENDENTES.filter((p) => p.status === "Autorizado").length,
+                  cor: CORES_TRT.sucesso,
+                },
+              ].map((item) => (
+                <Card key={item.label} className="border-t-4" style={{ borderTopColor: item.cor }}>
+                  <CardContent className="p-3 text-center">
+                    <p className="text-3xl font-bold" style={{ color: item.cor }}>{item.qtd}</p>
+                    <p className="text-xs text-slate-500">{item.label}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Busca + lista */}
             <Card>
               <CardContent className="p-4">
                 <div className="flex gap-2">
                   <Search className="h-5 w-5 text-slate-400 mt-2" />
                   <Input
-                    placeholder="Buscar servidor por nome ou matrícula..."
+                    placeholder="Buscar por beneficiário, procedimento ou status..."
+                    value={buscaProcesso}
+                    onChange={(e) => setBuscaProcesso(e.target.value)}
+                    className="flex-1"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle style={{ color: CORES_TRT.primaria }}>
+                  Processos em Andamento
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead className="bg-slate-50 border-b">
+                      <tr>
+                        <th className="text-left p-3">Beneficiário</th>
+                        <th className="text-left p-3">Procedimento</th>
+                        <th className="text-center p-3">Tipo</th>
+                        <th className="text-center p-3">Prazo</th>
+                        <th className="text-center p-3">Prioridade</th>
+                        <th className="text-center p-3">Status</th>
+                        <th className="text-center p-3">Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y">
+                      {processosFiltrados.map((proc) => {
+                        const diasRestantes = Math.ceil(
+                          (new Date(proc.prazo).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+                        );
+                        return (
+                          <tr key={proc.id} className="hover:bg-slate-50">
+                            <td className="p-3">
+                              <div className="flex items-center gap-2">
+                                <div
+                                  className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                                  style={{ backgroundColor: CORES_TRT.primaria }}
+                                >
+                                  {proc.beneficiario.charAt(0)}
+                                </div>
+                                <div>
+                                  <p className="font-medium">{proc.beneficiario}</p>
+                                  <p className="text-xs text-slate-400">{proc.matricula}</p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="p-3">
+                              <p className="font-medium">{proc.descricao}</p>
+                              <p className="text-xs text-slate-400">
+                                Sol. {new Date(proc.data_solicitacao).toLocaleDateString("pt-BR")}
+                              </p>
+                            </td>
+                            <td className="p-3 text-center">
+                              <Badge variant="outline" className="text-xs">{proc.tipo}</Badge>
+                            </td>
+                            <td className="p-3 text-center">
+                              <div>
+                                <p
+                                  className="font-medium text-xs"
+                                  style={{ color: diasRestantes <= 2 ? CORES_TRT.erro : diasRestantes <= 5 ? CORES_TRT.alerta : CORES_TRT.sucesso }}
+                                >
+                                  {diasRestantes <= 0 ? "Vencido" : `${diasRestantes}d`}
+                                </p>
+                                <p className="text-xs text-slate-400">
+                                  {new Date(proc.prazo).toLocaleDateString("pt-BR")}
+                                </p>
+                              </div>
+                            </td>
+                            <td className="p-3 text-center">
+                              <Badge
+                                className="text-xs"
+                                style={{
+                                  backgroundColor:
+                                    proc.prioridade === "alta" ? `${CORES_TRT.erro}20` :
+                                    proc.prioridade === "normal" ? `${CORES_TRT.alerta}20` :
+                                    `${CORES_TRT.sucesso}20`,
+                                  color:
+                                    proc.prioridade === "alta" ? CORES_TRT.erro :
+                                    proc.prioridade === "normal" ? CORES_TRT.alerta :
+                                    CORES_TRT.sucesso,
+                                  border: "none",
+                                }}
+                              >
+                                {proc.prioridade.charAt(0).toUpperCase() + proc.prioridade.slice(1)}
+                              </Badge>
+                            </td>
+                            <td className="p-3 text-center">
+                              <Badge
+                                variant="outline"
+                                className="text-xs"
+                                style={{
+                                  borderColor:
+                                    proc.status === "Autorizado" ? CORES_TRT.sucesso :
+                                    proc.status === "Em Análise" ? CORES_TRT.info :
+                                    CORES_TRT.alerta,
+                                  color:
+                                    proc.status === "Autorizado" ? CORES_TRT.sucesso :
+                                    proc.status === "Em Análise" ? CORES_TRT.info :
+                                    CORES_TRT.alerta,
+                                }}
+                              >
+                                {proc.status}
+                              </Badge>
+                            </td>
+                            <td className="p-3 text-center">
+                              <div className="flex items-center justify-center gap-1">
+                                {proc.status !== "Autorizado" && (
+                                  <Button
+                                    size="sm"
+                                    className="text-xs h-7 px-2"
+                                    style={{ backgroundColor: CORES_TRT.sucesso }}
+                                    onClick={() => alert(`Autorizar ${proc.id}`)}
+                                  >
+                                    <CheckCircle className="h-3 w-3 mr-1" />
+                                    Autorizar
+                                  </Button>
+                                )}
+                                <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
+                                  <Eye className="h-3.5 w-3.5" />
+                                </Button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                {processosFiltrados.length === 0 && (
+                  <div className="text-center py-8 text-slate-500">
+                    <ClipboardList className="h-12 w-12 mx-auto mb-3 opacity-50" />
+                    <p>Nenhum processo encontrado</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* ─── BENEFICIÁRIOS ─── */}
+          <TabsContent value="servidores" className="space-y-4">
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex gap-2">
+                  <Search className="h-5 w-5 text-slate-400 mt-2" />
+                  <Input
+                    placeholder="Buscar beneficiário por nome ou matrícula..."
                     value={buscaServidor}
                     onChange={(e) => setBuscaServidor(e.target.value)}
                     className="flex-1"
@@ -464,11 +1050,10 @@ export default function PainelGestorTRT() {
               </CardContent>
             </Card>
 
-            {/* Lista de Servidores */}
             <Card>
               <CardHeader>
                 <CardTitle style={{ color: CORES_TRT.primaria }}>
-                  Acompanhamento de Servidores
+                  Acompanhamento de Beneficiários
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -476,7 +1061,7 @@ export default function PainelGestorTRT() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b">
-                        <th className="text-left py-3">Servidor</th>
+                        <th className="text-left py-3">Beneficiário</th>
                         <th className="text-left py-3">Comarca</th>
                         <th className="text-center py-3">Consultas</th>
                         <th className="text-center py-3">Exames</th>
@@ -551,13 +1136,14 @@ export default function PainelGestorTRT() {
                 {servidoresFiltrados.length === 0 && (
                   <div className="text-center py-8 text-slate-500">
                     <Users className="h-12 w-12 mx-auto mb-3 opacity-50" />
-                    <p>Nenhum servidor encontrado</p>
+                    <p>Nenhum beneficiário encontrado</p>
                   </div>
                 )}
               </CardContent>
             </Card>
           </TabsContent>
 
+          {/* ─── CREDENCIADOS ─── */}
           <TabsContent value="credenciados" className="space-y-4">
             <Card>
               <CardHeader>
@@ -565,34 +1151,40 @@ export default function PainelGestorTRT() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {ESTATISTICAS_TRT.top_credenciados.map((cred, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center justify-between p-4 border rounded-lg hover:bg-slate-50"
-                    >
-                      <div className="flex items-center gap-3">
+                  {ESTATISTICAS_TRT.top_credenciados.map((cred, idx) => {
+                    const maxValor = Math.max(...ESTATISTICAS_TRT.top_credenciados.map((c) => c.valor));
+                    return (
+                      <div key={idx} className="flex items-center gap-3 p-3 rounded-lg border hover:bg-slate-50">
                         <div
-                          className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
+                          className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
                           style={{ backgroundColor: CORES_TRT.primaria }}
                         >
                           {idx + 1}
                         </div>
-                        <div>
-                          <p className="font-semibold">{cred.nome}</p>
-                          <p className="text-sm text-slate-500">{cred.atendimentos} atendimentos</p>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between mb-1">
+                            <p className="font-semibold truncate">{cred.nome}</p>
+                            <p className="font-bold ml-2 flex-shrink-0" style={{ color: CORES_TRT.terciaria }}>
+                              R$ {(cred.valor / 1000).toFixed(0)}k
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="flex-1 bg-slate-100 rounded-full h-1.5">
+                              <div
+                                className="h-1.5 rounded-full"
+                                style={{ width: `${(cred.valor / maxValor) * 100}%`, backgroundColor: CORES_TRT.terciaria }}
+                              />
+                            </div>
+                            <span className="text-xs text-slate-500 flex-shrink-0">{cred.atendimentos} atend.</span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold" style={{ color: CORES_TRT.terciaria }}>
-                          R$ {(cred.valor / 1000).toFixed(0)}k
-                        </p>
-                        <div className="flex items-center gap-1 text-xs text-slate-500">
+                        <div className="flex items-center gap-1 text-xs text-slate-500 flex-shrink-0">
                           <CheckCircle className="h-3 w-3" style={{ color: CORES_TRT.sucesso }} />
                           Ativo
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -621,22 +1213,15 @@ export default function PainelGestorTRT() {
                             <p className="text-xs text-slate-500">{cred.razao_social}</p>
                           </td>
                           <td className="py-3">{cred.tipo}</td>
-                          <td className="py-3">
-                            {cred.cidade} - {cred.estado}
-                          </td>
+                          <td className="py-3">{cred.cidade} - {cred.estado}</td>
                           <td className="py-3 text-center">
                             <div className="flex items-center justify-center gap-1">
-                              <span className="font-bold" style={{ color: CORES_TRT.secundaria }}>
-                                {cred.avaliacao}
-                              </span>
+                              <span className="font-bold" style={{ color: CORES_TRT.secundaria }}>{cred.avaliacao}</span>
                               <span className="text-xs text-slate-400">/5</span>
                             </div>
                           </td>
                           <td className="py-3 text-center">
-                            <Badge
-                              variant="outline"
-                              style={{ borderColor: CORES_TRT.sucesso, color: CORES_TRT.sucesso }}
-                            >
+                            <Badge variant="outline" style={{ borderColor: CORES_TRT.sucesso, color: CORES_TRT.sucesso }}>
                               <CheckCircle className="h-3 w-3 mr-1" />
                               Ativo
                             </Badge>
@@ -650,6 +1235,7 @@ export default function PainelGestorTRT() {
             </Card>
           </TabsContent>
 
+          {/* ─── ALERTAS ─── */}
           <TabsContent value="alertas" className="space-y-4">
             <Card>
               <CardHeader>
@@ -660,7 +1246,7 @@ export default function PainelGestorTRT() {
                   {alertas.map((alerta) => (
                     <div
                       key={alerta.id}
-                      className={`p-4 rounded-lg border-l-4 ${
+                      className={`p-4 rounded-lg border-l-4 flex items-start gap-3 ${
                         alerta.severidade === "alta"
                           ? "bg-red-50 border-red-500"
                           : alerta.severidade === "media"
@@ -668,22 +1254,20 @@ export default function PainelGestorTRT() {
                           : "bg-blue-50 border-blue-500"
                       }`}
                     >
-                      <div className="flex items-start gap-3">
-                        <AlertTriangle
-                          className={`h-5 w-5 ${
-                            alerta.severidade === "alta"
-                              ? "text-red-500"
-                              : alerta.severidade === "media"
-                              ? "text-amber-500"
-                              : "text-blue-500"
-                          }`}
-                        />
-                        <div className="flex-1">
-                          <p className="font-medium text-slate-900">{alerta.mensagem}</p>
-                          <p className="text-sm text-slate-500 capitalize mt-1">
-                            Tipo: {alerta.tipo}
-                          </p>
-                        </div>
+                      <AlertTriangle
+                        className={`h-5 w-5 flex-shrink-0 ${
+                          alerta.severidade === "alta"
+                            ? "text-red-500"
+                            : alerta.severidade === "media"
+                            ? "text-amber-500"
+                            : "text-blue-500"
+                        }`}
+                      />
+                      <div className="flex-1">
+                        <p className="font-medium text-slate-900">{alerta.mensagem}</p>
+                        <p className="text-sm text-slate-500 capitalize mt-1">Tipo: {alerta.tipo}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
                         <Badge
                           variant="outline"
                           className={`text-xs ${
@@ -696,6 +1280,9 @@ export default function PainelGestorTRT() {
                         >
                           {alerta.severidade.toUpperCase()}
                         </Badge>
+                        <Button variant="ghost" size="sm" className="h-7 px-2 text-xs">
+                          <ChevronRight className="h-3.5 w-3.5" />
+                        </Button>
                       </div>
                     </div>
                   ))}
@@ -704,107 +1291,49 @@ export default function PainelGestorTRT() {
             </Card>
           </TabsContent>
 
+          {/* ─── RELATÓRIOS ─── */}
           <TabsContent value="relatorios" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="p-3 rounded-lg"
-                      style={{ backgroundColor: `${CORES_TRT.primaria}20` }}
-                    >
-                      <FileText className="h-8 w-8" style={{ color: CORES_TRT.primaria }} />
+              {[
+                { titulo: "Relatório de Custos", desc: "Análise detalhada por categoria", icone: <FileText className="h-8 w-8" />, cor: CORES_TRT.primaria },
+                { titulo: "Relatório por Beneficiário", desc: "Utilização individual", icone: <Users className="h-8 w-8" />, cor: CORES_TRT.terciaria },
+                { titulo: "Relatório por Credenciado", desc: "Desempenho e faturamento", icone: <Building2 className="h-8 w-8" />, cor: CORES_TRT.secundaria },
+                { titulo: "Relatório de Glosas", desc: "Análise de irregularidades", icone: <AlertTriangle className="h-8 w-8" />, cor: CORES_TRT.destaque },
+                { titulo: "Relatório de Processos", desc: "Autorizações e prazos", icone: <ClipboardList className="h-8 w-8" />, cor: CORES_TRT.info },
+                { titulo: "Relatório de Metas", desc: "Desempenho vs metas do período", icone: <Target className="h-8 w-8" />, cor: CORES_TRT.sucesso },
+              ].map((rel) => (
+                <Card key={rel.titulo} className="hover:shadow-lg transition-shadow cursor-pointer">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 rounded-lg" style={{ backgroundColor: `${rel.cor}20`, color: rel.cor }}>
+                        {rel.icone}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold">{rel.titulo}</h3>
+                        <p className="text-sm text-slate-500">{rel.desc}</p>
+                      </div>
+                      <Button variant="outline" size="sm">
+                        <Download className="h-4 w-4 mr-1" />
+                        PDF
+                      </Button>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold">Relatório de Custos</h3>
-                      <p className="text-sm text-slate-500">Análise detalhada por categoria</p>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      <Download className="h-4 w-4 mr-1" />
-                      PDF
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="p-3 rounded-lg"
-                      style={{ backgroundColor: `${CORES_TRT.terciaria}20` }}
-                    >
-                      <Users className="h-8 w-8" style={{ color: CORES_TRT.terciaria }} />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold">Relatório por Servidor</h3>
-                      <p className="text-sm text-slate-500">Utilização individual</p>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      <Download className="h-4 w-4 mr-1" />
-                      PDF
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="p-3 rounded-lg"
-                      style={{ backgroundColor: `${CORES_TRT.secundaria}20` }}
-                    >
-                      <Building2 className="h-8 w-8" style={{ color: CORES_TRT.secundaria }} />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold">Relatório por Credenciado</h3>
-                      <p className="text-sm text-slate-500">Desempenho e faturamento</p>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      <Download className="h-4 w-4 mr-1" />
-                      PDF
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="p-3 rounded-lg"
-                      style={{ backgroundColor: `${CORES_TRT.destaque}20` }}
-                    >
-                      <AlertTriangle className="h-8 w-8" style={{ color: CORES_TRT.destaque }} />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold">Relatório de Glosas</h3>
-                      <p className="text-sm text-slate-500">Análise de irregularidades</p>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      <Download className="h-4 w-4 mr-1" />
-                      PDF
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </TabsContent>
         </Tabs>
 
-        {/* Footer */}
         <footer className="mt-8 pt-6 border-t text-center text-sm text-slate-500">
           <p style={{ color: CORES_TRT.primaria }}>TRT 8ª Região - Painel Gerencial</p>
-          <p>Relatórios atualizados em: {new Date().toLocaleDateString("pt-BR")}</p>
+          <p>Atualizado em: {ultimaAtualizacao.toLocaleString("pt-BR")}</p>
         </footer>
       </div>
 
-      {/* Modal de Detalhes do Servidor */}
+      {/* Modal de Detalhes do Beneficiário */}
       {modalServidorAberto && servidorSelecionado && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-lg w-full max-w-5xl max-h-[90vh] overflow-hidden shadow-2xl">
-            {/* Header */}
             <div
               className="flex items-center justify-between p-4 border-b"
               style={{ backgroundColor: CORES_TRT.primaria }}
@@ -826,9 +1355,8 @@ export default function PainelGestorTRT() {
               </Button>
             </div>
 
-            {/* Conteúdo */}
             <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
-              {/* Informações do Servidor */}
+              {/* Informações do Beneficiário */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 <Card>
                   <CardContent className="p-4">
@@ -881,7 +1409,6 @@ export default function PainelGestorTRT() {
                   Histórico de Saúde
                 </h4>
 
-                {/* Categorias */}
                 {["Consultas", "Exames", "Internações", "Cirurgias"].map((categoria) => {
                   const itens = getHistoricoServidor(servidorSelecionado.matricula).filter(
                     (h) => h.categoria === categoria
@@ -943,7 +1470,7 @@ export default function PainelGestorTRT() {
                 )}
               </div>
 
-              {/* Informações Completas do Servidor */}
+              {/* Informações Complementares */}
               {(() => {
                 const dadosCompletos = getDadosServidor(servidorSelecionado.matricula);
                 if (!dadosCompletos) return null;
@@ -980,7 +1507,6 @@ export default function PainelGestorTRT() {
               })()}
             </div>
 
-            {/* Footer */}
             <div className="flex items-center justify-end gap-2 p-4 border-t bg-slate-50">
               <Button variant="outline" onClick={() => setModalServidorAberto(false)}>
                 Fechar

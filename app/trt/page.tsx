@@ -65,14 +65,14 @@ export default function PortalTRT() {
             {IDENTIDADE_TRT.lema}
           </h2>
           <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-            Sistema de Gestão de Saúde e Faturamento - Acesso exclusivo para servidores,
+            Sistema de Gestão de Saúde e Faturamento - Acesso exclusivo para beneficiários,
             credenciados e auditores da Justiça do Trabalho na Amazônia
           </p>
         </div>
 
         {/* Cards de Acesso às Interfaces */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          {/* Card - Área do Servidor */}
+          {/* Card - Área do Beneficiário */}
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader
               className="pb-4"
@@ -85,7 +85,7 @@ export default function PortalTRT() {
                 <Users className="h-7 w-7 text-white" />
               </div>
               <CardTitle style={{ color: CORES_TRT.primaria }}>
-                Área do Servidor
+                Área do Beneficiário
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
@@ -104,13 +104,13 @@ export default function PortalTRT() {
                   className="w-full"
                   style={{ backgroundColor: CORES_TRT.info }}
                 >
-                  Acessar como Servidor
+                  Acessar como Beneficiário
                 </Button>
               </Link>
             </CardContent>
           </Card>
 
-          {/* Card - Área do Prestador */}
+          {/* Card - Área do Credenciado */}
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader
               className="pb-4"
@@ -123,12 +123,12 @@ export default function PortalTRT() {
                 <Stethoscope className="h-7 w-7 text-white" />
               </div>
               <CardTitle style={{ color: CORES_TRT.primaria }}>
-                Área do Prestador
+                Área do Credenciado
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
               <p className="text-sm text-slate-600 mb-4">
-                Upload de XML TISS e PDFs, validação de servidores via QR Code,
+                Upload de XML TISS e PDFs, validação de beneficiários via QR Code,
                 acompanhamento de faturas.
               </p>
               <ul className="text-xs text-slate-500 space-y-1 mb-4">
@@ -142,7 +142,7 @@ export default function PortalTRT() {
                   className="w-full"
                   style={{ backgroundColor: CORES_TRT.terciaria }}
                 >
-                  Acessar como Prestador
+                  Acessar como Credenciado
                 </Button>
               </Link>
             </CardContent>
@@ -256,7 +256,7 @@ export default function PortalTRT() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-slate-600">
-                Validação da carteirinha do servidor via QR Code ou WhatsApp
+                Validação da carteirinha do beneficiário via QR Code ou WhatsApp
                 <strong> antes</strong> da execução do procedimento.
               </p>
             </CardContent>

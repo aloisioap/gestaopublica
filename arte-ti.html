@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AUMED — Setor de TI · Arte de Apresentação</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --green:       #008C4F;
+    --green-dark:  #00683A;
+    --green-soft:  #E6F4EC;
+    --red:         #EE3124;
+    --red-dark:    #C9261B;
+    --red-soft:    #FDECEA;
+    --ink:         #16241C;
+    --slate:       #5a6b62;
+    --line:        #e3ebe6;
+    --paper:       #ffffff;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #d7e4dc;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  /* === PÔSTER === */
+  .poster {
+    width: 820px;
+    background: var(--paper);
+    border-radius: 26px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 30px 70px rgba(0,40,20,.22);
+    color: var(--ink);
+  }
+
+  /* faixa superior verde (assinatura AUMED) */
+  .topbar { height: 8px; background: linear-gradient(90deg, var(--green) 0%, var(--green) 60%, var(--red) 60%, var(--red) 100%); }
+
+  /* ornamentos suaves de fundo */
+  .blob { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+  .blob-1 { width: 320px; height: 320px; background: rgba(0,140,79,.10); top: -90px; right: -80px; }
+  .blob-2 { width: 280px; height: 280px; background: rgba(238,49,36,.07); bottom: -110px; left: -70px; }
+
+  .inner { position: relative; padding: 38px 52px 40px; }
+
+  /* === HEADER === */
+  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 34px; }
+
+  .aumed-logo { height: 62px; width: auto; display: block; }
+  .aumed { display: flex; align-items: center; gap: 14px; }
+  .aumed-mark { width: 64px; height: 60px; flex-shrink: 0; }
+  .aumed-mark svg { width: 100%; height: 100%; display: block; }
+  .aumed-word { display: flex; flex-direction: column; line-height: 1; }
+  .aumed-name { font-size: 36px; font-weight: 800; color: var(--green); letter-spacing: .06em; }
+  .aumed-sub  { font-size: 10.5px; font-weight: 600; color: var(--red); letter-spacing: .15em; margin-top: 7px; }
+
+  .badge {
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700;
+    color: var(--green-dark); border: 1.5px solid var(--green);
+    padding: 8px 15px; border-radius: 999px; background: var(--green-soft);
+  }
+
+  /* === HERO === */
+  .hero { margin-bottom: 34px; }
+  .hero .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 14px;
+  }
+  .hero h1 { font-size: 40px; line-height: 1.1; font-weight: 800; color: var(--ink); letter-spacing: -.01em; margin-bottom: 16px; }
+  .hero h1 .g { color: var(--green); }
+  .hero p { font-size: 15.5px; line-height: 1.65; color: var(--slate); max-width: 640px; }
+
+  /* === GRID DE FUNÇÕES === */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 32px; }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px; padding: 20px 20px;
+    position: relative; overflow: hidden;
+    transition: transform .2s;
+  }
+  .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); }
+  .card .ic {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 13px;
+    background: var(--accent-soft);
+  }
+  .card .ic svg { width: 23px; height: 23px; stroke: var(--accent); }
+  .card h3 { font-size: 15.5px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .card p  { font-size: 12.5px; line-height: 1.55; color: var(--slate); }
+
+  /* alternância verde / vermelho seguindo a marca */
+  .card.g { --accent: var(--green); --accent-soft: var(--green-soft); }
+  .card.r { --accent: var(--red);   --accent-soft: var(--red-soft); }
+
+  /* === TAGS === */
+  .tags { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; margin-bottom: 30px; }
+  .tag {
+    font-size: 12px; font-weight: 600; color: var(--green-dark);
+    background: var(--green-soft); border: 1px solid rgba(0,140,79,.22);
+    padding: 8px 15px; border-radius: 999px;
+  }
+  .tag b { color: var(--red); font-weight: 800; margin-right: 4px; }
+
+  /* === FOOTER === */
+  .footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 24px; border-top: 1px solid var(--line);
+  }
+  .footer .tagline { font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1.3; }
+  .footer .tagline span { color: var(--green); }
+  .footer .meta { font-size: 12px; color: var(--slate); text-align: right; line-height: 1.6; }
+  .footer .meta b { color: var(--green); font-weight: 800; letter-spacing: .04em; }
+
+  /* === CONTATO === */
+  .contact {
+    margin-top: 26px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1.05fr 1.35fr 1.2fr;
+    gap: 30px;
+  }
+  .contact-title {
+    font-size: 10.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 13px;
+  }
+  .contact-name { font-size: 13.5px; font-weight: 700; color: var(--ink); line-height: 1.45; margin-bottom: 5px; }
+  .contact-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .contact-list li { display: flex; align-items: center; gap: 9px; font-size: 12.5px; color: var(--slate); }
+  .contact-list li svg { width: 16px; height: 16px; stroke: var(--green); flex-shrink: 0; }
+  .contact-addr { font-size: 12.5px; line-height: 1.65; color: var(--slate); }
+  .contact-addr b { color: var(--ink); font-weight: 700; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .poster { box-shadow: none; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="poster">
+    <div class="topbar"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="inner">
+      <!-- HEADER + LOGO AUMED -->
+      <div class="header">
+        <!-- Logo oficial em PNG. Salve a imagem em assets/aumed-logo.png -->
+        <img class="aumed-logo" src="assets/aumed-logo.png"
+             alt="AUMED — Auditoria e Consultoria Médica"
+             onerror="this.style.display='none'; document.getElementById('aumed-fallback').style.display='flex';" />
+
+        <!-- Fallback vetorial (aparece automaticamente se o PNG não existir) -->
+        <div class="aumed" id="aumed-fallback" style="display:none;">
+          <div class="aumed-mark">
+            <svg viewBox="0 0 116 104" fill="none">
+              <rect x="2" y="22" width="74" height="74" rx="16" fill="#008C4F"/>
+              <path d="M16 64 L40 88 L100 16" stroke="#00683A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22 58 L45 81 L106 10" stroke="#EE3124" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="aumed-word">
+            <div class="aumed-name">AUMED</div>
+            <div class="aumed-sub">AUDITORIA E CONSULTORIA MÉDICA</div>
+          </div>
+        </div>
+
+        <div class="badge">Setor de TI</div>
+      </div>
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="eyebrow">Tecnologia &amp; Sistemas</div>
+        <h1>Tecnologia que transforma<br><span class="g">gestão em resultado.</span></h1>
+        <p>Desenvolvemos e integramos sistemas que automatizam a saúde, o faturamento, as políticas públicas e a gestão territorial — conectando dados, decisões e cidadão numa só plataforma.</p>
+      </div>
+
+      <!-- GRID DE FUNÇÕES -->
+      <div class="grid">
+        <div class="card g">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </div>
+          <h3>Gestão de Planos e Saúde</h3>
+          <p>Planos e fundos de saúde de ponta a ponta: beneficiários, dependentes, carteirinha digital com QR Code, histórico médico e validação prévia.</p>
+        </div>
+
+        <div class="card r">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <h3>Faturamento e Auditoria Inteligente</h3>
+          <p>Processamento no padrão TISS (XML + PDF), modulação de auditorias técnicas e financeiras, gestão de gastos auditados, integração com tabelas de consulta padrão e evidência de processos considerados fraudulentos.</p>
+        </div>
+
+        <div class="card g">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
+          </div>
+          <h3>Gestão de Políticas Públicas</h3>
+          <p>Ciclo legislativo e atendimento ao cidadão: indicações, requerimentos, projetos de lei, tramitação e prestação de contas.</p>
+        </div>
+
+        <div class="card r">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Gestão Territorial e Comunitária</h3>
+          <p>Mapeamento de bairros, moradores e demandas locais, convertendo problemas do território em indicadores acionáveis.</p>
+        </div>
+
+        <div class="card g">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3>Inteligência de Dados e Dashboards</h3>
+          <p>KPIs em tempo real, relatórios gerenciais e painéis de custo que dão visão estratégica para a tomada de decisão.</p>
+        </div>
+
+        <div class="card r">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3>Validação e Segurança Digital</h3>
+          <p>Autenticação por QR Code e WhatsApp, perfis de acesso segmentados e trilhas de auditoria completas.</p>
+        </div>
+      </div>
+
+      <!-- TAGS -->
+      <div class="tags">
+        <div class="tag"><b>✓</b> Gestão de planos</div>
+        <div class="tag"><b>✓</b> Padrão TISS</div>
+        <div class="tag"><b>✓</b> Políticas públicas</div>
+        <div class="tag"><b>✓</b> Dashboards em tempo real</div>
+        <div class="tag"><b>✓</b> Validação por QR Code</div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="tagline">Menos papel, mais gestão.<br><span>Menos intuição, mais precisão.</span></div>
+        <div class="meta"><b>AUMED</b> · Auditoria e Consultoria Médica<br>Setor de Tecnologia · Sistemas de Gestão Integrada</div>
+      </div>
+
+      <!-- CONTATO -->
+      <div class="contact">
+        <div class="contact-col">
+          <div class="contact-title">Responsáveis</div>
+          <div class="contact-name">Dra. Francirene Sousa Nascimento</div>
+          <div class="contact-name">Dr. Rodrigo Sousa Nascimento</div>
+        </div>
+
+        <div class="contact-col">
+          <div class="contact-title">Contato</div>
+          <ul class="contact-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              (91) 3236-3555
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              www.aumedbelem.com.br
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              @aumedbelem
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              contato@aumedbelem.com.br
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              financeiro@aumedbelem.com.br
+            </li>
+          </ul>
+        </div>
+
+        <div class="contact-col">
+          <div class="contact-title">Endereço</div>
+          <div class="contact-addr">
+            <b>Ed. Mirai Office</b><br>
+            R. Municipalidade, 985 — Salas 1012 a 1016<br>
+            Umarizal, Belém — PA<br>
+            CEP 66050-350
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
