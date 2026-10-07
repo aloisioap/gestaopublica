@@ -193,14 +193,14 @@ export const PROCEDIMENTOS_OPME: ProcedimentoOPME[] = [
     documentosNecessarios: [
       "DUT preenchido",
       "Laudo cardiológico",
-      "Eletrofisiológico",
+      "Estudo eletrofisiológico",
       "Orçamento de 3 fornecedores",
     ],
   },
   {
     id: "OPME-010",
     codigo: "OPME010",
-    descricao: "Ossos Artificiais (Alógeno)",
+    descricao: "Enxerto Ósseo Alógeno (Banco de Tecidos)",
     categoria: "Material Especial",
     valorReferencia: 8500.00,
     tipoDocumento: "DUT",
@@ -216,14 +216,16 @@ export const PROCEDIMENTOS_OPME: ProcedimentoOPME[] = [
   },
 ];
 
-// DUTs (Documentos Únicos de Trabalho)
+// DUTs (Diretrizes de Utilização, ANS): critérios de cobertura de cada OPME.
+// O conteúdo é o formulário de verificação da DUT que o médico assistente preenche.
+// Cada ProcedimentoOPME.dutPadrao aponta para um DUT desta lista.
 export const DUTS: DUT[] = [
   {
     id: "DUT-001",
     codigoProcedimento: "OPME001",
     descricaoProcedimento: "Prótese Total de Quadril",
     titulo: "DUT - Prótese Total de Quadril",
-    conteudo: `DOCUMENTO ÚNICO DE TRABALHO - PRÓTESE TOTAL DE QUADRIL
+    conteudo: `FORMULÁRIO DE DIRETRIZ DE UTILIZAÇÃO (DUT) - PRÓTESE TOTAL DE QUADRIL
 
 1. IDENTIFICAÇÃO DO PACIENTE
    Nome: {{nome_paciente}}
@@ -278,7 +280,7 @@ export const DUTS: DUT[] = [
     codigoProcedimento: "OPME002",
     descricaoProcedimento: "Prótese Total de Joelho",
     titulo: "DUT - Prótese Total de Joelho",
-    conteudo: `DOCUMENTO ÚNICO DE TRABALHO - PRÓTESE TOTAL DE JOELHO
+    conteudo: `FORMULÁRIO DE DIRETRIZ DE UTILIZAÇÃO (DUT) - PRÓTESE TOTAL DE JOELHO
 
 1. IDENTIFICAÇÃO DO PACIENTE
    Nome: {{nome_paciente}}
@@ -326,7 +328,7 @@ export const DUTS: DUT[] = [
     codigoProcedimento: "OPME003",
     descricaoProcedimento: "Marcapasso Cardíaco",
     titulo: "DUT - Marcapasso Cardíaco",
-    conteudo: `DOCUMENTO ÚNICO DE TRABALHO - MARCAPASSO CARDÍACO
+    conteudo: `FORMULÁRIO DE DIRETRIZ DE UTILIZAÇÃO (DUT) - MARCAPASSO CARDÍACO
 
 1. IDENTIFICAÇÃO DO PACIENTE
    Nome: {{nome_paciente}}
@@ -372,7 +374,7 @@ export const DUTS: DUT[] = [
     codigoProcedimento: "OPME004",
     descricaoProcedimento: "Prótese de Mama (Reconstrutiva)",
     titulo: "DUT - Prótese de Mama Reconstrutiva",
-    conteudo: `DOCUMENTO ÚNICO DE TRABALHO - PRÓTESE DE MAMA RECONSTRUTIVA
+    conteudo: `FORMULÁRIO DE DIRETRIZ DE UTILIZAÇÃO (DUT) - PRÓTESE DE MAMA RECONSTRUTIVA
 
 1. IDENTIFICAÇÃO DO PACIENTE
    Nome: {{nome_paciente}}
@@ -420,7 +422,7 @@ export const DUTS: DUT[] = [
     codigoProcedimento: "OPME005",
     descricaoProcedimento: "Órtese para Coluna Vertebral",
     titulo: "DUT - Órtese para Coluna",
-    conteudo: `DOCUMENTO ÚNICO DE TRABALHO - ÓRTESE PARA COLUNA VERTEBRAL
+    conteudo: `FORMULÁRIO DE DIRETRIZ DE UTILIZAÇÃO (DUT) - ÓRTESE PARA COLUNA VERTEBRAL
 
 1. IDENTIFICAÇÃO DO PACIENTE
    Nome: {{nome_paciente}}
@@ -464,7 +466,7 @@ export const DUTS: DUT[] = [
     codigoProcedimento: "OPME006",
     descricaoProcedimento: "Lente Intraocular",
     titulo: "DUT - Lente Intraocular",
-    conteudo: `DOCUMENTO ÚNICO DE TRABALHO - LENTE INTRAOCULAR
+    conteudo: `FORMULÁRIO DE DIRETRIZ DE UTILIZAÇÃO (DUT) - LENTE INTRAOCULAR
 
 1. IDENTIFICAÇÃO DO PACIENTE
    Nome: {{nome_paciente}}
@@ -473,11 +475,11 @@ export const DUTS: DUT[] = [
 
 2. DIAGNÓSTICO OFTALMOLÓGICO
    CID: {{cid_principal}}
-   Oftalmo: {{olho_afetado}}
+   Olho: {{olho_afetado}}
    Acuidade Visual: {{acuidade_visual}}
 
 3. BIOMETRIA
-   Poder Dioptria: {{poder_dioptria}}
+   Poder Dióptrico: {{poder_dioptria}}
    Comprimento Axial: {{comprimento_axial}} mm
 
 4. TIPO DE LENTE
@@ -510,7 +512,7 @@ export const DUTS: DUT[] = [
     codigoProcedimento: "OPME007",
     descricaoProcedimento: "Stent Coronário",
     titulo: "DUT - Stent Coronário",
-    conteudo: `DOCUMENTO ÚNICO DE TRABALHO - STENT CORONÁRIO
+    conteudo: `FORMULÁRIO DE DIRETRIZ DE UTILIZAÇÃO (DUT) - STENT CORONÁRIO
 
 1. IDENTIFICAÇÃO DO PACIENTE
    Nome: {{nome_paciente}}
@@ -558,7 +560,7 @@ export const DUTS: DUT[] = [
     codigoProcedimento: "OPME008",
     descricaoProcedimento: "Prótese de Válvula Cardíaca",
     titulo: "DUT - Prótese de Válvula Cardíaca",
-    conteudo: `DOCUMENTO ÚNICO DE TRABALHO - PRÓTESE DE VÁLVULA CARDÍACA
+    conteudo: `FORMULÁRIO DE DIRETRIZ DE UTILIZAÇÃO (DUT) - PRÓTESE DE VÁLVULA CARDÍACA
 
 1. IDENTIFICAÇÃO DO PACIENTE
    Nome: {{nome_paciente}}
@@ -603,6 +605,104 @@ export const DUTS: DUT[] = [
       { nome: "data_assinatura", descricao: "Data", obrigatorio: true },
     ],
   },
+  {
+    id: "DUT-009",
+    codigoProcedimento: "OPME009",
+    descricaoProcedimento: "Desfibrilador Implantável (CDI)",
+    titulo: "DUT - Desfibrilador Implantável (CDI)",
+    conteudo: `FORMULÁRIO DE DIRETRIZ DE UTILIZAÇÃO (DUT) - DESFIBRILADOR IMPLANTÁVEL (CDI)
+
+1. IDENTIFICAÇÃO DO PACIENTE
+   Nome: {{nome_paciente}}
+   Matrícula: {{matricula}}
+   Idade: {{idade}} anos
+
+2. DIAGNÓSTICO CARDIOLÓGICO
+   CID: {{cid_principal}}
+   Cardiopatia de base: {{cardiopatia_base}}
+   Fração de Ejeção: {{fe}}%
+   Classe Funcional (NYHA): {{classe_nyha}}
+
+3. INDICAÇÃO
+   Prevenção: {{tipo_prevencao}}
+   Evento arrítmico documentado: {{evento_arritmico}}
+
+4. ESTUDO ELETROFISIOLÓGICO
+   Data: {{data_estudo}}
+   Resultado: {{resultado_estudo}}
+
+5. DISPOSITIVO INDICADO
+   Modelo: {{modelo_cdi}}
+   Câmaras: {{camaras}}
+
+6. AVALIAÇÃO
+   Cardiologista: {{nome_medico}}
+   CRM: {{crm}}
+   Assinatura: _______________________
+   Data: {{data_assinatura}}`,
+    camposVariaveis: [
+      { nome: "nome_paciente", descricao: "Nome", obrigatorio: true },
+      { nome: "matricula", descricao: "Matrícula", obrigatorio: true },
+      { nome: "idade", descricao: "Idade", obrigatorio: true },
+      { nome: "cid_principal", descricao: "CID", obrigatorio: true },
+      { nome: "cardiopatia_base", descricao: "Cardiopatia de base", obrigatorio: true },
+      { nome: "fe", descricao: "Fração de ejeção", obrigatorio: true },
+      { nome: "classe_nyha", descricao: "Classe funcional (NYHA)", obrigatorio: true },
+      { nome: "tipo_prevencao", descricao: "Prevenção primária ou secundária", obrigatorio: true },
+      { nome: "evento_arritmico", descricao: "Evento arrítmico documentado", obrigatorio: false },
+      { nome: "data_estudo", descricao: "Data do estudo eletrofisiológico", obrigatorio: true },
+      { nome: "resultado_estudo", descricao: "Resultado do estudo eletrofisiológico", obrigatorio: true },
+      { nome: "modelo_cdi", descricao: "Modelo do CDI", obrigatorio: true },
+      { nome: "camaras", descricao: "Câmaras (uni/bicameral/ressincronizador)", obrigatorio: true },
+      { nome: "nome_medico", descricao: "Cardiologista", obrigatorio: true },
+      { nome: "crm", descricao: "CRM", obrigatorio: true },
+      { nome: "data_assinatura", descricao: "Data", obrigatorio: true },
+    ],
+  },
+  {
+    id: "DUT-010",
+    codigoProcedimento: "OPME010",
+    descricaoProcedimento: "Enxerto Ósseo Alógeno (Banco de Tecidos)",
+    titulo: "DUT - Enxerto Ósseo Alógeno",
+    conteudo: `FORMULÁRIO DE DIRETRIZ DE UTILIZAÇÃO (DUT) - ENXERTO ÓSSEO ALÓGENO
+
+1. IDENTIFICAÇÃO DO PACIENTE
+   Nome: {{nome_paciente}}
+   Matrícula: {{matricula}}
+   Idade: {{idade}} anos
+
+2. DIAGNÓSTICO
+   CID: {{cid_principal}}
+   Diagnóstico: {{diagnostico}}
+
+3. INDICAÇÃO DO ENXERTO
+   Local: {{local_enxerto}}
+   Volume estimado: {{volume_enxerto}} cm³
+   Justificativa (inviabilidade de enxerto autólogo): {{justificativa_clinica}}
+
+4. PROCEDÊNCIA
+   Banco de tecidos: {{banco_tecidos}}
+
+5. AVALIAÇÃO
+   Ortopedista: {{nome_medico}}
+   CRM: {{crm}}
+   Assinatura: _______________________
+   Data: {{data_assinatura}}`,
+    camposVariaveis: [
+      { nome: "nome_paciente", descricao: "Nome", obrigatorio: true },
+      { nome: "matricula", descricao: "Matrícula", obrigatorio: true },
+      { nome: "idade", descricao: "Idade", obrigatorio: true },
+      { nome: "cid_principal", descricao: "CID", obrigatorio: true },
+      { nome: "diagnostico", descricao: "Diagnóstico", obrigatorio: true },
+      { nome: "local_enxerto", descricao: "Local do enxerto", obrigatorio: true },
+      { nome: "volume_enxerto", descricao: "Volume estimado em cm³", obrigatorio: true },
+      { nome: "justificativa_clinica", descricao: "Justificativa clínica", obrigatorio: true },
+      { nome: "banco_tecidos", descricao: "Banco de tecidos de origem", obrigatorio: true },
+      { nome: "nome_medico", descricao: "Ortopedista", obrigatorio: true },
+      { nome: "crm", descricao: "CRM", obrigatorio: true },
+      { nome: "data_assinatura", descricao: "Data", obrigatorio: true },
+    ],
+  },
 ];
 
 // Pareceres modelo
@@ -613,7 +713,7 @@ export const MODELOS_PARECER: ParecerOPME[] = [
     tipo: "Autorizado",
     procedimentoId: "OPME-001",
     procedimentoDescricao: "Prótese Total de Quadril",
-    motivo: "Paciente com diagnóstico de artrose avançada de quadril, com limitação funcional severa e dor refrataria ao tratamento clínico. Indicação cirúrgica adequada conforme literatura médica.",
+    motivo: "Paciente com diagnóstico de artrose avançada de quadril, com limitação funcional severa e dor refratária ao tratamento clínico. Indicação cirúrgica adequada conforme literatura médica.",
     condicionantes: [
       "Utilização de prótese de primeira linha",
       "Cirurgia deve ser realizada em até 90 dias",
@@ -640,7 +740,7 @@ export const MODELOS_PARECER: ParecerOPME[] = [
     motivo: "Indicação clínica confirmada. Entretanto, o modelo solicitado possui recursos não essenciais.",
     condicionantes: [
       "Autorizado marcapasso modelo básico com função VVI ou DDD",
-      "Modelo com recursos avançados (resposta frequencial, etc) não autorizado",
+      "Modelo com recursos avançados (resposta de frequência etc.) não autorizado",
       "Troca para modelo autorizado deve ser confirmada pelo hospital",
     ],
     dataValidade: "60 dias",
