@@ -31,17 +31,17 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import {
-  CORES_TRT,
-  ESTATISTICAS_TRT,
-  CREDENCIADOS_TRT,
-  SERVIDORES_TRT,
-  HISTORICO_SAUDE_TRT,
-} from "@/lib/dados-trt-8a-regiao";
+  CORES_TRE,
+  ESTATISTICAS_TRE,
+  CREDENCIADOS_TRE,
+  SERVIDORES_TRE,
+  HISTORICO_SAUDE_TRE,
+} from "@/lib/dados-tre";
 
 // Mock de utilização por servidor
 const UTILIZACAO_SERVIDORES = [
   {
-    matricula: "TRT0001",
+    matricula: "TRE0001",
     nome: "Maria Santos Oliveira",
     cargo: "Analista Judiciário",
     comarca: "Belém",
@@ -53,7 +53,7 @@ const UTILIZACAO_SERVIDORES = [
     status: "Ativo",
   },
   {
-    matricula: "TRT0002",
+    matricula: "TRE0002",
     nome: "João Carlos Silva",
     cargo: "Técnico Judiciário",
     comarca: "Belém",
@@ -65,10 +65,10 @@ const UTILIZACAO_SERVIDORES = [
     status: "Ativo",
   },
   {
-    matricula: "TRT0003",
+    matricula: "TRE0003",
     nome: "Ana Paula Costa",
     cargo: "Analista Judiciário",
-    comarca: "Macapá",
+    comarca: "Santarém",
     consultas_ano: 6,
     exames_ano: 4,
     internacoes_ano: 0,
@@ -77,7 +77,7 @@ const UTILIZACAO_SERVIDORES = [
     status: "Ativo",
   },
   {
-    matricula: "TRT0004",
+    matricula: "TRE0004",
     nome: "Pedro Henrique Lima",
     cargo: "Técnico Judiciário",
     comarca: "Santarém",
@@ -89,7 +89,7 @@ const UTILIZACAO_SERVIDORES = [
     status: "Ativo",
   },
   {
-    matricula: "TRT0005",
+    matricula: "TRE0005",
     nome: "Fernanda Souza",
     cargo: "Analista Judiciário",
     comarca: "Belém",
@@ -102,7 +102,7 @@ const UTILIZACAO_SERVIDORES = [
   },
 ];
 
-export default function PainelGestorTRT() {
+export default function PainelGestorTRE() {
   const [periodo] = useState("2024");
   const [buscaServidor, setBuscaServidor] = useState("");
   const [servidorSelecionado, setServidorSelecionado] = useState<typeof UTILIZACAO_SERVIDORES[0] | null>(null);
@@ -122,13 +122,13 @@ export default function PainelGestorTRT() {
     {
       id: 1,
       tipo: "custo",
-      mensagem: "Internação TRT0002 ultrapassou valor médio em 35%",
+      mensagem: "Internação TRE0002 ultrapassou valor médio em 35%",
       severidade: "alta",
     },
     {
       id: 2,
       tipo: "frequencia",
-      mensagem: "Servidor TRT0001 realizou 4 consultas no mesmo mês",
+      mensagem: "Servidor TRE0001 realizou 4 consultas no mesmo mês",
       severidade: "media",
     },
     {
@@ -145,11 +145,11 @@ export default function PainelGestorTRT() {
   };
 
   const getHistoricoServidor = (matricula: string) => {
-    return HISTORICO_SAUDE_TRT.filter((h) => h.matricula === matricula).map(h => ({...h}));
+    return HISTORICO_SAUDE_TRE.filter((h) => h.matricula === matricula).map(h => ({...h}));
   };
 
   const getDadosServidor = (matricula: string) => {
-    return SERVIDORES_TRT.find((s) => s.matricula === matricula);
+    return SERVIDORES_TRE.find((s) => s.matricula === matricula);
   };
 
   const servidoresFiltrados = UTILIZACAO_SERVIDORES.filter(
@@ -159,18 +159,18 @@ export default function PainelGestorTRT() {
   );
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: CORES_TRT.fundo }}>
+    <main className="min-h-screen" style={{ backgroundColor: CORES_TRE.fundo }}>
       {/* Header */}
       <header
         className="text-white shadow-lg"
         style={{
-          background: `linear-gradient(135deg, ${CORES_TRT.primaria} 0%, ${CORES_TRT.terciaria} 100%)`,
+          background: `linear-gradient(135deg, ${CORES_TRE.primaria} 0%, ${CORES_TRE.terciaria} 100%)`,
         }}
       >
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Link href="/trt">
+              <Link href="/tre">
                 <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
                   <ArrowLeft className="h-5 w-5" />
                 </Button>
@@ -202,77 +202,77 @@ export default function PainelGestorTRT() {
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* KPIs Principais */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <Card className="border-l-4" style={{ borderLeftColor: CORES_TRT.primaria }}>
+          <Card className="border-l-4" style={{ borderLeftColor: CORES_TRE.primaria }}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-slate-500">Total Servidores</p>
-                  <p className="text-2xl font-bold" style={{ color: CORES_TRT.primaria }}>
-                    {ESTATISTICAS_TRT.total_servidores}
+                  <p className="text-2xl font-bold" style={{ color: CORES_TRE.primaria }}>
+                    {ESTATISTICAS_TRE.total_servidores}
                   </p>
                 </div>
                 <div
                   className="p-2 rounded-lg"
-                  style={{ backgroundColor: `${CORES_TRT.primaria}20` }}
+                  style={{ backgroundColor: `${CORES_TRE.primaria}20` }}
                 >
-                  <Users className="h-6 w-6" style={{ color: CORES_TRT.primaria }} />
+                  <Users className="h-6 w-6" style={{ color: CORES_TRE.primaria }} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4" style={{ borderLeftColor: CORES_TRT.terciaria }}>
+          <Card className="border-l-4" style={{ borderLeftColor: CORES_TRE.terciaria }}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-slate-500">Credenciados</p>
-                  <p className="text-2xl font-bold" style={{ color: CORES_TRT.primaria }}>
-                    {ESTATISTICAS_TRT.total_credenciados}
+                  <p className="text-2xl font-bold" style={{ color: CORES_TRE.primaria }}>
+                    {ESTATISTICAS_TRE.total_credenciados}
                   </p>
                 </div>
                 <div
                   className="p-2 rounded-lg"
-                  style={{ backgroundColor: `${CORES_TRT.terciaria}20` }}
+                  style={{ backgroundColor: `${CORES_TRE.terciaria}20` }}
                 >
-                  <Building2 className="h-6 w-6" style={{ color: CORES_TRT.terciaria }} />
+                  <Building2 className="h-6 w-6" style={{ color: CORES_TRE.terciaria }} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4" style={{ borderLeftColor: CORES_TRT.secundaria }}>
+          <Card className="border-l-4" style={{ borderLeftColor: CORES_TRE.secundaria }}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-slate-500">Valor Total (Ano)</p>
-                  <p className="text-xl font-bold" style={{ color: CORES_TRT.primaria }}>
-                    R$ {(ESTATISTICAS_TRT.valor_total_processado / 1000000).toFixed(2)}M
+                  <p className="text-xl font-bold" style={{ color: CORES_TRE.primaria }}>
+                    R$ {(ESTATISTICAS_TRE.valor_total_processado / 1000000).toFixed(2)}M
                   </p>
                 </div>
                 <div
                   className="p-2 rounded-lg"
-                  style={{ backgroundColor: `${CORES_TRT.secundaria}20` }}
+                  style={{ backgroundColor: `${CORES_TRE.secundaria}20` }}
                 >
-                  <DollarSign className="h-6 w-6" style={{ color: CORES_TRT.secundaria }} />
+                  <DollarSign className="h-6 w-6" style={{ color: CORES_TRE.secundaria }} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4" style={{ borderLeftColor: CORES_TRT.destaque }}>
+          <Card className="border-l-4" style={{ borderLeftColor: CORES_TRE.destaque }}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-slate-500">Taxa de Glosa Média</p>
-                  <p className="text-2xl font-bold" style={{ color: CORES_TRT.primaria }}>
-                    {ESTATISTICAS_TRT.taxa_glosa_media}%
+                  <p className="text-2xl font-bold" style={{ color: CORES_TRE.primaria }}>
+                    {ESTATISTICAS_TRE.taxa_glosa_media}%
                   </p>
                 </div>
                 <div
                   className="p-2 rounded-lg"
-                  style={{ backgroundColor: `${CORES_TRT.destaque}20` }}
+                  style={{ backgroundColor: `${CORES_TRE.destaque}20` }}
                 >
-                  <AlertTriangle className="h-6 w-6" style={{ color: CORES_TRT.destaque }} />
+                  <AlertTriangle className="h-6 w-6" style={{ color: CORES_TRE.destaque }} />
                 </div>
               </div>
             </CardContent>
@@ -308,7 +308,7 @@ export default function PainelGestorTRT() {
             {/* Gráfico Mensal (Simulado com Cards) */}
             <Card>
               <CardHeader>
-                <CardTitle style={{ color: CORES_TRT.primaria }}>
+                <CardTitle style={{ color: CORES_TRE.primaria }}>
                   Evolução Mensal - Atendimentos
                 </CardTitle>
               </CardHeader>
@@ -324,7 +324,7 @@ export default function PainelGestorTRT() {
                               className="h-4 rounded-l"
                               style={{
                                 width: `${(mes.consultas / 70) * 100}%`,
-                                backgroundColor: CORES_TRT.info,
+                                backgroundColor: CORES_TRE.info,
                               }}
                               title={`Consultas: ${mes.consultas}`}
                             />
@@ -332,7 +332,7 @@ export default function PainelGestorTRT() {
                               className="h-4"
                               style={{
                                 width: `${(mes.exames / 70) * 100}%`,
-                                backgroundColor: CORES_TRT.terciaria,
+                                backgroundColor: CORES_TRE.terciaria,
                               }}
                               title={`Exames: ${mes.exames}`}
                             />
@@ -340,7 +340,7 @@ export default function PainelGestorTRT() {
                               className="h-4"
                               style={{
                                 width: `${(mes.internacoes / 70) * 100}%`,
-                                backgroundColor: CORES_TRT.destaque,
+                                backgroundColor: CORES_TRE.destaque,
                               }}
                               title={`Internações: ${mes.internacoes}`}
                             />
@@ -348,7 +348,7 @@ export default function PainelGestorTRT() {
                               className="h-4 rounded-r"
                               style={{
                                 width: `${(mes.cirurgias / 70) * 100}%`,
-                                backgroundColor: CORES_TRT.erro,
+                                backgroundColor: CORES_TRE.erro,
                               }}
                               title={`Cirurgias: ${mes.cirurgias}`}
                             />
@@ -365,78 +365,68 @@ export default function PainelGestorTRT() {
                 {/* Legenda */}
                 <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t">
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded" style={{ backgroundColor: CORES_TRT.info }} />
+                    <div className="w-3 h-3 rounded" style={{ backgroundColor: CORES_TRE.info }} />
                     <span className="text-sm text-slate-600">Consultas</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div
                       className="w-3 h-3 rounded"
-                      style={{ backgroundColor: CORES_TRT.terciaria }}
+                      style={{ backgroundColor: CORES_TRE.terciaria }}
                     />
                     <span className="text-sm text-slate-600">Exames</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div
                       className="w-3 h-3 rounded"
-                      style={{ backgroundColor: CORES_TRT.destaque }}
+                      style={{ backgroundColor: CORES_TRE.destaque }}
                     />
                     <span className="text-sm text-slate-600">Internações</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded" style={{ backgroundColor: CORES_TRT.erro }} />
+                    <div className="w-3 h-3 rounded" style={{ backgroundColor: CORES_TRE.erro }} />
                     <span className="text-sm text-slate-600">Cirurgias</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Distribuição por Estado */}
+            {/* Distribuição por Polo */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base" style={{ color: CORES_TRT.primaria }}>
-                    Distribuição por Estado
+                  <CardTitle className="text-base" style={{ color: CORES_TRE.primaria }}>
+                    Distribuição por Polo
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-5 w-5" style={{ color: CORES_TRT.terciaria }} />
-                        <span className="font-medium">Pará (PA)</span>
+                    {Object.entries(ESTATISTICAS_TRE.por_polo).map(([polo, qtd], i) => (
+                      <div key={polo} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <MapPin className="h-5 w-5" style={{ color: i === 0 ? CORES_TRE.terciaria : CORES_TRE.destaque }} />
+                          <span className="font-medium">{polo}</span>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-bold">{qtd}</p>
+                          <p className="text-xs text-slate-500">
+                            {((qtd / ESTATISTICAS_TRE.total_procedimentos_ano) * 100).toFixed(0)}% dos procedimentos
+                          </p>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <p className="font-bold">{ESTATISTICAS_TRT.por_estado.PA}</p>
-                        <p className="text-xs text-slate-500">
-                          {((ESTATISTICAS_TRT.por_estado.PA / ESTATISTICAS_TRT.total_servidores) * 100).toFixed(0)}%
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-5 w-5" style={{ color: CORES_TRT.destaque }} />
-                        <span className="font-medium">Amapá (AP)</span>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold">{ESTATISTICAS_TRT.por_estado.AP}</p>
-                        <p className="text-xs text-slate-500">
-                          {((ESTATISTICAS_TRT.por_estado.AP / ESTATISTICAS_TRT.total_servidores) * 100).toFixed(0)}%
-                        </p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base" style={{ color: CORES_TRT.primaria }}>
+                  <CardTitle className="text-base" style={{ color: CORES_TRE.primaria }}>
                     Custos por Categoria
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {Object.entries(ESTATISTICAS_TRT.por_categoria).map(([cat, qtd]) => (
+                    {Object.entries(ESTATISTICAS_TRE.por_categoria).map(([cat, qtd]) => (
                       <div key={cat} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
                         <span className="capitalize">{cat}</span>
                         <Badge variant="secondary">{qtd}</Badge>
@@ -467,7 +457,7 @@ export default function PainelGestorTRT() {
             {/* Lista de Servidores */}
             <Card>
               <CardHeader>
-                <CardTitle style={{ color: CORES_TRT.primaria }}>
+                <CardTitle style={{ color: CORES_TRE.primaria }}>
                   Acompanhamento de Servidores
                 </CardTitle>
               </CardHeader>
@@ -496,7 +486,7 @@ export default function PainelGestorTRT() {
                             <div className="flex items-center gap-3">
                               <div
                                 className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
-                                style={{ backgroundColor: CORES_TRT.primaria }}
+                                style={{ backgroundColor: CORES_TRE.primaria }}
                               >
                                 {servidor.nome.charAt(0)}
                               </div>
@@ -513,17 +503,17 @@ export default function PainelGestorTRT() {
                             </div>
                           </td>
                           <td className="py-3 text-center">
-                            <Badge variant="outline" style={{ borderColor: CORES_TRT.info, color: CORES_TRT.info }}>
+                            <Badge variant="outline" style={{ borderColor: CORES_TRE.info, color: CORES_TRE.info }}>
                               {servidor.consultas_ano}
                             </Badge>
                           </td>
                           <td className="py-3 text-center">
-                            <Badge variant="outline" style={{ borderColor: CORES_TRT.terciaria, color: CORES_TRT.terciaria }}>
+                            <Badge variant="outline" style={{ borderColor: CORES_TRE.terciaria, color: CORES_TRE.terciaria }}>
                               {servidor.exames_ano}
                             </Badge>
                           </td>
                           <td className="py-3 text-center">
-                            <Badge variant="outline" style={{ borderColor: CORES_TRT.destaque, color: CORES_TRT.destaque }}>
+                            <Badge variant="outline" style={{ borderColor: CORES_TRE.destaque, color: CORES_TRE.destaque }}>
                               {servidor.internacoes_ano}
                             </Badge>
                           </td>
@@ -561,11 +551,11 @@ export default function PainelGestorTRT() {
           <TabsContent value="credenciados" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle style={{ color: CORES_TRT.primaria }}>Top Credenciados</CardTitle>
+                <CardTitle style={{ color: CORES_TRE.primaria }}>Top Credenciados</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {ESTATISTICAS_TRT.top_credenciados.map((cred, idx) => (
+                  {ESTATISTICAS_TRE.top_credenciados.map((cred, idx) => (
                     <div
                       key={idx}
                       className="flex items-center justify-between p-4 border rounded-lg hover:bg-slate-50"
@@ -573,7 +563,7 @@ export default function PainelGestorTRT() {
                       <div className="flex items-center gap-3">
                         <div
                           className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
-                          style={{ backgroundColor: CORES_TRT.primaria }}
+                          style={{ backgroundColor: CORES_TRE.primaria }}
                         >
                           {idx + 1}
                         </div>
@@ -583,11 +573,11 @@ export default function PainelGestorTRT() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold" style={{ color: CORES_TRT.terciaria }}>
+                        <p className="font-bold" style={{ color: CORES_TRE.terciaria }}>
                           R$ {(cred.valor / 1000).toFixed(0)}k
                         </p>
                         <div className="flex items-center gap-1 text-xs text-slate-500">
-                          <CheckCircle className="h-3 w-3" style={{ color: CORES_TRT.sucesso }} />
+                          <CheckCircle className="h-3 w-3" style={{ color: CORES_TRE.sucesso }} />
                           Ativo
                         </div>
                       </div>
@@ -599,7 +589,7 @@ export default function PainelGestorTRT() {
 
             <Card>
               <CardHeader>
-                <CardTitle style={{ color: CORES_TRT.primaria }}>Lista de Credenciados</CardTitle>
+                <CardTitle style={{ color: CORES_TRE.primaria }}>Lista de Credenciados</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
@@ -614,7 +604,7 @@ export default function PainelGestorTRT() {
                       </tr>
                     </thead>
                     <tbody className="divide-y">
-                      {CREDENCIADOS_TRT.map((cred) => (
+                      {CREDENCIADOS_TRE.map((cred) => (
                         <tr key={cred.id} className="hover:bg-slate-50">
                           <td className="py-3">
                             <p className="font-medium">{cred.nome_fantasia}</p>
@@ -626,7 +616,7 @@ export default function PainelGestorTRT() {
                           </td>
                           <td className="py-3 text-center">
                             <div className="flex items-center justify-center gap-1">
-                              <span className="font-bold" style={{ color: CORES_TRT.secundaria }}>
+                              <span className="font-bold" style={{ color: CORES_TRE.secundaria }}>
                                 {cred.avaliacao}
                               </span>
                               <span className="text-xs text-slate-400">/5</span>
@@ -635,7 +625,7 @@ export default function PainelGestorTRT() {
                           <td className="py-3 text-center">
                             <Badge
                               variant="outline"
-                              style={{ borderColor: CORES_TRT.sucesso, color: CORES_TRT.sucesso }}
+                              style={{ borderColor: CORES_TRE.sucesso, color: CORES_TRE.sucesso }}
                             >
                               <CheckCircle className="h-3 w-3 mr-1" />
                               Ativo
@@ -653,7 +643,7 @@ export default function PainelGestorTRT() {
           <TabsContent value="alertas" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle style={{ color: CORES_TRT.primaria }}>Alertas do Sistema</CardTitle>
+                <CardTitle style={{ color: CORES_TRE.primaria }}>Alertas do Sistema</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -711,9 +701,9 @@ export default function PainelGestorTRT() {
                   <div className="flex items-center gap-4">
                     <div
                       className="p-3 rounded-lg"
-                      style={{ backgroundColor: `${CORES_TRT.primaria}20` }}
+                      style={{ backgroundColor: `${CORES_TRE.primaria}20` }}
                     >
-                      <FileText className="h-8 w-8" style={{ color: CORES_TRT.primaria }} />
+                      <FileText className="h-8 w-8" style={{ color: CORES_TRE.primaria }} />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold">Relatório de Custos</h3>
@@ -732,9 +722,9 @@ export default function PainelGestorTRT() {
                   <div className="flex items-center gap-4">
                     <div
                       className="p-3 rounded-lg"
-                      style={{ backgroundColor: `${CORES_TRT.terciaria}20` }}
+                      style={{ backgroundColor: `${CORES_TRE.terciaria}20` }}
                     >
-                      <Users className="h-8 w-8" style={{ color: CORES_TRT.terciaria }} />
+                      <Users className="h-8 w-8" style={{ color: CORES_TRE.terciaria }} />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold">Relatório por Servidor</h3>
@@ -753,9 +743,9 @@ export default function PainelGestorTRT() {
                   <div className="flex items-center gap-4">
                     <div
                       className="p-3 rounded-lg"
-                      style={{ backgroundColor: `${CORES_TRT.secundaria}20` }}
+                      style={{ backgroundColor: `${CORES_TRE.secundaria}20` }}
                     >
-                      <Building2 className="h-8 w-8" style={{ color: CORES_TRT.secundaria }} />
+                      <Building2 className="h-8 w-8" style={{ color: CORES_TRE.secundaria }} />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold">Relatório por Credenciado</h3>
@@ -774,9 +764,9 @@ export default function PainelGestorTRT() {
                   <div className="flex items-center gap-4">
                     <div
                       className="p-3 rounded-lg"
-                      style={{ backgroundColor: `${CORES_TRT.destaque}20` }}
+                      style={{ backgroundColor: `${CORES_TRE.destaque}20` }}
                     >
-                      <AlertTriangle className="h-8 w-8" style={{ color: CORES_TRT.destaque }} />
+                      <AlertTriangle className="h-8 w-8" style={{ color: CORES_TRE.destaque }} />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold">Relatório de Glosas</h3>
@@ -795,7 +785,7 @@ export default function PainelGestorTRT() {
 
         {/* Footer */}
         <footer className="mt-8 pt-6 border-t text-center text-sm text-slate-500">
-          <p style={{ color: CORES_TRT.primaria }}>TRT 8ª Região - Painel Gerencial</p>
+          <p style={{ color: CORES_TRE.primaria }}>TRE-PA - Painel Gerencial</p>
           <p>Relatórios atualizados em: {new Date().toLocaleDateString("pt-BR")}</p>
         </footer>
       </div>
@@ -807,7 +797,7 @@ export default function PainelGestorTRT() {
             {/* Header */}
             <div
               className="flex items-center justify-between p-4 border-b"
-              style={{ backgroundColor: CORES_TRT.primaria }}
+              style={{ backgroundColor: CORES_TRE.primaria }}
             >
               <div className="flex items-center gap-3">
                 <User className="h-6 w-6 text-white" />
@@ -833,7 +823,7 @@ export default function PainelGestorTRT() {
                 <Card>
                   <CardContent className="p-4">
                     <div className="flex items-center gap-3 mb-2">
-                      <User className="h-5 w-5" style={{ color: CORES_TRT.primaria }} />
+                      <User className="h-5 w-5" style={{ color: CORES_TRE.primaria }} />
                       <span className="font-medium">Dados Pessoais</span>
                     </div>
                     <div className="space-y-2 text-sm">
@@ -847,7 +837,7 @@ export default function PainelGestorTRT() {
                 <Card>
                   <CardContent className="p-4">
                     <div className="flex items-center gap-3 mb-2">
-                      <Activity className="h-5 w-5" style={{ color: CORES_TRT.terciaria }} />
+                      <Activity className="h-5 w-5" style={{ color: CORES_TRE.terciaria }} />
                       <span className="font-medium">Resumo do Ano</span>
                     </div>
                     <div className="space-y-2 text-sm">
@@ -861,10 +851,10 @@ export default function PainelGestorTRT() {
                 <Card>
                   <CardContent className="p-4">
                     <div className="flex items-center gap-3 mb-2">
-                      <DollarSign className="h-5 w-5" style={{ color: CORES_TRT.secundaria }} />
+                      <DollarSign className="h-5 w-5" style={{ color: CORES_TRE.secundaria }} />
                       <span className="font-medium">Custo Total</span>
                     </div>
-                    <p className="text-2xl font-bold" style={{ color: CORES_TRT.primaria }}>
+                    <p className="text-2xl font-bold" style={{ color: CORES_TRE.primaria }}>
                       R$ {servidorSelecionado.valor_total_ano.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                     </p>
                     <p className="text-xs text-slate-500 mt-1">
@@ -876,7 +866,7 @@ export default function PainelGestorTRT() {
 
               {/* Histórico de Saúde */}
               <div className="mb-6">
-                <h4 className="font-semibold mb-4 flex items-center gap-2" style={{ color: CORES_TRT.primaria }}>
+                <h4 className="font-semibold mb-4 flex items-center gap-2" style={{ color: CORES_TRE.primaria }}>
                   <HeartPulse className="h-5 w-5" />
                   Histórico de Saúde
                 </h4>
@@ -907,11 +897,11 @@ export default function PainelGestorTRT() {
                                 <td className="p-3">
                                   <div className="flex items-center gap-2">
                                     {categoria === "Consultas" ? (
-                                      <Stethoscope className="h-4 w-4" style={{ color: CORES_TRT.info }} />
+                                      <Stethoscope className="h-4 w-4" style={{ color: CORES_TRE.info }} />
                                     ) : categoria === "Exames" ? (
-                                      <Microscope className="h-4 w-4" style={{ color: CORES_TRT.terciaria }} />
+                                      <Microscope className="h-4 w-4" style={{ color: CORES_TRE.terciaria }} />
                                     ) : (
-                                      <Activity className="h-4 w-4" style={{ color: CORES_TRT.destaque }} />
+                                      <Activity className="h-4 w-4" style={{ color: CORES_TRE.destaque }} />
                                     )}
                                     <span>{item.descricao}</span>
                                   </div>
@@ -950,7 +940,7 @@ export default function PainelGestorTRT() {
 
                 return (
                   <div className="mt-6 pt-6 border-t">
-                    <h4 className="font-semibold mb-4" style={{ color: CORES_TRT.primaria }}>
+                    <h4 className="font-semibold mb-4" style={{ color: CORES_TRE.primaria }}>
                       Informações Complementares
                     </h4>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
@@ -985,7 +975,7 @@ export default function PainelGestorTRT() {
               <Button variant="outline" onClick={() => setModalServidorAberto(false)}>
                 Fechar
               </Button>
-              <Button style={{ backgroundColor: CORES_TRT.primaria }} className="text-white">
+              <Button style={{ backgroundColor: CORES_TRE.primaria }} className="text-white">
                 <Download className="h-4 w-4 mr-2" />
                 Exportar Ficha
               </Button>

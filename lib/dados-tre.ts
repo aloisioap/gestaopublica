@@ -1,10 +1,10 @@
 // ============================================================
-// DADOS MOCK - TRT 8ª REGIÃO (PARÁ E AMAPÁ)
+// DADOS MOCK - TRE-PA (PARÁ)
 // Sistema de Gestão de Saúde e Faturamento
 // ============================================================
 
-// Cores oficiais TRT 8ª Região (Pará e Amapá)
-export const CORES_TRT = {
+// Cores oficiais TRE-PA (Pará)
+export const CORES_TRE = {
   primaria: '#1E3A5F',     // Azul Marinho (Corporativo)
   secundaria: '#C8A415',   // Dourado (Justiça)
   terciaria: '#00796B',    // Verde Amazônia
@@ -18,108 +18,107 @@ export const CORES_TRT = {
 } as const;
 
 // Logos e identidade visual
-export const IDENTIDADE_TRT = {
-  nome: 'TRT 8ª Região',
-  subtitulo: 'Tribunal Regional do Trabalho do Pará e Amapá',
-  lema: 'Justiça do Trabalho na Amazônia',
-  brasao: '/images/trt8-brasao.png',
-  fundo: '/images/trt8-fundo-amazonia.jpg',
+export const IDENTIDADE_TRE = {
+  nome: 'TRE-PA',
+  subtitulo: 'Tribunal Regional Eleitoral do Pará',
+  lema: 'Justiça Eleitoral na Amazônia',
+  brasao: '/images/trepa-brasao.png',
+  fundo: '/images/trepa-fundo-amazonia.jpg',
 } as const;
 
 // Estados da jurisdição
 export const ESTADOS_JURISDICAO = [
   { sigla: 'PA', nome: 'Pará', capital: 'Belém', comarcas: ['Belém', 'Ananindeua', 'Santarém', 'Marabá', 'Castanhal'] },
-  { sigla: 'AP', nome: 'Amapá', capital: 'Macapá', comarcas: ['Macapá', 'Santana', 'Laranjal do Jari', 'Oiapoque'] },
 ] as const;
 
-// Servidores TRT (15 servidores)
-export const SERVIDORES_TRT = [
+// Servidores TRE (15 servidores)
+export const SERVIDORES_TRE = [
   {
-    id: 'TRT0001',
-    matricula: 'TRT0001',
+    id: 'TRE0001',
+    matricula: 'TRE0001',
     nome: 'Maria Santos Oliveira',
     cpf: '123.456.789-00',
-    email: 'maria.oliveira@trt8.jus.br',
+    email: 'maria.oliveira@tre-pa.jus.br',
     telefone: '(91) 99999-1111',
     cargo: 'Analista Judiciário',
-    lotacao: '1ª Vara do Trabalho',
-    vara: '1ª Vara',
+    lotacao: '1ª Zona Eleitoral',
+    vara: '1ª Zona',
     comarca: 'Belém',
     estado: 'PA' as const,
     tipo_sanguineo: 'O+',
     alergias: ['Nenhuma'],
     comorbidades: ['Hipertensão'],
-    carteirinha_saude: 'TRT8-0001-2024',
-    qr_code: 'TRT8-QR-0001',
+    carteirinha_saude: 'TREPA-0001-2024',
+    qr_code: 'TREPA-QR-0001',
     foto_url: '/fotos/servidor-0001.jpg',
     ativo: true,
   },
   {
-    id: 'TRT0002',
-    matricula: 'TRT0002',
+    id: 'TRE0002',
+    matricula: 'TRE0002',
     nome: 'João Carlos Silva',
     cpf: '987.654.321-00',
-    email: 'joao.silva@trt8.jus.br',
+    email: 'joao.silva@tre-pa.jus.br',
     telefone: '(91) 99999-2222',
     cargo: 'Técnico Judiciário',
-    lotacao: '2ª Vara do Trabalho',
-    vara: '2ª Vara',
+    lotacao: '2ª Zona Eleitoral',
+    vara: '2ª Zona',
     comarca: 'Belém',
     estado: 'PA' as const,
     tipo_sanguineo: 'A+',
     alergias: ['Dipirona'],
     comorbidades: [],
-    carteirinha_saude: 'TRT8-0002-2024',
-    qr_code: 'TRT8-QR-0002',
+    carteirinha_saude: 'TREPA-0002-2024',
+    qr_code: 'TREPA-QR-0002',
     foto_url: '/fotos/servidor-0002.jpg',
     ativo: true,
   },
   {
-    id: 'TRT0003',
-    matricula: 'TRT0003',
+    id: 'TRE0003',
+    matricula: 'TRE0003',
     nome: 'Ana Paula Costa',
     cpf: '456.789.123-00',
-    email: 'ana.costa@trt8.jus.br',
-    telefone: '(96) 99999-3333',
+    email: 'ana.costa@tre-pa.jus.br',
+    telefone: '(93) 99999-3333',
     cargo: 'Analista Judiciário',
-    lotacao: '1ª Vara do Trabalho',
-    vara: '1ª Vara',
-    comarca: 'Macapá',
-    estado: 'AP' as const,
+    lotacao: '1ª Zona Eleitoral',
+    vara: '1ª Zona',
+    comarca: 'Santarém',
+    estado: 'PA' as const,
     tipo_sanguineo: 'B+',
     alergias: ['Nenhuma'],
     comorbidades: ['Asma'],
-    carteirinha_saude: 'TRT8-0003-2024',
-    qr_code: 'TRT8-QR-0003',
+    carteirinha_saude: 'TREPA-0003-2024',
+    qr_code: 'TREPA-QR-0003',
     foto_url: '/fotos/servidor-0003.jpg',
     ativo: true,
   },
   {
-    id: 'TRT0004',
-    matricula: 'TRT0004',
+    id: 'TRE0004',
+    matricula: 'TRE0004',
     nome: 'Pedro Henrique Lima',
     cpf: '789.123.456-00',
-    email: 'pedro.lima@trt8.jus.br',
+    email: 'pedro.lima@tre-pa.jus.br',
     telefone: '(91) 99999-4444',
-    cargo: 'Juiz do Trabalho',
-    lotacao: '3ª Vara do Trabalho',
-    vara: '3ª Vara',
+    cargo: 'Juiz Eleitoral',
+    lotacao: '3ª Zona Eleitoral',
+    vara: '3ª Zona',
     comarca: 'Belém',
     estado: 'PA' as const,
     tipo_sanguineo: 'AB+',
     alergias: ['Nenhuma'],
     comorbidades: [],
-    carteirinha_saude: 'TRT8-0004-2024',
-    qr_code: 'TRT8-QR-0004',
+    carteirinha_saude: 'TREPA-0004-2024',
+    qr_code: 'TREPA-QR-0004',
     foto_url: '/fotos/servidor-0004.jpg',
     ativo: true,
   },
   {
-    id: 'TRT0005',
-    matricula: 'TRT0005',
+    id: 'TRE0005',
+    matricula: 'TRE0005',
     nome: 'Fernanda Souza',
     cpf: '321.654.987-00',
-    email: 'fernanda.souza@trt8.jus.br',
+    email: 'fernanda.souza@tre-pa.jus.br',
     telefone: '(91) 99999-5555',
     cargo: 'Diretora de Secretaria',
     lotacao: 'Secretaria Geral',
@@ -129,15 +128,15 @@ export const SERVIDORES_TRT = [
     tipo_sanguineo: 'O-',
     alergias: ['Penicilina'],
     comorbidades: ['Diabetes'],
-    carteirinha_saude: 'TRT8-0005-2024',
-    qr_code: 'TRT8-QR-0005',
+    carteirinha_saude: 'TREPA-0005-2024',
+    qr_code: 'TREPA-QR-0005',
     foto_url: '/fotos/servidor-0005.jpg',
     ativo: true,
   },
 ] as const;
 
 // Credenciados (Hospitais e Clínicas)
-export const CREDENCIADOS_TRT = [
+export const CREDENCIADOS_TRE = [
   {
     id: 'CRED-001',
     cnpj: '12.345.678/0001-90',
@@ -179,15 +178,15 @@ export const CREDENCIADOS_TRT = [
   {
     id: 'CRED-003',
     cnpj: '34.567.890/0001-12',
-    razao_social: 'Hospital de Clínicas do Amapá',
-    nome_fantasia: 'HCA',
-    endereco: 'Av. FAB, 100',
+    razao_social: 'Hospital Regional do Baixo Amazonas',
+    nome_fantasia: 'HRBA',
+    endereco: 'Av. Sérgio Henn, 1000',
     bairro: 'Centro',
-    cidade: 'Macapá',
-    estado: 'AP' as const,
+    cidade: 'Santarém',
+    estado: 'PA' as const,
     cep: '68900-073',
-    telefone: '(96) 3210-3000',
-    email: 'hca@hospital.ap.gov.br',
+    telefone: '(93) 3210-3000',
+    email: 'hrba@saude.pa.gov.br',
     tipo: 'Hospital' as const,
     especialidades: ['Clínica Médica', 'Cirurgia', 'Pediatria', 'Ginecologia'],
     numero_contrato: 'CONT-2024-003',
@@ -236,10 +235,10 @@ export const CREDENCIADOS_TRT = [
 ] as const;
 
 // Procedimentos (20 procedimentos)
-export const PROCEDIMENTOS_TRT = [
+export const PROCEDIMENTOS_TRE = [
   {
     id: 'PROC-001',
-    matricula_usuario: 'TRT0001',
+    matricula_usuario: 'TRE0001',
     usuario_nome: 'Maria Santos Oliveira',
     credenciado_id: 'CRED-001',
     nome_credenciado: 'Hospital Metropolitano',
@@ -259,7 +258,7 @@ export const PROCEDIMENTOS_TRT = [
   },
   {
     id: 'PROC-002',
-    matricula_usuario: 'TRT0001',
+    matricula_usuario: 'TRE0001',
     usuario_nome: 'Maria Santos Oliveira',
     credenciado_id: 'CRED-004',
     nome_credenciado: 'Lab Einstein',
@@ -279,7 +278,7 @@ export const PROCEDIMENTOS_TRT = [
   },
   {
     id: 'PROC-003',
-    matricula_usuario: 'TRT0002',
+    matricula_usuario: 'TRE0002',
     usuario_nome: 'João Carlos Silva',
     credenciado_id: 'CRED-001',
     nome_credenciado: 'Hospital Metropolitano',
@@ -299,10 +298,10 @@ export const PROCEDIMENTOS_TRT = [
   },
   {
     id: 'PROC-004',
-    matricula_usuario: 'TRT0003',
+    matricula_usuario: 'TRE0003',
     usuario_nome: 'Ana Paula Costa',
     credenciado_id: 'CRED-003',
-    nome_credenciado: 'Hospital de Clínicas do Amapá',
+    nome_credenciado: 'Hospital Regional do Baixo Amazonas',
     tipo: 'Cirurgia' as const,
     especialidade: 'Ortopedia',
     cid: 'M23',
@@ -319,7 +318,7 @@ export const PROCEDIMENTOS_TRT = [
   },
   {
     id: 'PROC-005',
-    matricula_usuario: 'TRT0004',
+    matricula_usuario: 'TRE0004',
     usuario_nome: 'Pedro Henrique Lima',
     credenciado_id: 'CRED-005',
     nome_credenciado: 'Clínica São Lucas',
@@ -340,7 +339,7 @@ export const PROCEDIMENTOS_TRT = [
 ] as const;
 
 // Itens/Insumos de Faturas (extraídos do XML TISS)
-export const ITENS_FATURA_TRT = [
+export const ITENS_FATURA_TRE = [
   // FAT-001 - Consulta Cardiológica
   {
     id: 'ITEM-001',
@@ -555,10 +554,10 @@ export const ITENS_FATURA_TRT = [
 ] as const;
 
 // Notificações para Servidores
-export const NOTIFICACOES_TRT = [
+export const NOTIFICACOES_TRE = [
   {
     id: 'NOTIF-001',
-    matricula: 'TRT0001',
+    matricula: 'TRE0001',
     titulo: 'Agendamento Confirmado',
     mensagem: 'Sua consulta cardiológica foi agendada para 15/01/2024 às 14h.',
     tipo: 'agendamento' as const,
@@ -567,7 +566,7 @@ export const NOTIFICACOES_TRT = [
   },
   {
     id: 'NOTIF-002',
-    matricula: 'TRT0001',
+    matricula: 'TRE0001',
     titulo: 'Exame Disponível',
     mensagem: 'O resultado do seu check-up laboratorial está disponível.',
     tipo: 'resultado' as const,
@@ -576,7 +575,7 @@ export const NOTIFICACOES_TRT = [
   },
   {
     id: 'NOTIF-003',
-    matricula: 'TRT0001',
+    matricula: 'TRE0001',
     titulo: 'Autorização Pendente',
     mensagem: 'Solicitação de ecocardiograma aguardando aprovação.',
     tipo: 'autorizacao' as const,
@@ -585,7 +584,7 @@ export const NOTIFICACOES_TRT = [
   },
   {
     id: 'NOTIF-004',
-    matricula: 'TRT0002',
+    matricula: 'TRE0002',
     titulo: 'Internação Registrada',
     mensagem: 'Alta hospitalar registrada em 05/03/2024.',
     tipo: 'internacao' as const,
@@ -595,7 +594,7 @@ export const NOTIFICACOES_TRT = [
 ] as const;
 
 // Faturas
-export const FATURAS_TRT = [
+export const FATURAS_TRE = [
   {
     id: 'FAT-001',
     procedimento_id: 'PROC-001',
@@ -653,7 +652,7 @@ export const FATURAS_TRT = [
 ] as const;
 
 // Modelos de laudos médicos
-export const MODELOS_LAUDOS_TRT = {
+export const MODELOS_LAUDOS_TRE = {
   consulta_cardiologia: {
     especialidade: 'Cardiologia',
     medico: 'Dr. Roberto Fernandes Silva - CRM/PA 4589',
@@ -839,10 +838,10 @@ Tomografia de crânio sem alterações significativas.`
 };
 
 // Histórico de saúde por categoria
-export const HISTORICO_SAUDE_TRT = [
+export const HISTORICO_SAUDE_TRE = [
   {
     id: 'HIST-001',
-    matricula: 'TRT0001',
+    matricula: 'TRE0001',
     usuario_nome: 'Maria Santos Oliveira',
     categoria: 'Consultas' as const,
     procedimento_id: 'PROC-001',
@@ -850,11 +849,11 @@ export const HISTORICO_SAUDE_TRT = [
     resultado: 'Paciente hipertenso controlado. Manter medicação.',
     pdf_url: '/docs/consulta_cardio_001.pdf',
     data_realizacao: '2024-01-15',
-    laudo: MODELOS_LAUDOS_TRT.consulta_cardiologia,
+    laudo: MODELOS_LAUDOS_TRE.consulta_cardiologia,
   },
   {
     id: 'HIST-002',
-    matricula: 'TRT0001',
+    matricula: 'TRE0001',
     usuario_nome: 'Maria Santos Oliveira',
     categoria: 'Exames' as const,
     procedimento_id: 'PROC-002',
@@ -862,11 +861,11 @@ export const HISTORICO_SAUDE_TRT = [
     resultado: 'Colesterol LDL: 160mg/dL (elevado). Demais parâmetros normais.',
     pdf_url: '/docs/exames_checkup_002.pdf',
     data_realizacao: '2024-02-10',
-    laudo: MODELOS_LAUDOS_TRT.exame_laboratorial,
+    laudo: MODELOS_LAUDOS_TRE.exame_laboratorial,
   },
   {
     id: 'HIST-003',
-    matricula: 'TRT0001',
+    matricula: 'TRE0001',
     usuario_nome: 'Maria Santos Oliveira',
     categoria: 'Exames' as const,
     procedimento_id: 'PROC-005',
@@ -874,11 +873,11 @@ export const HISTORICO_SAUDE_TRT = [
     resultado: 'Sem alterações significativas.',
     pdf_url: '/docs/raiox_torax_005.pdf',
     data_realizacao: '2024-01-20',
-    laudo: MODELOS_LAUDOS_TRT.raio_x,
+    laudo: MODELOS_LAUDOS_TRE.raio_x,
   },
   {
     id: 'HIST-004',
-    matricula: 'TRT0001',
+    matricula: 'TRE0001',
     usuario_nome: 'Maria Santos Oliveira',
     categoria: 'Exames' as const,
     procedimento_id: 'PROC-006',
@@ -886,11 +885,11 @@ export const HISTORICO_SAUDE_TRT = [
     resultado: 'ECG normal.',
     pdf_url: '/docs/ecg_006.pdf',
     data_realizacao: '2024-01-22',
-    laudo: MODELOS_LAUDOS_TRT.eletrocardiograma,
+    laudo: MODELOS_LAUDOS_TRE.eletrocardiograma,
   },
   {
     id: 'HIST-005',
-    matricula: 'TRT0001',
+    matricula: 'TRE0001',
     usuario_nome: 'Maria Santos Oliveira',
     categoria: 'Exames' as const,
     procedimento_id: 'PROC-007',
@@ -898,11 +897,11 @@ export const HISTORICO_SAUDE_TRT = [
     resultado: 'Sem alterações.',
     pdf_url: '/docs/usg_abdominal_007.pdf',
     data_realizacao: '2024-02-05',
-    laudo: MODELOS_LAUDOS_TRT.ultrassom,
+    laudo: MODELOS_LAUDOS_TRE.ultrassom,
   },
   {
     id: 'HIST-006',
-    matricula: 'TRT0002',
+    matricula: 'TRE0002',
     usuario_nome: 'João Carlos Silva',
     categoria: 'Internações' as const,
     procedimento_id: 'PROC-003',
@@ -914,7 +913,7 @@ export const HISTORICO_SAUDE_TRT = [
   },
   {
     id: 'HIST-007',
-    matricula: 'TRT0003',
+    matricula: 'TRE0003',
     usuario_nome: 'Ana Paula Costa',
     categoria: 'Cirurgias' as const,
     procedimento_id: 'PROC-004',
@@ -927,19 +926,19 @@ export const HISTORICO_SAUDE_TRT = [
 ] as const;
 
 // Usuários do sistema (perfis)
-export const USUARIOS_SISTEMA_TRT = [
+export const USUARIOS_SISTEMA_TRE = [
   {
     id: 'USER-001',
-    nome: 'Administrador TRT',
-    email: 'admin@trt8.jus.br',
-    perfil: 'Gestor_TRT' as const,
+    nome: 'Administrador TRE',
+    email: 'admin@tre-pa.jus.br',
+    perfil: 'Gestor_TRE' as const,
     permissoes: ['dashboard', 'relatorios', 'auditoria', 'cadastros', 'configuracoes'],
     ultimo_acesso: new Date().toISOString(),
   },
   {
     id: 'USER-002',
     nome: 'Auditor Contábil',
-    email: 'auditor@trt8.jus.br',
+    email: 'auditor@tre-pa.jus.br',
     perfil: 'Auditor' as const,
     permissoes: ['auditoria', 'faturas', 'checklist', 'glosas'],
     ultimo_acesso: new Date().toISOString(),
@@ -956,10 +955,10 @@ export const USUARIOS_SISTEMA_TRT = [
   {
     id: 'USER-004',
     nome: 'Maria Santos Oliveira',
-    email: 'maria.oliveira@trt8.jus.br',
-    perfil: 'Funcionario_TRT' as const,
+    email: 'maria.oliveira@tre-pa.jus.br',
+    perfil: 'Funcionario_TRE' as const,
     permissoes: ['visualizar_historico', 'agendar_procedimento', 'visualizar_status'],
-    matricula: 'TRT0001',
+    matricula: 'TRE0001',
     ultimo_acesso: new Date().toISOString(),
   },
 ] as const;
@@ -969,15 +968,15 @@ export const CHECKLIST_AUDITORIA = [
   { id: 1, item: 'XML válido e completo', verificado: true, obrigatorio: true },
   { id: 2, item: 'PDF legível e assinado', verificado: true, obrigatorio: true },
   { id: 3, item: 'Procedimento compatível com CID', verificado: true, obrigatorio: true },
-  { id: 4, item: 'Valor conforme tabela TRT', verificado: true, obrigatorio: true },
+  { id: 4, item: 'Valor conforme tabela TRE', verificado: true, obrigatorio: true },
   { id: 5, item: 'Autorização prévia verificada', verificado: true, obrigatorio: true },
   { id: 6, item: 'Guia de internação (se aplicável)', verificado: false, obrigatorio: false },
   { id: 7, item: 'Laudo médico anexado', verificado: true, obrigatorio: true },
-  { id: 8, item: 'Carteirinha TRT validada', verificado: true, obrigatorio: true },
+  { id: 8, item: 'Carteirinha TRE validada', verificado: true, obrigatorio: true },
 ] as const;
 
 // Estatísticas para dashboards
-export const ESTATISTICAS_TRT = {
+export const ESTATISTICAS_TRE = {
   total_servidores: 245,
   total_credenciados: 28,
   total_procedimentos_ano: 1250,
@@ -990,9 +989,12 @@ export const ESTATISTICAS_TRT = {
     cirurgias: 55,
   },
   
-  por_estado: {
-    PA: 890,
-    AP: 360,
+  // Procedimentos por polo regional (soma = total_procedimentos_ano)
+  por_polo: {
+    'Belém (RMB)': 690,
+    'Santarém': 260,
+    'Marabá': 180,
+    'Castanhal': 120,
   },
   
   valor_total_processado: 2850000.00,
@@ -1009,7 +1011,7 @@ export const ESTATISTICAS_TRT = {
 } as const;
 
 // Fluxo de status
-export const FLUXO_STATUS_TRT = [
+export const FLUXO_STATUS_TRE = [
   'Solicitado',
   'Validado',
   'Agendado',
@@ -1023,18 +1025,18 @@ export const FLUXO_STATUS_TRT = [
 
 // Exportações
 export default {
-  CORES_TRT,
-  IDENTIDADE_TRT,
+  CORES_TRE,
+  IDENTIDADE_TRE,
   ESTADOS_JURISDICAO,
-  SERVIDORES_TRT,
-  CREDENCIADOS_TRT,
-  PROCEDIMENTOS_TRT,
-  FATURAS_TRT,
-  HISTORICO_SAUDE_TRT,
-  USUARIOS_SISTEMA_TRT,
+  SERVIDORES_TRE,
+  CREDENCIADOS_TRE,
+  PROCEDIMENTOS_TRE,
+  FATURAS_TRE,
+  HISTORICO_SAUDE_TRE,
+  USUARIOS_SISTEMA_TRE,
   CHECKLIST_AUDITORIA,
-  ESTATISTICAS_TRT,
-  FLUXO_STATUS_TRT,
-  ITENS_FATURA_TRT,
-  NOTIFICACOES_TRT,
+  ESTATISTICAS_TRE,
+  FLUXO_STATUS_TRE,
+  ITENS_FATURA_TRE,
+  NOTIFICACOES_TRE,
 };

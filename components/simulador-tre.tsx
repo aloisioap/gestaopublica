@@ -21,11 +21,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import {
-  CORES_TRT,
-  SERVIDORES_TRT,
-  CREDENCIADOS_TRT,
-  FLUXO_STATUS_TRT,
-} from "@/lib/dados-trt-8a-regiao";
+  CORES_TRE,
+  SERVIDORES_TRE,
+  CREDENCIADOS_TRE,
+  FLUXO_STATUS_TRE,
+} from "@/lib/dados-tre";
 
 interface PassoSimulacao {
   id: number;
@@ -76,7 +76,7 @@ type CredenciadoTipo = {
   avaliacao: number;
 };
 
-export function SimuladorProtocoloTRT() {
+export function SimuladorProtocoloTRE() {
   const [simulando, setSimulando] = useState(false);
   const [passos, setPassos] = useState<PassoSimulacao[]>([]);
   const [progresso, setProgresso] = useState(0);
@@ -93,14 +93,14 @@ export function SimuladorProtocoloTRT() {
     setResultado("");
 
     // Seleciona dados aleatórios
-    const servidor = JSON.parse(JSON.stringify(SERVIDORES_TRT[Math.floor(Math.random() * SERVIDORES_TRT.length)])) as ServidorTipo;
-    const credenciado = JSON.parse(JSON.stringify(CREDENCIADOS_TRT[Math.floor(Math.random() * CREDENCIADOS_TRT.length)])) as CredenciadoTipo;
+    const servidor = JSON.parse(JSON.stringify(SERVIDORES_TRE[Math.floor(Math.random() * SERVIDORES_TRE.length)])) as ServidorTipo;
+    const credenciado = JSON.parse(JSON.stringify(CREDENCIADOS_TRE[Math.floor(Math.random() * CREDENCIADOS_TRE.length)])) as CredenciadoTipo;
     const tiposProcedimento = ["Consulta", "Exame", "Internação", "Cirurgia"];
     const procedimento = tiposProcedimento[Math.floor(Math.random() * tiposProcedimento.length)];
 
     setDadosSimulacao({ servidor, credenciado, procedimento });
 
-    // Define passos do fluxo TRT
+    // Define passos do fluxo TRE
     const passosSimulacao: PassoSimulacao[] = [
       {
         id: 1,
@@ -137,7 +137,7 @@ export function SimuladorProtocoloTRT() {
       {
         id: 5,
         titulo: "Auditoria TIS",
-        descricao: "Análise conforme checklist TRT",
+        descricao: "Análise conforme checklist TRE",
         icone: <ClipboardCheck className="h-5 w-5" />,
         status: "pendente",
         tempo_estimado: "15 min",
@@ -217,13 +217,13 @@ export function SimuladorProtocoloTRT() {
   const getStatusIcon = (status: PassoSimulacao["status"]) => {
     switch (status) {
       case "concluido":
-        return <CheckCircle className="h-5 w-5" style={{ color: CORES_TRT.sucesso }} />;
+        return <CheckCircle className="h-5 w-5" style={{ color: CORES_TRE.sucesso }} />;
       case "processando":
-        return <Loader2 className="h-5 w-5 animate-spin" style={{ color: CORES_TRT.info }} />;
+        return <Loader2 className="h-5 w-5 animate-spin" style={{ color: CORES_TRE.info }} />;
       case "aviso":
-        return <AlertCircle className="h-5 w-5" style={{ color: CORES_TRT.alerta }} />;
+        return <AlertCircle className="h-5 w-5" style={{ color: CORES_TRE.alerta }} />;
       case "erro":
-        return <AlertCircle className="h-5 w-5" style={{ color: CORES_TRT.erro }} />;
+        return <AlertCircle className="h-5 w-5" style={{ color: CORES_TRE.erro }} />;
       default:
         return <Clock className="h-5 w-5 text-slate-400" />;
     }
@@ -234,7 +234,7 @@ export function SimuladorProtocoloTRT() {
       return (
         <Badge
           className="text-white px-4 py-2 text-base"
-          style={{ backgroundColor: CORES_TRT.sucesso }}
+          style={{ backgroundColor: CORES_TRE.sucesso }}
         >
           ✅ PROCESSO APROVADO
         </Badge>
@@ -243,7 +243,7 @@ export function SimuladorProtocoloTRT() {
       return (
         <Badge
           className="text-white px-4 py-2 text-base"
-          style={{ backgroundColor: CORES_TRT.alerta }}
+          style={{ backgroundColor: CORES_TRE.alerta }}
         >
           ⚠️ GLOSA PARCIAL
         </Badge>
@@ -262,7 +262,7 @@ export function SimuladorProtocoloTRT() {
             size="lg"
             className="text-white px-8 py-6 text-lg font-semibold shadow-lg"
             style={{
-              background: `linear-gradient(135deg, ${CORES_TRT.primaria} 0%, ${CORES_TRT.secundaria} 100%)`,
+              background: `linear-gradient(135deg, ${CORES_TRE.primaria} 0%, ${CORES_TRE.secundaria} 100%)`,
             }}
           >
             <Play className="h-5 w-5 mr-2" />
@@ -287,7 +287,7 @@ export function SimuladorProtocoloTRT() {
 
       {/* Dados da Simulação */}
       {dadosSimulacao.servidor && (
-        <Card className="mb-6" style={{ backgroundColor: `${CORES_TRT.primaria}08` }}>
+        <Card className="mb-6" style={{ backgroundColor: `${CORES_TRE.primaria}08` }}>
           <CardContent className="p-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
@@ -337,11 +337,11 @@ export function SimuladorProtocoloTRT() {
               style={{
                 borderLeftColor:
                   passo.status === "concluido"
-                    ? CORES_TRT.sucesso
+                    ? CORES_TRE.sucesso
                     : passo.status === "processando"
-                    ? CORES_TRT.info
+                    ? CORES_TRE.info
                     : passo.status === "aviso"
-                    ? CORES_TRT.alerta
+                    ? CORES_TRE.alerta
                     : "#94a3b8",
               }}
             >
@@ -393,11 +393,11 @@ export function SimuladorProtocoloTRT() {
         <Card
           className="border-2"
           style={{
-            borderColor: resultado === "aprovado" ? CORES_TRT.sucesso : CORES_TRT.alerta,
+            borderColor: resultado === "aprovado" ? CORES_TRE.sucesso : CORES_TRE.alerta,
             backgroundColor:
               resultado === "aprovado"
-                ? `${CORES_TRT.sucesso}10`
-                : `${CORES_TRT.alerta}10`,
+                ? `${CORES_TRE.sucesso}10`
+                : `${CORES_TRE.alerta}10`,
           }}
         >
           <CardContent className="p-6">
@@ -408,19 +408,19 @@ export function SimuladorProtocoloTRT() {
 
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="text-center p-3 bg-white rounded-lg shadow-sm">
-                <div className="text-2xl font-bold" style={{ color: CORES_TRT.sucesso }}>
+                <div className="text-2xl font-bold" style={{ color: CORES_TRE.sucesso }}>
                   {passos.filter((p) => p.status === "concluido").length}
                 </div>
                 <div className="text-xs text-slate-600">Passos Concluídos</div>
               </div>
               <div className="text-center p-3 bg-white rounded-lg shadow-sm">
-                <div className="text-2xl font-bold" style={{ color: CORES_TRT.alerta }}>
+                <div className="text-2xl font-bold" style={{ color: CORES_TRE.alerta }}>
                   {passos.filter((p) => p.status === "aviso").length}
                 </div>
                 <div className="text-xs text-slate-600">Alertas</div>
               </div>
               <div className="text-center p-3 bg-white rounded-lg shadow-sm">
-                <div className="text-2xl font-bold" style={{ color: CORES_TRT.info }}>
+                <div className="text-2xl font-bold" style={{ color: CORES_TRE.info }}>
                   {Math.round(progresso)}%
                 </div>
                 <div className="text-xs text-slate-600">Progresso</div>
@@ -432,7 +432,7 @@ export function SimuladorProtocoloTRT() {
                 onClick={iniciarSimulacao}
                 variant="outline"
                 className="flex-1"
-                style={{ borderColor: CORES_TRT.primaria, color: CORES_TRT.primaria }}
+                style={{ borderColor: CORES_TRE.primaria, color: CORES_TRE.primaria }}
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Simular Novamente

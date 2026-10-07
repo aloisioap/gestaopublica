@@ -1,5 +1,5 @@
 // ============================================================
-// DADOS DE RECIPROCIDADE - TRT 8ª Região
+// DADOS DE RECIPROCIDADE - TRE-PA
 // Convênios: AUMED, CACI, e outros planos
 // ============================================================
 

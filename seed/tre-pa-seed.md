@@ -1,40 +1,40 @@
-# TRT 8ª Região - Instruções de Instalação
+# TRE-PA - Instruções de Instalação
 
 ## Schema do Banco de Dados
 
-Execute o arquivo `trt-8a-regiao-schema.sql` no SQL Editor do Supabase.
+Execute o arquivo `tre-pa-schema.sql` no SQL Editor do Supabase.
 
 ## Estrutura das Tabelas
 
-### 1. trt_usuarios
-Servidores do TRT (beneficiários do plano de saúde)
+### 1. tre_usuarios
+Servidores do TRE (beneficiários do plano de saúde)
 
-### 2. trt_credenciados
+### 2. tre_credenciados
 Hospitais, clínicas, laboratórios e consultórios credenciados
 
-### 3. trt_procedimentos
+### 3. tre_procedimentos
 Procedimentos médicos solicitados e executados
 
-### 4. trt_faturas
+### 4. tre_faturas
 Faturas com XML TISS e PDFs categorizados
 
-### 5. trt_historico_saude
+### 5. tre_historico_saude
 Histórico de saúde do servidor por categoria
 
-### 6. trt_usuarios_sistema
+### 6. tre_usuarios_sistema
 Usuários do sistema (Gestor, Auditor, Credenciado, Servidor)
 
-### 7. trt_checklist_auditoria
+### 7. tre_checklist_auditoria
 Checklist de itens para auditoria
 
 ## Perfis de Acesso
 
 | Perfil | Acesso | Funcionalidades |
 |--------|--------|-----------------|
-| Gestor_TRT | Total | Dashboards, relatórios, configurações |
+| Gestor_TRE | Total | Dashboards, relatórios, configurações |
 | Auditor | Auditoria | Checklist, faturas, glosas |
 | Credenciado | Limitado | Upload de XML/PDF, validação de pacientes |
-| Funcionario_TRT | Próprio | Histórico, agendamentos, documentos |
+| Funcionario_TRE | Próprio | Histórico, agendamentos, documentos |
 
 ## Fluxo do Processo
 
@@ -55,16 +55,16 @@ Checklist de itens para auditoria
 ## Dados de Teste
 
 ### Servidores:
-- TRT0001: Maria Santos Oliveira (Belém-PA)
-- TRT0002: João Carlos Silva (Belém-PA)
-- TRT0003: Ana Paula Costa (Macapá-AP)
-- TRT0004: Pedro Henrique Lima (Belém-PA)
-- TRT0005: Fernanda Souza (Belém-PA)
+- TRE0001: Maria Santos Oliveira (Belém-PA)
+- TRE0002: João Carlos Silva (Belém-PA)
+- TRE0003: Ana Paula Costa (Santarém-PA)
+- TRE0004: Pedro Henrique Lima (Belém-PA)
+- TRE0005: Fernanda Souza (Belém-PA)
 
 ### Credenciados:
 - Hospital Metropolitano (Belém-PA)
 - Clínica Santa Maria (Belém-PA)
-- Hospital de Clínicas do Amapá (Macapá-AP)
+- Hospital Regional do Baixo Amazonas (Santarém-PA)
 - Laboratório Einstein (Belém-PA)
 - Clínica São Lucas (Belém-PA)
 
@@ -78,19 +78,19 @@ Checklist de itens para auditoria
 ## Cores da Identidade Visual
 
 ```css
---trt-primaria: #1E3A5F;      /* Azul Marinho */
---trt-secundaria: #C8A415;    /* Dourado */
---trt-terciaria: #00796B;     /* Verde Amazônia */
---trt-destaque: #D84315;      /* Laranja/Terra */
+--tre-primaria: #1E3A5F;      /* Azul Marinho */
+--tre-secundaria: #C8A415;    /* Dourado */
+--tre-terciaria: #00796B;     /* Verde Amazônia */
+--tre-destaque: #D84315;      /* Laranja/Terra */
 ```
 
 ## URLs de Acesso
 
-- Hub Principal: `/trt`
-- Portal do Servidor: `/trt/usuario`
-- Painel Gerencial: `/trt/gestor`
-- Área do Credenciado: `/trt/prestador`
-- Auditoria TIS: `/trt/auditor`
+- Hub Principal: `/tre`
+- Portal do Servidor: `/tre/usuario`
+- Painel Gerencial: `/tre/gestor`
+- Área do Credenciado: `/tre/prestador`
+- Auditoria TIS: `/tre/auditor`
 
 ## Validação
 

@@ -1,6 +1,6 @@
 // ============================================================
 // DADOS OPME - ÓRTESES, PRÓTESES E MATERIAIS ESPECIAIS
-// TRT 8ª Região - Pareceres Automatizados
+// TRE-PA - Pareceres Automatizados
 // ============================================================
 
 export interface ProcedimentoOPME {
@@ -620,7 +620,7 @@ export const MODELOS_PARECER: ParecerOPME[] = [
       "Acompanhamento fisioterápico obrigatório",
     ],
     dataValidade: "90 dias",
-    observacoes: "Autorização concedida conforme protocolo OPME TRT."
+    observacoes: "Autorização concedida conforme protocolo OPME TRE."
   },
   {
     id: "PARECER-002",
