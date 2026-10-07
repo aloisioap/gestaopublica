@@ -9,7 +9,7 @@ const projetos = [
   { id: "bairro", numero: "Projeto 1" },
   { id: "gabinete", numero: "Projeto 2" },
   { id: "funsau", numero: "Projeto 3" },
-  { id: "trt", numero: "Projeto 4" },
+  { id: "tre", numero: "Projeto 4" },
   { id: "saude-municipal", numero: "Projeto 5" },
 ];
 

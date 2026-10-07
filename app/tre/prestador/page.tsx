@@ -34,13 +34,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CORES_TRT, CREDENCIADOS_TRT, SERVIDORES_TRT, FATURAS_TRT, ITENS_FATURA_TRT } from "@/lib/dados-trt-8a-regiao";
+import { CORES_TRE, CREDENCIADOS_TRE, SERVIDORES_TRE, FATURAS_TRE, ITENS_FATURA_TRE } from "@/lib/dados-tre";
 
 // Processos liberados para execução (mock)
 const PROCESSOS_LIBERADOS = [
   {
     id: "PROC-LIB-001",
-    matricula: "TRT0001",
+    matricula: "TRE0001",
     tipo: "Consulta",
     descricao: "Consulta Cardiológica de Retorno",
     data_autorizacao: "2024-01-10",
@@ -50,7 +50,7 @@ const PROCESSOS_LIBERADOS = [
   },
   {
     id: "PROC-LIB-002",
-    matricula: "TRT0001",
+    matricula: "TRE0001",
     tipo: "Exame",
     descricao: "Hemograma Completo",
     data_autorizacao: "2024-01-10",
@@ -132,12 +132,12 @@ type ItemExtra = {
   documento_justificativa: string;
 };
 
-export default function AreaPrestadorTRT() {
-  const [credenciado] = useState(CREDENCIADOS_TRT[0]);
+export default function AreaPrestadorTRE() {
+  const [credenciado] = useState(CREDENCIADOS_TRE[0]);
   const [matriculaBusca, setMatriculaBusca] = useState("");
   const [servidorEncontrado, setServidorEncontrado] = useState<ServidorTipo | null>(null);
   const [processosServidor, setProcessosServidor] = useState<typeof PROCESSOS_LIBERADOS>([]);
-  const [faturas] = useState<FaturaTipo[]>(FATURAS_TRT.filter((f) => f.credenciado_id === credenciado.id).map(f => ({...f})));
+  const [faturas] = useState<FaturaTipo[]>(FATURAS_TRE.filter((f) => f.credenciado_id === credenciado.id).map(f => ({...f})));
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
   const [matriculaUpload, setMatriculaUpload] = useState("");
   const [processoSelecionado, setProcessoSelecionado] = useState<any | null>(null);
@@ -157,13 +157,13 @@ export default function AreaPrestadorTRT() {
   });
 
   const buscarServidor = () => {
-    const servidor = SERVIDORES_TRT.find((s) => s.matricula === matriculaBusca) as ServidorTipo | undefined;
+    const servidor = SERVIDORES_TRE.find((s) => s.matricula === matriculaBusca) as ServidorTipo | undefined;
     if (servidor) {
       setServidorEncontrado(servidor);
       const processos = PROCESSOS_LIBERADOS.filter((p) => p.matricula === servidor.matricula);
       setProcessosServidor(processos);
     } else {
-      alert("Servidor não encontrado. Tente: TRT0001, TRT0002, TRT0003, TRT0004 ou TRT0005");
+      alert("Servidor não encontrado. Tente: TRE0001, TRE0002, TRE0003, TRE0004 ou TRE0005");
       setProcessosServidor([]);
     }
   };
@@ -206,7 +206,7 @@ export default function AreaPrestadorTRT() {
   };
 
   const abrirModalStatus = (faturaId: string) => {
-    const itens = ITENS_FATURA_TRT.filter((i) => i.fatura_id === faturaId);
+    const itens = ITENS_FATURA_TRE.filter((i) => i.fatura_id === faturaId);
     if (itens.length > 0) {
       setProcessoSelecionado({ fatura_id: faturaId, itens });
       setModalStatusAberto(true);
@@ -219,17 +219,17 @@ export default function AreaPrestadorTRT() {
   };
 
   const getItensFatura = (faturaId: string) => {
-    return ITENS_FATURA_TRT.filter((i) => i.fatura_id === faturaId);
+    return ITENS_FATURA_TRE.filter((i) => i.fatura_id === faturaId);
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "Paga":
-        return <Badge style={{ backgroundColor: CORES_TRT.sucesso }}>Paga</Badge>;
+        return <Badge style={{ backgroundColor: CORES_TRE.sucesso }}>Paga</Badge>;
       case "Auditada":
-        return <Badge style={{ backgroundColor: CORES_TRT.info }}>Auditada</Badge>;
+        return <Badge style={{ backgroundColor: CORES_TRE.info }}>Auditada</Badge>;
       case "Glosada":
-        return <Badge style={{ backgroundColor: CORES_TRT.alerta }}>Glosada</Badge>;
+        return <Badge style={{ backgroundColor: CORES_TRE.alerta }}>Glosada</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -238,31 +238,31 @@ export default function AreaPrestadorTRT() {
   const getIconeTipo = (tipo: string) => {
     switch (tipo) {
       case "Insumo":
-        return <Syringe className="h-4 w-4" style={{ color: CORES_TRT.terciaria }} />;
+        return <Syringe className="h-4 w-4" style={{ color: CORES_TRE.terciaria }} />;
       case "Medicamento":
-        return <Pill className="h-4 w-4" style={{ color: CORES_TRT.erro }} />;
+        return <Pill className="h-4 w-4" style={{ color: CORES_TRE.erro }} />;
       case "Material":
-        return <Package className="h-4 w-4" style={{ color: CORES_TRT.destaque }} />;
+        return <Package className="h-4 w-4" style={{ color: CORES_TRE.destaque }} />;
       case "Procedimento":
-        return <Stethoscope className="h-4 w-4" style={{ color: CORES_TRT.info }} />;
+        return <Stethoscope className="h-4 w-4" style={{ color: CORES_TRE.info }} />;
       default:
-        return <FileText className="h-4 w-4" style={{ color: CORES_TRT.primaria }} />;
+        return <FileText className="h-4 w-4" style={{ color: CORES_TRE.primaria }} />;
     }
   };
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: CORES_TRT.fundo }}>
+    <main className="min-h-screen" style={{ backgroundColor: CORES_TRE.fundo }}>
       {/* Header */}
       <header
         className="text-white shadow-lg"
         style={{
-          background: `linear-gradient(135deg, ${CORES_TRT.terciaria} 0%, ${CORES_TRT.primaria} 100%)`,
+          background: `linear-gradient(135deg, ${CORES_TRE.terciaria} 0%, ${CORES_TRE.primaria} 100%)`,
         }}
       >
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Link href="/trt">
+              <Link href="/tre">
                 <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
                   <ArrowLeft className="h-5 w-5" />
                 </Button>
@@ -287,9 +287,9 @@ export default function AreaPrestadorTRT() {
 
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Validação de Servidor */}
-        <Card className="mb-6 border-2" style={{ borderColor: CORES_TRT.terciaria }}>
+        <Card className="mb-6 border-2" style={{ borderColor: CORES_TRE.terciaria }}>
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2" style={{ color: CORES_TRT.primaria }}>
+            <CardTitle className="flex items-center gap-2" style={{ color: CORES_TRE.primaria }}>
               <QrCode className="h-5 w-5" />
               Validação de Servidor
             </CardTitle>
@@ -299,21 +299,21 @@ export default function AreaPrestadorTRT() {
               <div className="flex-1">
                 <div className="flex gap-2">
                   <Input
-                    placeholder="Digite a matrícula do servidor (ex: TRT0001)"
+                    placeholder="Digite a matrícula do servidor (ex: TRE0001)"
                     value={matriculaBusca}
                     onChange={(e) => setMatriculaBusca(e.target.value)}
                     className="flex-1"
                   />
                   <Button
                     onClick={buscarServidor}
-                    style={{ backgroundColor: CORES_TRT.terciaria }}
+                    style={{ backgroundColor: CORES_TRE.terciaria }}
                   >
                     <Search className="h-4 w-4 mr-2" />
                     Buscar
                   </Button>
                 </div>
                 <p className="text-xs text-slate-500 mt-2">
-                  Dica: Use matrículas de demonstração: TRT0001, TRT0002, TRT0003, TRT0004 ou TRT0005
+                  Dica: Use matrículas de demonstração: TRE0001, TRE0002, TRE0003, TRE0004 ou TRE0005
                 </p>
               </div>
             </div>
@@ -323,7 +323,7 @@ export default function AreaPrestadorTRT() {
                 {/* Dados do Servidor */}
                 <div
                   className="p-4 rounded-lg border-l-4"
-                  style={{ backgroundColor: `${CORES_TRT.sucesso}10`, borderLeftColor: CORES_TRT.sucesso }}
+                  style={{ backgroundColor: `${CORES_TRE.sucesso}10`, borderLeftColor: CORES_TRE.sucesso }}
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center">
@@ -332,7 +332,7 @@ export default function AreaPrestadorTRT() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <h3 className="font-bold text-lg">{servidorEncontrado.nome}</h3>
-                        <Badge style={{ backgroundColor: CORES_TRT.sucesso }}>
+                        <Badge style={{ backgroundColor: CORES_TRE.sucesso }}>
                           <CheckCircle className="h-3 w-3 mr-1" />
                           Válido
                         </Badge>
@@ -346,7 +346,7 @@ export default function AreaPrestadorTRT() {
                     </div>
                     <div className="text-center">
                       <div className="bg-white p-2 rounded-lg shadow">
-                        <QrCode className="h-16 w-16" style={{ color: CORES_TRT.primaria }} />
+                        <QrCode className="h-16 w-16" style={{ color: CORES_TRE.primaria }} />
                       </div>
                       <p className="text-xs mt-1 text-slate-500">QR Validado</p>
                     </div>
@@ -358,10 +358,10 @@ export default function AreaPrestadorTRT() {
                   <div className="border rounded-lg overflow-hidden">
                     <div
                       className="px-4 py-3 flex items-center gap-2"
-                      style={{ backgroundColor: `${CORES_TRT.info}15` }}
+                      style={{ backgroundColor: `${CORES_TRE.info}15` }}
                     >
-                      <CheckSquare className="h-5 w-5" style={{ color: CORES_TRT.info }} />
-                      <span className="font-semibold" style={{ color: CORES_TRT.primaria }}>
+                      <CheckSquare className="h-5 w-5" style={{ color: CORES_TRE.info }} />
+                      <span className="font-semibold" style={{ color: CORES_TRE.primaria }}>
                         Processos Liberados para Execução
                       </span>
                       <Badge className="ml-auto">{processosServidor.length} autorizações</Badge>
@@ -373,9 +373,9 @@ export default function AreaPrestadorTRT() {
                             <div className="flex-1">
                               <div className="flex items-center gap-2 mb-1">
                                 {processo.tipo === "Consulta" ? (
-                                  <Stethoscope className="h-4 w-4" style={{ color: CORES_TRT.info }} />
+                                  <Stethoscope className="h-4 w-4" style={{ color: CORES_TRE.info }} />
                                 ) : (
-                                  <Microscope className="h-4 w-4" style={{ color: CORES_TRT.terciaria }} />
+                                  <Microscope className="h-4 w-4" style={{ color: CORES_TRE.terciaria }} />
                                 )}
                                 <span className="font-medium">{processo.descricao}</span>
                                 <Badge variant="outline">{processo.tipo}</Badge>
@@ -385,7 +385,7 @@ export default function AreaPrestadorTRT() {
                                 Válido até: {new Date(processo.data_validade).toLocaleDateString("pt-BR")}
                               </p>
                             </div>
-                            <Badge style={{ backgroundColor: CORES_TRT.sucesso }}>{processo.status}</Badge>
+                            <Badge style={{ backgroundColor: CORES_TRE.sucesso }}>{processo.status}</Badge>
                           </div>
                         </div>
                       ))}
@@ -417,7 +417,7 @@ export default function AreaPrestadorTRT() {
           <TabsContent value="faturas" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle style={{ color: CORES_TRT.primaria }}>Minhas Faturas</CardTitle>
+                <CardTitle style={{ color: CORES_TRE.primaria }}>Minhas Faturas</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
@@ -444,11 +444,11 @@ export default function AreaPrestadorTRT() {
                             <td className="py-3">{fatura.procedimento_id}</td>
                             <td className="py-3">
                               <div className="flex gap-1">
-                                <Badge variant="outline" style={{ borderColor: CORES_TRT.sucesso, color: CORES_TRT.sucesso }}>
+                                <Badge variant="outline" style={{ borderColor: CORES_TRE.sucesso, color: CORES_TRE.sucesso }}>
                                   {itensAprovados} OK
                                 </Badge>
                                 {itensGlosados > 0 && (
-                                  <Badge variant="outline" style={{ borderColor: CORES_TRT.erro, color: CORES_TRT.erro }}>
+                                  <Badge variant="outline" style={{ borderColor: CORES_TRE.erro, color: CORES_TRE.erro }}>
                                     {itensGlosados} Glosa
                                   </Badge>
                                 )}
@@ -478,7 +478,7 @@ export default function AreaPrestadorTRT() {
             {/* Analisador de XML */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2" style={{ color: CORES_TRT.primaria }}>
+                <CardTitle className="flex items-center gap-2" style={{ color: CORES_TRE.primaria }}>
                   <FileSearch className="h-5 w-5" />
                   Analisador de XML TISS
                 </CardTitle>
@@ -487,18 +487,18 @@ export default function AreaPrestadorTRT() {
                 {/* Upload XML */}
                 <div className="p-6 border-2 border-dashed rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
                   <div className="text-center">
-                    <FileText className="h-12 w-12 mx-auto mb-3" style={{ color: CORES_TRT.info }} />
+                    <FileText className="h-12 w-12 mx-auto mb-3" style={{ color: CORES_TRE.info }} />
                     <h3 className="font-semibold text-lg">XML TISS</h3>
                     <p className="text-sm text-slate-500 mb-4">
                       Arraste ou clique para enviar o arquivo XML do protocolo TISS
                     </p>
                     <div className="flex justify-center gap-2">
-                      <Button variant="outline" style={{ borderColor: CORES_TRT.info, color: CORES_TRT.info }}>
+                      <Button variant="outline" style={{ borderColor: CORES_TRE.info, color: CORES_TRE.info }}>
                         Selecionar XML
                       </Button>
                       <Button 
                         onClick={analisarXml}
-                        style={{ backgroundColor: CORES_TRT.terciaria }}
+                        style={{ backgroundColor: CORES_TRE.terciaria }}
                       >
                         <FileSearch className="h-4 w-4 mr-2" />
                         Analisar XML
@@ -511,10 +511,10 @@ export default function AreaPrestadorTRT() {
                 {xmlAnalisado && (
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <h4 className="font-semibold" style={{ color: CORES_TRT.primaria }}>
+                      <h4 className="font-semibold" style={{ color: CORES_TRE.primaria }}>
                         Itens Extraídos do XML ({itensXml.length} itens)
                       </h4>
-                      <Badge style={{ backgroundColor: CORES_TRT.sucesso }}>
+                      <Badge style={{ backgroundColor: CORES_TRE.sucesso }}>
                         <CheckCircle className="h-3 w-3 mr-1" />
                         XML Válido
                       </Badge>
@@ -557,7 +557,7 @@ export default function AreaPrestadorTRT() {
                     {/* Total */}
                     <div className="p-4 bg-slate-50 rounded-lg flex justify-between items-center">
                       <span className="font-medium">Total dos Itens do XML:</span>
-                      <span className="text-xl font-bold" style={{ color: CORES_TRT.primaria }}>
+                      <span className="text-xl font-bold" style={{ color: CORES_TRE.primaria }}>
                         R$ {itensXml.reduce((acc, item) => acc + item.valor, 0).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                       </span>
                     </div>
@@ -569,7 +569,7 @@ export default function AreaPrestadorTRT() {
             {/* Insumos Extras (Não no XML) */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2" style={{ color: CORES_TRT.primaria }}>
+                <CardTitle className="flex items-center gap-2" style={{ color: CORES_TRE.primaria }}>
                   <Plus className="h-5 w-5" />
                   Itens Não Constantes no XML
                 </CardTitle>
@@ -620,7 +620,7 @@ export default function AreaPrestadorTRT() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => removerItemExtra(item.id)}
-                                style={{ color: CORES_TRT.erro }}
+                                style={{ color: CORES_TRE.erro }}
                               >
                                 <Trash2 className="h-4 w-4" />
                               </Button>
@@ -647,7 +647,7 @@ export default function AreaPrestadorTRT() {
                 {/* Formulário de Item Extra */}
                 {mostrarFormExtra && (
                   <div className="p-4 border rounded-lg space-y-4">
-                    <h4 className="font-semibold" style={{ color: CORES_TRT.primaria }}>
+                    <h4 className="font-semibold" style={{ color: CORES_TRE.primaria }}>
                       Novo Item Extra
                     </h4>
                     
@@ -742,7 +742,7 @@ export default function AreaPrestadorTRT() {
                       </Button>
                       <Button
                         onClick={adicionarItemExtra}
-                        style={{ backgroundColor: CORES_TRT.sucesso }}
+                        style={{ backgroundColor: CORES_TRE.sucesso }}
                       >
                         <Plus className="h-4 w-4 mr-2" />
                         Adicionar Item
@@ -755,7 +755,7 @@ export default function AreaPrestadorTRT() {
                 {itensExtras.length > 0 && (
                   <div className="p-4 bg-amber-50 rounded-lg border border-amber-200 flex justify-between items-center">
                     <span className="font-medium">Total de Itens Extras:</span>
-                    <span className="text-xl font-bold" style={{ color: CORES_TRT.destaque }}>
+                    <span className="text-xl font-bold" style={{ color: CORES_TRE.destaque }}>
                       R$ {itensExtras.reduce((acc, item) => acc + (item.quantidade * item.valor_unitario), 0).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                     </span>
                   </div>
@@ -766,8 +766,8 @@ export default function AreaPrestadorTRT() {
             {/* Matrícula e Envio */}
             <Card>
               <CardContent className="p-4 space-y-4">
-                <div className="p-4 border rounded-lg" style={{ backgroundColor: `${CORES_TRT.primaria}05` }}>
-                  <label className="block text-sm font-medium mb-2" style={{ color: CORES_TRT.primaria }}>
+                <div className="p-4 border rounded-lg" style={{ backgroundColor: `${CORES_TRE.primaria}05` }}>
+                  <label className="block text-sm font-medium mb-2" style={{ color: CORES_TRE.primaria }}>
                     Vincular ao Servidor (Matrícula)
                   </label>
                   <div className="flex gap-2">
@@ -787,7 +787,7 @@ export default function AreaPrestadorTRT() {
                   className="w-full"
                   size="lg"
                   disabled={!matriculaUpload || (!xmlAnalisado && itensExtras.length === 0)}
-                  style={{ backgroundColor: CORES_TRT.terciaria }}
+                  style={{ backgroundColor: CORES_TRE.terciaria }}
                 >
                   <Upload className="h-4 w-4 mr-2" />
                   Enviar Fatura Completa
@@ -799,7 +799,7 @@ export default function AreaPrestadorTRT() {
           <TabsContent value="status" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle style={{ color: CORES_TRT.primaria }}>Status das Faturas em Trâmite</CardTitle>
+                <CardTitle style={{ color: CORES_TRE.primaria }}>Status das Faturas em Trâmite</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -818,13 +818,13 @@ export default function AreaPrestadorTRT() {
                         
                         {/* Resumo de Itens */}
                         <div className="flex gap-2 mb-2">
-                          <Badge variant="outline" style={{ borderColor: CORES_TRT.sucesso, color: CORES_TRT.sucesso }}>
+                          <Badge variant="outline" style={{ borderColor: CORES_TRE.sucesso, color: CORES_TRE.sucesso }}>
                             {itens.filter(i => i.status_auditoria === "Aprovado").length} Aprovados
                           </Badge>
-                          <Badge variant="outline" style={{ borderColor: CORES_TRT.erro, color: CORES_TRT.erro }}>
+                          <Badge variant="outline" style={{ borderColor: CORES_TRE.erro, color: CORES_TRE.erro }}>
                             {itens.filter(i => i.status_auditoria === "Glosado").length} Glosados
                           </Badge>
-                          <Badge variant="outline" style={{ borderColor: CORES_TRT.alerta, color: CORES_TRT.alerta }}>
+                          <Badge variant="outline" style={{ borderColor: CORES_TRE.alerta, color: CORES_TRE.alerta }}>
                             {itens.filter(i => i.origem === "Inserido Manualmente").length} Extras
                           </Badge>
                         </div>
@@ -853,7 +853,7 @@ export default function AreaPrestadorTRT() {
 
         {/* Footer */}
         <footer className="mt-8 pt-6 border-t text-center text-sm text-slate-500">
-          <p style={{ color: CORES_TRT.primaria }}>TRT 8ª Região - Área do Credenciado</p>
+          <p style={{ color: CORES_TRE.primaria }}>TRE-PA - Área do Credenciado</p>
           <p>CNPJ: {credenciado.cnpj}</p>
           <p>Contrato: {credenciado.numero_contrato}</p>
         </footer>

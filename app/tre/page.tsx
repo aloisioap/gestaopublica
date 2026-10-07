@@ -13,18 +13,18 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CORES_TRT, IDENTIDADE_TRT } from "@/lib/dados-trt-8a-regiao";
-import { SimuladorProtocoloTRT } from "@/components/simulador-trt";
+import { CORES_TRE, IDENTIDADE_TRE } from "@/lib/dados-tre";
+import { SimuladorProtocoloTRE } from "@/components/simulador-tre";
 
-export default function PortalTRT() {
+export default function PortalTRE() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: CORES_TRT.fundo }}>
-      {/* Header Institucional TRT */}
+    <div className="min-h-screen" style={{ backgroundColor: CORES_TRE.fundo }}>
+      {/* Header Institucional TRE */}
       <header
         className="border-b shadow-sm sticky top-0 z-50"
         style={{
-          backgroundColor: CORES_TRT.primaria,
-          borderColor: CORES_TRT.secundaria,
+          backgroundColor: CORES_TRE.primaria,
+          borderColor: CORES_TRE.secundaria,
         }}
       >
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -32,20 +32,20 @@ export default function PortalTRT() {
             <div className="flex items-center gap-4">
               <div
                 className="p-2 rounded-lg"
-                style={{ backgroundColor: CORES_TRT.secundaria }}
+                style={{ backgroundColor: CORES_TRE.secundaria }}
               >
-                <Shield className="h-8 w-8" style={{ color: CORES_TRT.primaria }} />
+                <Shield className="h-8 w-8" style={{ color: CORES_TRE.primaria }} />
               </div>
               <div className="text-white">
-                <h1 className="text-xl font-bold">{IDENTIDADE_TRT.nome}</h1>
-                <p className="text-sm opacity-90">{IDENTIDADE_TRT.subtitulo}</p>
+                <h1 className="text-xl font-bold">{IDENTIDADE_TRE.nome}</h1>
+                <p className="text-sm opacity-90">{IDENTIDADE_TRE.subtitulo}</p>
               </div>
             </div>
             <Link href="/">
               <Button
                 variant="outline"
                 size="sm"
-                style={{ borderColor: CORES_TRT.secundaria, color: CORES_TRT.secundaria }}
+                style={{ borderColor: CORES_TRE.secundaria, color: CORES_TRE.secundaria }}
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Voltar ao Início
@@ -60,13 +60,13 @@ export default function PortalTRT() {
         <div className="text-center mb-10">
           <h2
             className="text-3xl font-bold mb-3"
-            style={{ color: CORES_TRT.primaria }}
+            style={{ color: CORES_TRE.primaria }}
           >
-            {IDENTIDADE_TRT.lema}
+            {IDENTIDADE_TRE.lema}
           </h2>
           <p className="text-lg text-slate-600 max-w-3xl mx-auto">
             Sistema de Gestão de Saúde e Faturamento - Acesso exclusivo para servidores,
-            credenciados e auditores da Justiça do Trabalho na Amazônia
+            credenciados e auditores da Justiça Eleitoral na Amazônia
           </p>
         </div>
 
@@ -76,15 +76,15 @@ export default function PortalTRT() {
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader
               className="pb-4"
-              style={{ backgroundColor: CORES_TRT.info + "15" }}
+              style={{ backgroundColor: CORES_TRE.info + "15" }}
             >
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mb-3"
-                style={{ backgroundColor: CORES_TRT.info }}
+                style={{ backgroundColor: CORES_TRE.info }}
               >
                 <Users className="h-7 w-7 text-white" />
               </div>
-              <CardTitle style={{ color: CORES_TRT.primaria }}>
+              <CardTitle style={{ color: CORES_TRE.primaria }}>
                 Área do Servidor
               </CardTitle>
             </CardHeader>
@@ -99,10 +99,10 @@ export default function PortalTRT() {
                 <li>• Validação WhatsApp</li>
                 <li>• Gestão de dependentes</li>
               </ul>
-              <Link href="/trt/usuario" className="block">
+              <Link href="/tre/usuario" className="block">
                 <Button
                   className="w-full"
-                  style={{ backgroundColor: CORES_TRT.info }}
+                  style={{ backgroundColor: CORES_TRE.info }}
                 >
                   Acessar como Servidor
                 </Button>
@@ -114,15 +114,15 @@ export default function PortalTRT() {
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader
               className="pb-4"
-              style={{ backgroundColor: CORES_TRT.terciaria + "15" }}
+              style={{ backgroundColor: CORES_TRE.terciaria + "15" }}
             >
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mb-3"
-                style={{ backgroundColor: CORES_TRT.terciaria }}
+                style={{ backgroundColor: CORES_TRE.terciaria }}
               >
                 <Stethoscope className="h-7 w-7 text-white" />
               </div>
-              <CardTitle style={{ color: CORES_TRT.primaria }}>
+              <CardTitle style={{ color: CORES_TRE.primaria }}>
                 Área do Prestador
               </CardTitle>
             </CardHeader>
@@ -137,10 +137,10 @@ export default function PortalTRT() {
                 <li>• Validação prévia</li>
                 <li>• Acompanhamento de pagamento</li>
               </ul>
-              <Link href="/trt/prestador" className="block">
+              <Link href="/tre/prestador" className="block">
                 <Button
                   className="w-full"
-                  style={{ backgroundColor: CORES_TRT.terciaria }}
+                  style={{ backgroundColor: CORES_TRE.terciaria }}
                 >
                   Acessar como Prestador
                 </Button>
@@ -152,15 +152,15 @@ export default function PortalTRT() {
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader
               className="pb-4"
-              style={{ backgroundColor: CORES_TRT.destaque + "15" }}
+              style={{ backgroundColor: CORES_TRE.destaque + "15" }}
             >
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mb-3"
-                style={{ backgroundColor: CORES_TRT.destaque }}
+                style={{ backgroundColor: CORES_TRE.destaque }}
               >
                 <Building2 className="h-7 w-7 text-white" />
               </div>
-              <CardTitle style={{ color: CORES_TRT.primaria }}>
+              <CardTitle style={{ color: CORES_TRE.primaria }}>
                 Área do Gestor
               </CardTitle>
             </CardHeader>
@@ -175,10 +175,10 @@ export default function PortalTRT() {
                 <li>• Gestão de credenciados</li>
                 <li>• Relatórios gerenciais</li>
               </ul>
-              <Link href="/trt/gestor" className="block">
+              <Link href="/tre/gestor" className="block">
                 <Button
                   className="w-full"
-                  style={{ backgroundColor: CORES_TRT.destaque }}
+                  style={{ backgroundColor: CORES_TRE.destaque }}
                 >
                   Acessar como Gestor
                 </Button>
@@ -190,15 +190,15 @@ export default function PortalTRT() {
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader
               className="pb-4"
-              style={{ backgroundColor: CORES_TRT.secundaria + "20" }}
+              style={{ backgroundColor: CORES_TRE.secundaria + "20" }}
             >
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mb-3"
-                style={{ backgroundColor: CORES_TRT.secundaria }}
+                style={{ backgroundColor: CORES_TRE.secundaria }}
               >
-                <ClipboardCheck className="h-7 w-7" style={{ color: CORES_TRT.primaria }} />
+                <ClipboardCheck className="h-7 w-7" style={{ color: CORES_TRE.primaria }} />
               </div>
-              <CardTitle style={{ color: CORES_TRT.primaria }}>
+              <CardTitle style={{ color: CORES_TRE.primaria }}>
                 Área do Auditor
               </CardTitle>
             </CardHeader>
@@ -213,10 +213,10 @@ export default function PortalTRT() {
                 <li>• Aplicação de glosas</li>
                 <li>• Aprovação de faturas</li>
               </ul>
-              <Link href="/trt/auditor" className="block">
+              <Link href="/tre/auditor" className="block">
                 <Button
                   className="w-full"
-                  style={{ backgroundColor: CORES_TRT.secundaria, color: CORES_TRT.primaria }}
+                  style={{ backgroundColor: CORES_TRE.secundaria, color: CORES_TRE.primaria }}
                 >
                   Acessar como Auditor
                 </Button>
@@ -227,15 +227,15 @@ export default function PortalTRT() {
 
         {/* Simulador de Protocolo */}
         <div className="mb-10">
-          <SimuladorProtocoloTRT />
+          <SimuladorProtocoloTRE />
         </div>
 
         {/* Informações do Sistema */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center gap-3">
-              <FileText className="h-5 w-5" style={{ color: CORES_TRT.primaria }} />
-              <CardTitle className="text-base" style={{ color: CORES_TRT.primaria }}>
+              <FileText className="h-5 w-5" style={{ color: CORES_TRE.primaria }} />
+              <CardTitle className="text-base" style={{ color: CORES_TRE.primaria }}>
                 XML TISS + PDF
               </CardTitle>
             </CardHeader>
@@ -249,8 +249,8 @@ export default function PortalTRT() {
 
           <Card>
             <CardHeader className="flex flex-row items-center gap-3">
-              <Activity className="h-5 w-5" style={{ color: CORES_TRT.primaria }} />
-              <CardTitle className="text-base" style={{ color: CORES_TRT.primaria }}>
+              <Activity className="h-5 w-5" style={{ color: CORES_TRE.primaria }} />
+              <CardTitle className="text-base" style={{ color: CORES_TRE.primaria }}>
                 Validação Prévia
               </CardTitle>
             </CardHeader>
@@ -264,8 +264,8 @@ export default function PortalTRT() {
 
           <Card>
             <CardHeader className="flex flex-row items-center gap-3">
-              <Shield className="h-5 w-5" style={{ color: CORES_TRT.primaria }} />
-              <CardTitle className="text-base" style={{ color: CORES_TRT.primaria }}>
+              <Shield className="h-5 w-5" style={{ color: CORES_TRE.primaria }} />
+              <CardTitle className="text-base" style={{ color: CORES_TRE.primaria }}>
                 Auditoria Integrada
               </CardTitle>
             </CardHeader>
@@ -283,13 +283,13 @@ export default function PortalTRT() {
       <footer
         className="mt-16 py-6 border-t"
         style={{
-          backgroundColor: CORES_TRT.primaria,
-          borderColor: CORES_TRT.secundaria,
+          backgroundColor: CORES_TRE.primaria,
+          borderColor: CORES_TRE.secundaria,
         }}
       >
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-sm text-white opacity-80">
-            {IDENTIDADE_TRT.nome} - {IDENTIDADE_TRT.subtitulo}
+            {IDENTIDADE_TRE.nome} - {IDENTIDADE_TRE.subtitulo}
           </p>
           <p className="text-xs text-white opacity-60 mt-1">
             Sistema de Gestão de Saúde e Faturamento © 2024

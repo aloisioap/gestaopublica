@@ -34,7 +34,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { CORES_TRT, SERVIDORES_TRT, HISTORICO_SAUDE_TRT, NOTIFICACOES_TRT } from "@/lib/dados-trt-8a-regiao";
+import { CORES_TRE, SERVIDORES_TRE, HISTORICO_SAUDE_TRE, NOTIFICACOES_TRE } from "@/lib/dados-tre";
 
 interface HistoricoItem {
   id: string;
@@ -75,12 +75,12 @@ interface Documento {
   tamanho: string;
 }
 
-export default function PortalUsuarioTRT() {
-  const [servidor] = useState(SERVIDORES_TRT[0]);
+export default function PortalUsuarioTRE() {
+  const [servidor] = useState(SERVIDORES_TRE[0]);
   const [historico] = useState<HistoricoItem[]>(
-    HISTORICO_SAUDE_TRT.filter((h) => h.matricula === servidor.matricula).map(h => ({...h}))
+    HISTORICO_SAUDE_TRE.filter((h) => h.matricula === servidor.matricula).map(h => ({...h}))
   );
-  const [notificacoes] = useState(NOTIFICACOES_TRT.filter(n => n.matricula === servidor.matricula));
+  const [notificacoes] = useState(NOTIFICACOES_TRE.filter(n => n.matricula === servidor.matricula));
   
   const [itemSelecionado, setItemSelecionado] = useState<HistoricoItem | null>(null);
   const [modalAberto, setModalAberto] = useState(false);
@@ -164,25 +164,25 @@ export default function PortalUsuarioTRT() {
   const notificacoesNaoLidas = notificacoes.filter(n => !n.lida).length;
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: CORES_TRT.fundo }}>
+    <main className="min-h-screen" style={{ backgroundColor: CORES_TRE.fundo }}>
       {/* Header */}
       <header
         className="text-white shadow-lg"
         style={{
-          background: `linear-gradient(135deg, ${CORES_TRT.primaria} 0%, ${CORES_TRT.terciaria} 100%)`,
+          background: `linear-gradient(135deg, ${CORES_TRE.primaria} 0%, ${CORES_TRE.terciaria} 100%)`,
         }}
       >
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Link href="/trt">
+              <Link href="/tre">
                 <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
                   <ArrowLeft className="h-5 w-5" />
                 </Button>
               </Link>
               <div>
                 <h1 className="text-xl font-bold">Portal do Servidor</h1>
-                <p className="text-sm opacity-90">TRT 8ª Região</p>
+                <p className="text-sm opacity-90">TRE-PA</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -219,7 +219,7 @@ export default function PortalUsuarioTRT() {
           {/* Carteirinha Virtual */}
           <Card
             className="lg:col-span-2 overflow-hidden"
-            style={{ background: `linear-gradient(135deg, ${CORES_TRT.primaria} 0%, ${CORES_TRT.terciaria} 100%)` }}
+            style={{ background: `linear-gradient(135deg, ${CORES_TRE.primaria} 0%, ${CORES_TRE.terciaria} 100%)` }}
           >
             <CardContent className="p-6 text-white">
               <div className="flex items-start justify-between">
@@ -273,7 +273,7 @@ export default function PortalUsuarioTRT() {
                 {/* QR Code */}
                 <div className="hidden md:block text-center">
                   <div className="bg-white p-4 rounded-lg">
-                    <QrCode className="h-24 w-24" style={{ color: CORES_TRT.primaria }} />
+                    <QrCode className="h-24 w-24" style={{ color: CORES_TRE.primaria }} />
                   </div>
                   <p className="text-xs mt-2 opacity-75">Carteirinha Digital</p>
                 </div>
@@ -284,8 +284,8 @@ export default function PortalUsuarioTRT() {
           {/* Informações de Saúde */}
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-base flex items-center gap-2" style={{ color: CORES_TRT.primaria }}>
-                <Droplet className="h-5 w-5" style={{ color: CORES_TRT.erro }} />
+              <CardTitle className="text-base flex items-center gap-2" style={{ color: CORES_TRE.primaria }}>
+                <Droplet className="h-5 w-5" style={{ color: CORES_TRE.erro }} />
                 Informações de Saúde
               </CardTitle>
             </CardHeader>
@@ -295,7 +295,7 @@ export default function PortalUsuarioTRT() {
                 <Badge
                   variant="secondary"
                   className="text-lg font-bold"
-                  style={{ backgroundColor: `${CORES_TRT.erro}20`, color: CORES_TRT.erro }}
+                  style={{ backgroundColor: `${CORES_TRE.erro}20`, color: CORES_TRE.erro }}
                 >
                   {servidor.tipo_sanguineo}
                 </Badge>
@@ -309,7 +309,7 @@ export default function PortalUsuarioTRT() {
                       key={idx}
                       variant="outline"
                       className="text-xs"
-                      style={{ borderColor: CORES_TRT.alerta, color: CORES_TRT.alerta }}
+                      style={{ borderColor: CORES_TRE.alerta, color: CORES_TRE.alerta }}
                     >
                       <AlertTriangle className="h-3 w-3 mr-1" />
                       {alergia}
@@ -351,13 +351,13 @@ export default function PortalUsuarioTRT() {
 
           <TabsContent value="historico" className="space-y-4">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold" style={{ color: CORES_TRT.primaria }}>
+              <h3 className="text-lg font-semibold" style={{ color: CORES_TRE.primaria }}>
                 Histórico de Saúde por Categoria
               </h3>
               <div className="flex gap-2">
                 <Button
                   size="sm"
-                  style={{ backgroundColor: CORES_TRT.secundaria, color: "white" }}
+                  style={{ backgroundColor: CORES_TRE.secundaria, color: "white" }}
                 >
                   <FileText className="h-4 w-4 mr-2" />
                   Exportar PDF
@@ -375,12 +375,12 @@ export default function PortalUsuarioTRT() {
                     style={{
                       backgroundColor:
                         categoria === "Consultas"
-                          ? `${CORES_TRT.info}10`
+                          ? `${CORES_TRE.info}10`
                           : categoria === "Exames"
-                          ? `${CORES_TRT.terciaria}10`
+                          ? `${CORES_TRE.terciaria}10`
                           : categoria === "Internações"
-                          ? `${CORES_TRT.destaque}10`
-                          : `${CORES_TRT.erro}10`,
+                          ? `${CORES_TRE.destaque}10`
+                          : `${CORES_TRE.erro}10`,
                     }}
                   >
                     <CardTitle className="text-base flex items-center justify-between">
@@ -404,7 +404,7 @@ export default function PortalUsuarioTRT() {
                                   <Badge
                                     variant="outline"
                                     className="text-xs"
-                                    style={{ borderColor: CORES_TRT.sucesso, color: CORES_TRT.sucesso }}
+                                    style={{ borderColor: CORES_TRE.sucesso, color: CORES_TRE.sucesso }}
                                   >
                                     <CheckCircle className="h-3 w-3 mr-1" />
                                     Concluído
@@ -440,10 +440,10 @@ export default function PortalUsuarioTRT() {
           <TabsContent value="agendamentos" className="space-y-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle style={{ color: CORES_TRT.primaria }}>Meus Agendamentos</CardTitle>
+                <CardTitle style={{ color: CORES_TRE.primaria }}>Meus Agendamentos</CardTitle>
                 <Button 
                   size="sm" 
-                  style={{ backgroundColor: CORES_TRT.primaria }}
+                  style={{ backgroundColor: CORES_TRE.primaria }}
                   onClick={() => setModalNovoAgendamentoAberto(true)}
                 >
                   <Plus className="h-4 w-4 mr-2" />
@@ -457,7 +457,7 @@ export default function PortalUsuarioTRT() {
                     <p>Você não possui agendamentos</p>
                     <Button 
                       className="mt-4" 
-                      style={{ backgroundColor: CORES_TRT.primaria }}
+                      style={{ backgroundColor: CORES_TRE.primaria }}
                       onClick={() => setModalNovoAgendamentoAberto(true)}
                     >
                       Solicitar Agendamento
@@ -479,10 +479,10 @@ export default function PortalUsuarioTRT() {
                                 style={{
                                   backgroundColor:
                                     agendamento.status === "Confirmado"
-                                      ? CORES_TRT.sucesso
+                                      ? CORES_TRE.sucesso
                                       : agendamento.status === "Pendente"
-                                      ? CORES_TRT.alerta
-                                      : CORES_TRT.erro,
+                                      ? CORES_TRE.alerta
+                                      : CORES_TRE.erro,
                                 }}
                               >
                                 {agendamento.status}
@@ -518,7 +518,7 @@ export default function PortalUsuarioTRT() {
           <TabsContent value="documentos" className="space-y-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle style={{ color: CORES_TRT.primaria }}>Meus Documentos</CardTitle>
+                <CardTitle style={{ color: CORES_TRE.primaria }}>Meus Documentos</CardTitle>
                 <Button 
                   variant="outline" 
                   size="sm"
@@ -536,7 +536,7 @@ export default function PortalUsuarioTRT() {
                       className="flex items-center justify-between p-3 border rounded-lg hover:bg-slate-50"
                     >
                       <div className="flex items-center gap-3">
-                        <FileText className="h-5 w-5" style={{ color: CORES_TRT.primaria }} />
+                        <FileText className="h-5 w-5" style={{ color: CORES_TRE.primaria }} />
                         <div>
                           <p className="font-medium text-sm">{doc.titulo}</p>
                           <p className="text-xs text-slate-500">
@@ -572,7 +572,7 @@ export default function PortalUsuarioTRT() {
 
         {/* Footer */}
         <footer className="mt-8 pt-6 border-t text-center text-sm text-slate-500">
-          <p style={{ color: CORES_TRT.primaria }}>TRT 8ª Região - Portal do Servidor</p>
+          <p style={{ color: CORES_TRE.primaria }}>TRE-PA - Portal do Servidor</p>
           <p>Em caso de dúvidas, entre em contato com o Núcleo de Saúde</p>
         </footer>
       </div>
@@ -583,7 +583,7 @@ export default function PortalUsuarioTRT() {
           <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl">
             <div
               className="flex items-center justify-between p-4 border-b"
-              style={{ backgroundColor: CORES_TRT.primaria }}
+              style={{ backgroundColor: CORES_TRE.primaria }}
             >
               <div className="flex items-center gap-3">
                 {itemSelecionado.categoria === "Consultas" ? (
@@ -631,9 +631,9 @@ export default function PortalUsuarioTRT() {
                     </div>
                   </div>
                   <div className="border rounded-lg overflow-hidden">
-                    <div className="px-4 py-3 border-b flex items-center gap-2" style={{ backgroundColor: `${CORES_TRT.primaria}10` }}>
-                      <FileText className="h-4 w-4" style={{ color: CORES_TRT.primaria }} />
-                      <span className="font-semibold" style={{ color: CORES_TRT.primaria }}>Laudo Técnico</span>
+                    <div className="px-4 py-3 border-b flex items-center gap-2" style={{ backgroundColor: `${CORES_TRE.primaria}10` }}>
+                      <FileText className="h-4 w-4" style={{ color: CORES_TRE.primaria }} />
+                      <span className="font-semibold" style={{ color: CORES_TRE.primaria }}>Laudo Técnico</span>
                     </div>
                     <div className="p-6 bg-white">
                       <pre className="whitespace-pre-wrap font-mono text-sm text-slate-700 leading-relaxed">
@@ -660,10 +660,10 @@ export default function PortalUsuarioTRT() {
             <div className="flex items-center justify-between p-4 border-t bg-slate-50">
               <Button variant="outline" onClick={fecharModal}>Fechar</Button>
               <div className="flex gap-2">
-                <Button style={{ backgroundColor: CORES_TRT.primaria }} className="text-white">
+                <Button style={{ backgroundColor: CORES_TRE.primaria }} className="text-white">
                   <Printer className="h-4 w-4 mr-2" />Imprimir
                 </Button>
-                <Button style={{ backgroundColor: CORES_TRT.terciaria }} className="text-white">
+                <Button style={{ backgroundColor: CORES_TRE.terciaria }} className="text-white">
                   <Download className="h-4 w-4 mr-2" />Download
                 </Button>
               </div>
@@ -676,7 +676,7 @@ export default function PortalUsuarioTRT() {
       {modalAgendamentoAberto && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-hidden shadow-2xl">
-            <div className="flex items-center justify-between p-4 border-b" style={{ backgroundColor: CORES_TRT.primaria }}>
+            <div className="flex items-center justify-between p-4 border-b" style={{ backgroundColor: CORES_TRE.primaria }}>
               <div className="flex items-center gap-3">
                 <Calendar className="h-6 w-6 text-white" />
                 <h3 className="text-lg font-bold text-white">Todos os Agendamentos</h3>
@@ -695,10 +695,10 @@ export default function PortalUsuarioTRT() {
                         style={{
                           backgroundColor:
                             ag.status === "Confirmado"
-                              ? CORES_TRT.sucesso
+                              ? CORES_TRE.sucesso
                               : ag.status === "Pendente"
-                              ? CORES_TRT.alerta
-                              : CORES_TRT.erro,
+                              ? CORES_TRE.alerta
+                              : CORES_TRE.erro,
                         }}
                       >
                         {ag.status}
@@ -737,7 +737,7 @@ export default function PortalUsuarioTRT() {
       {modalNovoAgendamentoAberto && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-lg w-full max-w-2xl shadow-2xl">
-            <div className="flex items-center justify-between p-4 border-b" style={{ backgroundColor: CORES_TRT.primaria }}>
+            <div className="flex items-center justify-between p-4 border-b" style={{ backgroundColor: CORES_TRE.primaria }}>
               <div className="flex items-center gap-3">
                 <Plus className="h-6 w-6 text-white" />
                 <h3 className="text-lg font-bold text-white">Solicitar Novo Agendamento</h3>
@@ -788,7 +788,7 @@ export default function PortalUsuarioTRT() {
             </div>
             <div className="flex justify-end gap-2 p-4 border-t bg-slate-50">
               <Button variant="outline" onClick={() => setModalNovoAgendamentoAberto(false)}>Cancelar</Button>
-              <Button style={{ backgroundColor: CORES_TRT.sucesso }} onClick={solicitarAgendamento}>
+              <Button style={{ backgroundColor: CORES_TRE.sucesso }} onClick={solicitarAgendamento}>
                 <CheckCircle className="h-4 w-4 mr-2" />
                 Solicitar
               </Button>
@@ -801,7 +801,7 @@ export default function PortalUsuarioTRT() {
       {modalNotificacoesAberto && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl">
-            <div className="flex items-center justify-between p-4 border-b" style={{ backgroundColor: CORES_TRT.primaria }}>
+            <div className="flex items-center justify-between p-4 border-b" style={{ backgroundColor: CORES_TRE.primaria }}>
               <div className="flex items-center gap-3">
                 <Bell className="h-6 w-6 text-white" />
                 <h3 className="text-lg font-bold text-white">Notificações</h3>
@@ -857,7 +857,7 @@ export default function PortalUsuarioTRT() {
       {modalDocumentosAberto && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-hidden shadow-2xl">
-            <div className="flex items-center justify-between p-4 border-b" style={{ backgroundColor: CORES_TRT.primaria }}>
+            <div className="flex items-center justify-between p-4 border-b" style={{ backgroundColor: CORES_TRE.primaria }}>
               <div className="flex items-center gap-3">
                 <FileText className="h-6 w-6 text-white" />
                 <h3 className="text-lg font-bold text-white">Todos os Documentos</h3>
@@ -871,7 +871,7 @@ export default function PortalUsuarioTRT() {
                 {documentos.map((doc) => (
                   <div key={doc.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-slate-50">
                     <div className="flex items-center gap-3">
-                      <FileText className="h-6 w-6" style={{ color: CORES_TRT.primaria }} />
+                      <FileText className="h-6 w-6" style={{ color: CORES_TRE.primaria }} />
                       <div>
                         <p className="font-medium">{doc.titulo}</p>
                         <p className="text-xs text-slate-500">
