@@ -327,3 +327,135 @@
   opacity: 0.03;
   pointer-events: none;
 }
+
+/* ============================================================
+   TRE-PA · Design system "vidro sobre a Amazônia"
+   ============================================================ */
+@layer components {
+  .tre-bg {
+    background:
+      radial-gradient(60rem 40rem at -10% -10%, rgb(30 58 95 / 0.20), transparent 60%),
+      radial-gradient(45rem 32rem at 110% 0%, rgb(200 164 21 / 0.16), transparent 55%),
+      radial-gradient(55rem 38rem at 50% 115%, rgb(0 121 107 / 0.16), transparent 60%),
+      #f3f6fa;
+  }
+  .tre-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(72px);
+    opacity: 0.35;
+    pointer-events: none;
+    will-change: transform;
+    animation: blob-float 24s ease-in-out infinite; /* @keyframes blob-float já existe no globals.css */
+  }
+  .tre-blob--navy  { width: 34rem; height: 34rem; left: -10rem; top: -12rem; background: #1e3a5f; }
+  .tre-blob--gold  { width: 22rem; height: 22rem; right: -6rem; top: 10rem; background: #c8a415; opacity: 0.28; animation-delay: -8s; }
+  .tre-blob--green { width: 28rem; height: 28rem; left: 35%; bottom: -12rem; background: #00796b; opacity: 0.28; animation-delay: -16s; }
+
+  .tre-glass,
+  .tre-glass-subtle,
+  .tre-glass-strong {
+    border: 1px solid rgb(255 255 255 / 0.6);
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.7), 0 8px 32px -12px rgb(11 27 48 / 0.22);
+    -webkit-backdrop-filter: blur(var(--tre-blur, 16px)) saturate(160%);
+    backdrop-filter: blur(var(--tre-blur, 16px)) saturate(160%);
+  }
+  .tre-glass        { --tre-blur: 16px; background-color: rgb(255 255 255 / 0.62); }
+  .tre-glass-subtle { --tre-blur: 10px; background-color: rgb(255 255 255 / 0.45); }
+  .tre-glass-strong {
+    --tre-blur: 24px;
+    background-color: rgb(255 255 255 / 0.84);
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.7), 0 24px 60px -16px rgb(11 27 48 / 0.3);
+  }
+  .tre-glass-navy {
+    color: #fff;
+    background-image: linear-gradient(135deg, rgb(11 27 48 / 0.92), rgb(30 58 95 / 0.86));
+    border: 1px solid rgb(255 255 255 / 0.12);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 12px 40px -12px rgb(11 27 48 / 0.55);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(20px) saturate(140%);
+  }
+  .tre-inset {
+    background-color: rgb(255 255 255 / 0.55);
+    border: 1px solid rgb(255 255 255 / 0.7);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6);
+  }
+  .tre-glass-hover { transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
+  .tre-glass-hover:hover {
+    background-color: rgb(255 255 255 / 0.76);
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.7), 0 24px 60px -16px rgb(11 27 48 / 0.3);
+  }
+  .tre-gold-rule { position: relative; }
+  .tre-gold-rule::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 2px;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, #c8a415 20%, #e4c65a 50%, #c8a415 80%, transparent);
+  }
+  .tre-ring:focus-visible {
+    outline: 2px solid #1e3a5f;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px rgb(200 164 21 / 0.35);
+  }
+  .tre-glass-navy .tre-ring:focus-visible { outline-color: #e4c65a; }
+
+  .tre-tone-neutral  { background-color: rgb(100 116 139 / 0.12); color: #334155; box-shadow: inset 0 0 0 1px rgb(100 116 139 / 0.25); }
+  .tre-tone-info     { background-color: rgb(21 101 192 / 0.12);  color: #0d47a1; box-shadow: inset 0 0 0 1px rgb(21 101 192 / 0.25); }
+  .tre-tone-progress { background-color: rgb(30 58 95 / 0.10);    color: #1e3a5f; box-shadow: inset 0 0 0 1px rgb(30 58 95 / 0.22); }
+  .tre-tone-success  { background-color: rgb(46 125 50 / 0.12);   color: #1b5e20; box-shadow: inset 0 0 0 1px rgb(46 125 50 / 0.25); }
+  .tre-tone-warning  { background-color: rgb(249 168 37 / 0.20);  color: #7a4f00; box-shadow: inset 0 0 0 1px rgb(249 168 37 / 0.4); }
+  .tre-tone-danger   { background-color: rgb(198 40 40 / 0.10);   color: #991b1b; box-shadow: inset 0 0 0 1px rgb(198 40 40 / 0.25); }
+  .tre-tone-gold     { background-color: rgb(200 164 21 / 0.18);  color: #6f5708; box-shadow: inset 0 0 0 1px rgb(200 164 21 / 0.4); }
+
+  .tre-gradient-text {
+    background-image: linear-gradient(135deg, #1e3a5f, #00796b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .tre-scroll-x { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .tre-scroll-x::-webkit-scrollbar { display: none; }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .tre-glass        { background-color: rgb(255 255 255 / 0.92); }
+    .tre-glass-subtle { background-color: rgb(255 255 255 / 0.88); }
+    .tre-glass-strong { background-color: #fff; }
+    .tre-glass-navy   { background-image: none; background-color: #0b1b30; }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .tre-glass, .tre-glass-subtle, .tre-glass-strong, .tre-glass-navy { -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .tre-glass, .tre-glass-subtle { background-color: rgb(255 255 255 / 0.95); }
+    .tre-glass-strong { background-color: #fff; }
+    .tre-glass-navy   { background-image: none; background-color: #0b1b30; }
+    .tre-blob { display: none; }
+  }
+  @media (prefers-contrast: more) {
+    .tre-glass, .tre-glass-subtle, .tre-glass-strong { background-color: #fff; border-color: rgb(30 58 95 / 0.55); }
+    .tre-glass-navy { background-image: none; background-color: #0b1b30; }
+  }
+  @media (forced-colors: active) {
+    .tre-glass, .tre-glass-subtle, .tre-glass-strong, .tre-glass-navy, .tre-inset {
+      background: Canvas; color: CanvasText; border-color: CanvasText; box-shadow: none; backdrop-filter: none;
+    }
+    .tre-blob { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tre-blob { animation: none; }
+    .tre-glass-hover { transition: none; }
+  }
+  @media (max-width: 640px) {
+    .tre-glass        { --tre-blur: 10px; }
+    .tre-glass-strong { --tre-blur: 14px; }
+    .tre-blob { filter: blur(48px); animation: none; }
+    .tre-blob--gold { display: none; }
+  }
+  @media print {
+    .tre-glass, .tre-glass-subtle, .tre-glass-strong, .tre-inset {
+      background: #fff !important; box-shadow: none !important; backdrop-filter: none !important; border-color: #cbd5e1 !important;
+    }
+    .tre-glass-navy { background: #fff !important; color: #0b1b30 !important; box-shadow: none !important; }
+    .tre-bg, .tre-blob, .tre-no-print { display: none !important; }
+  }
+}
