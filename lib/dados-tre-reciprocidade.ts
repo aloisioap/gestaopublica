@@ -61,6 +61,8 @@ export interface AmostragemBrasindice {
   tipo: "Consulta" | "Exame" | "Cirurgia" | "Internação" | "Procedimento";
 }
 
+// quantidadeGuias e valorTotal se referem ao lote inteiro (XML recebido).
+// GUIAS_RECIPROCIDADE traz só uma amostra das guias importadas para auditoria.
 export const LOTES_RECIPROCIDADE: LoteReciprocidade[] = [
   {
     id: "LOTE-AUMED-001",
@@ -114,6 +116,9 @@ export const LOTES_RECIPROCIDADE: LoteReciprocidade[] = [
   },
 ];
 
+// Amostra de guias por lote. Os beneficiários são de outros convênios, então os
+// CPFs não coincidem com os de SERVIDORES_TRE.
+// diferencaPercentual = (valorApresentado − valorBrasindice) / valorBrasindice × 100.
 export const GUIAS_RECIPROCIDADE: GuiaReciprocidade[] = [
   // LOTE AUMED 001
   {
@@ -121,7 +126,7 @@ export const GUIAS_RECIPROCIDADE: GuiaReciprocidade[] = [
     loteId: "LOTE-AUMED-001",
     numeroGuia: "123456789",
     matricula: "AUMED001",
-    cpf: "123.456.789-00",
+    cpf: "418.372.605-08",
     nomeBeneficiario: "João Silva Santos",
     dataNascimento: "1985-05-15",
     dataExecucao: "2024-03-10",
@@ -143,7 +148,7 @@ export const GUIAS_RECIPROCIDADE: GuiaReciprocidade[] = [
     loteId: "LOTE-AUMED-001",
     numeroGuia: "123456790",
     matricula: "AUMED002",
-    cpf: "987.654.321-00",
+    cpf: "503.918.274-05",
     nomeBeneficiario: "Maria Oliveira Lima",
     dataNascimento: "1978-11-22",
     dataExecucao: "2024-03-12",
@@ -156,7 +161,7 @@ export const GUIAS_RECIPROCIDADE: GuiaReciprocidade[] = [
     motivoGlosa: "Valor acima da referência Brasíndice (limite: 15%)",
     convenioOrigem: "AUMED",
     credenciado_nome: "Clínica Ortopédica",
-    prestador: "Dr. Ana Paula Santos",
+    prestador: "Dra. Ana Paula Santos",
     cidade: "Belém",
     especialidade: "Ortopedia",
     tipoAtendimento: "Consulta",
@@ -166,7 +171,7 @@ export const GUIAS_RECIPROCIDADE: GuiaReciprocidade[] = [
     loteId: "LOTE-AUMED-001",
     numeroGuia: "123456791",
     matricula: "AUMED003",
-    cpf: "456.789.123-00",
+    cpf: "627.140.983-04",
     nomeBeneficiario: "Pedro Costa Souza",
     dataNascimento: "1990-08-10",
     dataExecucao: "2024-03-08",
@@ -188,7 +193,7 @@ export const GUIAS_RECIPROCIDADE: GuiaReciprocidade[] = [
     loteId: "LOTE-AUMED-001",
     numeroGuia: "123456792",
     matricula: "AUMED004",
-    cpf: "789.123.456-00",
+    cpf: "734.615.028-71",
     nomeBeneficiario: "Ana Beatriz Ferreira",
     dataNascimento: "1982-03-25",
     dataExecucao: "2024-03-11",
@@ -211,7 +216,7 @@ export const GUIAS_RECIPROCIDADE: GuiaReciprocidade[] = [
     loteId: "LOTE-AUMED-001",
     numeroGuia: "123456793",
     matricula: "AUMED005",
-    cpf: "321.654.987-00",
+    cpf: "859.203.716-68",
     nomeBeneficiario: "Roberto Almeida",
     dataNascimento: "1975-09-18",
     dataExecucao: "2024-03-09",
@@ -234,7 +239,7 @@ export const GUIAS_RECIPROCIDADE: GuiaReciprocidade[] = [
     loteId: "LOTE-CACI-001",
     numeroGuia: "987654321",
     matricula: "CACI001",
-    cpf: "654.321.987-00",
+    cpf: "361.482.590-60",
     nomeBeneficiario: "Fernanda Lima Silva",
     dataNascimento: "1988-12-05",
     dataExecucao: "2024-03-14",
@@ -256,7 +261,7 @@ export const GUIAS_RECIPROCIDADE: GuiaReciprocidade[] = [
     loteId: "LOTE-CACI-001",
     numeroGuia: "987654322",
     matricula: "CACI002",
-    cpf: "147.258.369-00",
+    cpf: "245.097.631-07",
     nomeBeneficiario: "Carlos Eduardo Santos",
     dataNascimento: "1968-04-30",
     dataExecucao: "2024-03-13",
@@ -276,13 +281,14 @@ export const GUIAS_RECIPROCIDADE: GuiaReciprocidade[] = [
   },
 ];
 
+// Faixa aceita = valorReferencia ± margemAceitacao (15%).
 export const TABELA_BRASINDICE: AmostragemBrasindice[] = [
   { id: "BRAS-001", procedimentoCodigo: "10101012", procedimentoDescricao: "Consulta Cardiológica", valorReferencia: 280.00, valorMaximo: 322.00, valorMinimo: 238.00, margemAceitacao: 15, dataAtualizacao: "2024-01-01", tipo: "Consulta" },
   { id: "BRAS-002", procedimentoCodigo: "20101015", procedimentoDescricao: "Consulta Ortopédica", valorReferencia: 260.00, valorMaximo: 299.00, valorMinimo: 221.00, margemAceitacao: 15, dataAtualizacao: "2024-01-01", tipo: "Consulta" },
   { id: "BRAS-003", procedimentoCodigo: "30101018", procedimentoDescricao: "Cirurgia de Hérnia", valorReferencia: 2450.00, valorMaximo: 2817.50, valorMinimo: 2082.50, margemAceitacao: 15, dataAtualizacao: "2024-01-01", tipo: "Cirurgia" },
   { id: "BRAS-004", procedimentoCodigo: "40102020", procedimentoDescricao: "Ressonância Magnética", valorReferencia: 890.00, valorMaximo: 1023.50, valorMinimo: 756.50, margemAceitacao: 15, dataAtualizacao: "2024-01-01", tipo: "Exame" },
   { id: "BRAS-005", procedimentoCodigo: "10103015", procedimentoDescricao: "Consulta Clínica Geral", valorReferencia: 230.00, valorMaximo: 264.50, valorMinimo: 195.50, margemAceitacao: 15, dataAtualizacao: "2024-01-01", tipo: "Consulta" },
-  { id: "BRAS-006", procedimentoCodigo: "50101025", procedimentoDescricao: "Internação Clínica (diária)", valorReferencia: 2850.00, valorMaximo: 3277.50, valorMinimo: 2422.50, margemAceitacao: 15, dataAtualizacao: "2024-01-01", tipo: "Internação" },
+  { id: "BRAS-006", procedimentoCodigo: "50101025", procedimentoDescricao: "Internação Clínica", valorReferencia: 2850.00, valorMaximo: 3277.50, valorMinimo: 2422.50, margemAceitacao: 15, dataAtualizacao: "2024-01-01", tipo: "Internação" },
   { id: "BRAS-007", procedimentoCodigo: "20105012", procedimentoDescricao: "Artroscopia", valorReferencia: 3800.00, valorMaximo: 4370.00, valorMinimo: 3230.00, margemAceitacao: 15, dataAtualizacao: "2024-01-01", tipo: "Cirurgia" },
   { id: "BRAS-008", procedimentoCodigo: "10105020", procedimentoDescricao: "Consulta Dermatológica", valorReferencia: 270.00, valorMaximo: 310.50, valorMinimo: 229.50, margemAceitacao: 15, dataAtualizacao: "2024-01-01", tipo: "Consulta" },
   { id: "BRAS-009", procedimentoCodigo: "40103025", procedimentoDescricao: "Tomografia Computadorizada", valorReferencia: 450.00, valorMaximo: 517.50, valorMinimo: 382.50, margemAceitacao: 15, dataAtualizacao: "2024-01-01", tipo: "Exame" },
@@ -305,6 +311,9 @@ export interface IndicadorReciprocidade {
   evolucaoMensal: { mes: string; valor: number; glosas: number }[];
 }
 
+// valorAprovado = valorTotal − valorGlosado; percentualGlosa = valorGlosado / valorTotal;
+// evolucaoMensal soma valorTotal e valorGlosado; procedimentosMaisUtilizados
+// (por quantidade) é um recorte do valorTotal.
 export const INDICADORES_RECIPROCIDADE: IndicadorReciprocidade[] = [
   {
     convenioId: "AUMED",
@@ -314,7 +323,7 @@ export const INDICADORES_RECIPROCIDADE: IndicadorReciprocidade[] = [
     valorTotal: 145890.50,
     valorGlosado: 23450.80,
     valorAprovado: 122439.70,
-    percentualGlosa: 16.08,
+    percentualGlosa: 16.07,
     guiasAcimaBrasindice: 89,
     procedimentosMaisUtilizados: [
       { nome: "Consulta Cardiológica", quantidade: 45, valor: 12600.00 },
@@ -329,7 +338,7 @@ export const INDICADORES_RECIPROCIDADE: IndicadorReciprocidade[] = [
     evolucaoMensal: [
       { mes: "Jan/2024", valor: 45200.00, glosas: 7200.00 },
       { mes: "Fev/2024", valor: 48900.00, glosas: 8100.00 },
-      { mes: "Mar/2024", valor: 51890.50, glosas: 8150.80 },
+      { mes: "Mar/2024", valor: 51790.50, glosas: 8150.80 },
     ],
   },
   {
@@ -343,9 +352,9 @@ export const INDICADORES_RECIPROCIDADE: IndicadorReciprocidade[] = [
     percentualGlosa: 15.62,
     guiasAcimaBrasindice: 42,
     procedimentosMaisUtilizados: [
-      { nome: "Internação Clínica", quantidade: 28, valor: 79800.00 },
-      { nome: "Artroscopia", quantidade: 15, valor: 57000.00 },
       { nome: "Consulta Ortopédica", quantidade: 38, valor: 9880.00 },
+      { nome: "Internação Clínica", quantidade: 12, valor: 34200.00 },
+      { nome: "Artroscopia", quantidade: 8, valor: 30400.00 },
     ],
     cidadesMaisAtendidas: [
       { nome: "Belém", quantidade: 180 },

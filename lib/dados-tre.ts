@@ -31,7 +31,7 @@ export const ESTADOS_JURISDICAO = [
   { sigla: 'PA', nome: 'Pará', capital: 'Belém', comarcas: ['Belém', 'Ananindeua', 'Santarém', 'Marabá', 'Castanhal'] },
 ] as const;
 
-// Servidores TRE (15 servidores)
+// Servidores TRE (amostra de 5 servidores; os totais agregados ficam em ESTATISTICAS_TRE)
 export const SERVIDORES_TRE = [
   {
     id: 'TRE0001',
@@ -81,8 +81,8 @@ export const SERVIDORES_TRE = [
     email: 'ana.costa@tre-pa.jus.br',
     telefone: '(93) 99999-3333',
     cargo: 'Analista Judiciário',
-    lotacao: '1ª Zona Eleitoral',
-    vara: '1ª Zona',
+    lotacao: '19ª Zona Eleitoral',
+    vara: '19ª Zona',
     comarca: 'Santarém',
     estado: 'PA' as const,
     tipo_sanguineo: 'B+',
@@ -188,7 +188,7 @@ export const CREDENCIADOS_TRE = [
     telefone: '(93) 3210-3000',
     email: 'hrba@saude.pa.gov.br',
     tipo: 'Hospital' as const,
-    especialidades: ['Clínica Médica', 'Cirurgia', 'Pediatria', 'Ginecologia'],
+    especialidades: ['Clínica Médica', 'Cirurgia', 'Ortopedia', 'Pediatria', 'Ginecologia'],
     numero_contrato: 'CONT-2024-003',
     data_inicio: '2024-02-01',
     avaliacao: 4.0,
@@ -234,7 +234,9 @@ export const CREDENCIADOS_TRE = [
   },
 ] as const;
 
-// Procedimentos (20 procedimentos)
+// Procedimentos (5 procedimentos de exemplo)
+// valor_total / valor_glosado / valor_aprovado batem com a fatura vinculada
+// (FATURAS_TRE.procedimento_id) e com a soma dos itens em ITENS_FATURA_TRE.
 export const PROCEDIMENTOS_TRE = [
   {
     id: 'PROC-001',
@@ -269,9 +271,9 @@ export const PROCEDIMENTOS_TRE = [
     data_solicitacao: '2024-02-05',
     data_agendamento: '2024-02-10',
     data_execucao: '2024-02-10',
-    valor_total: 450.00,
+    valor_total: 119.40,
     valor_glosado: 0,
-    valor_aprovado: 450.00,
+    valor_aprovado: 119.40,
     status: 'Faturado' as const,
     validado_qr: true,
     validado_whatsapp: true,
@@ -289,9 +291,9 @@ export const PROCEDIMENTOS_TRE = [
     data_solicitacao: '2024-03-01',
     data_agendamento: '2024-03-02',
     data_execucao: '2024-03-05',
-    valor_total: 8500.00,
-    valor_glosado: 300.00,
-    valor_aprovado: 8200.00,
+    valor_total: 3770.00,
+    valor_glosado: 800.00,
+    valor_aprovado: 2970.00,
     status: 'Auditado' as const,
     validado_qr: true,
     validado_whatsapp: false,
@@ -339,8 +341,10 @@ export const PROCEDIMENTOS_TRE = [
 ] as const;
 
 // Itens/Insumos de Faturas (extraídos do XML TISS)
+// valor_total = quantidade × valor_unitario. A soma dos itens de cada fatura é o
+// valor_bruto dela; a soma dos itens com status 'Glosado' é a glosa.
 export const ITENS_FATURA_TRE = [
-  // FAT-001 - Consulta Cardiológica
+  // FAT-001 - Consulta Cardiológica (bruto R$ 350,00 · sem glosa)
   {
     id: 'ITEM-001',
     fatura_id: 'FAT-001',
@@ -406,7 +410,7 @@ export const ITENS_FATURA_TRE = [
     status_auditoria: 'Aprovado' as const,
     motivo_glosa: null,
   },
-  // FAT-002 - Exames Laboratoriais
+  // FAT-002 - Exames Laboratoriais (bruto R$ 119,40 · sem glosa)
   {
     id: 'ITEM-006',
     fatura_id: 'FAT-002',
@@ -417,7 +421,7 @@ export const ITENS_FATURA_TRE = [
     valor_unitario: 45.00,
     valor_total: 45.00,
     origem: 'XML' as const,
-    status_auditoria: 'Aprovado' as const,
+    status_auditoria: 'Pendente' as const,
     motivo_glosa: null,
   },
   {
@@ -430,7 +434,7 @@ export const ITENS_FATURA_TRE = [
     valor_unitario: 25.00,
     valor_total: 25.00,
     origem: 'XML' as const,
-    status_auditoria: 'Aprovado' as const,
+    status_auditoria: 'Pendente' as const,
     motivo_glosa: null,
   },
   {
@@ -443,20 +447,20 @@ export const ITENS_FATURA_TRE = [
     valor_unitario: 35.00,
     valor_total: 35.00,
     origem: 'XML' as const,
-    status_auditoria: 'Aprovado' as const,
+    status_auditoria: 'Pendente' as const,
     motivo_glosa: null,
   },
   {
     id: 'ITEM-009',
     fatura_id: 'FAT-002',
     codigo: 'INS-003',
-    descricao: 'Tubo Vacuntainer EDTA',
+    descricao: 'Tubo de Coleta a Vácuo (Vacutainer)',
     tipo: 'Insumo' as const,
     quantidade: 3,
     valor_unitario: 2.80,
     valor_total: 8.40,
     origem: 'XML' as const,
-    status_auditoria: 'Aprovado' as const,
+    status_auditoria: 'Pendente' as const,
     motivo_glosa: null,
   },
   {
@@ -469,10 +473,10 @@ export const ITENS_FATURA_TRE = [
     valor_unitario: 1.20,
     valor_total: 6.00,
     origem: 'XML' as const,
-    status_auditoria: 'Aprovado' as const,
+    status_auditoria: 'Pendente' as const,
     motivo_glosa: null,
   },
-  // FAT-003 - Internação (com glosas)
+  // FAT-003 - Internação (bruto R$ 3.770,00 · glosa R$ 800,00 · líquido R$ 2.970,00)
   {
     id: 'ITEM-011',
     fatura_id: 'FAT-003',
@@ -510,7 +514,7 @@ export const ITENS_FATURA_TRE = [
     valor_total: 450.00,
     origem: 'XML' as const,
     status_auditoria: 'Glosado' as const,
-    motivo_glosa: 'Quantidade excedente - autorizado: 2 dias',
+    motivo_glosa: 'Sem prescrição médica nem registro de saturação (SpO2) no prontuário',
   },
   {
     id: 'ITEM-014',
@@ -579,7 +583,7 @@ export const NOTIFICACOES_TRE = [
     titulo: 'Autorização Pendente',
     mensagem: 'Solicitação de ecocardiograma aguardando aprovação.',
     tipo: 'autorizacao' as const,
-    data: '2024-01-08',
+    data: '2024-01-16',
     lida: true,
   },
   {
@@ -594,6 +598,8 @@ export const NOTIFICACOES_TRE = [
 ] as const;
 
 // Faturas
+// valor_bruto = soma de valor_total dos itens da fatura (ITENS_FATURA_TRE);
+// valor_liquido = valor_bruto − soma dos itens glosados.
 export const FATURAS_TRE = [
   {
     id: 'FAT-001',
@@ -624,11 +630,11 @@ export const FATURAS_TRE = [
     xml_arquivo: 'xml_002.tiss',
     pdf_arquivo: 'exames_checkup_002.pdf',
     pdf_categoria: 'Exames' as const,
-    valor_bruto: 450.00,
-    valor_liquido: 450.00,
-    status: 'Auditada' as const,
+    valor_bruto: 119.40,
+    valor_liquido: 119.40,
+    status: 'Em análise' as const,
     auditor_id: 'AUDITOR-001',
-    observacoes_auditoria: 'Documentação completa',
+    observacoes_auditoria: '',
     motivo_glosa: null,
   },
   {
@@ -642,12 +648,12 @@ export const FATURAS_TRE = [
     xml_arquivo: 'xml_003.tiss',
     pdf_arquivo: 'internacao_pneumonia_003.pdf',
     pdf_categoria: 'Internações' as const,
-    valor_bruto: 8500.00,
-    valor_liquido: 8200.00,
+    valor_bruto: 3770.00,
+    valor_liquido: 2970.00,
     status: 'Glosada' as const,
     auditor_id: 'AUDITOR-001',
     observacoes_auditoria: 'Glosa parcial aplicada',
-    motivo_glosa: 'Procedimento não coberto 100%',
+    motivo_glosa: 'Oxigenioterapia sem prescrição no prontuário e Holter 24h não previsto na guia de autorização',
   },
 ] as const;
 
@@ -665,20 +671,20 @@ Dor torácica de características atípicas, sem irradiação, com duração de 
 
 ANTECEDENTES:
 - Hipertensão arterial sistêmica há 5 anos
-- Dislipidemia em tratamento
+- Nega dislipidemia diagnosticada
 - Nega diabetes
 - Cirurgia prévia: apendicectomia
 
 EXAME FÍSICO:
 PA: 138/88 mmHg | FC: 72 bpm
 Peso: 68kg | Altura: 1,65m | IMC: 25,0
-Ausculta cardíaca: ritmos regulares, sem sopros
+Ausculta cardíaca: ritmo regular em 2 tempos, bulhas normofonéticas, sem sopros
 Pulmões: murmúrio vesicular presente, sem ruídos adventícios
 
 CONDUTA:
 1. Manter medicação atual: Losartana 50mg 1x/dia
-2. Solicitar ECG e ECO para avaliação
-3. Retorno em 3 meses ou ante intercorrência
+2. ECG realizado na consulta; solicitados raio X de tórax e ecocardiograma
+3. Retorno em 3 meses ou antes, se houver intercorrência
 4. Orientações sobre estilo de vida
 
 OBSERVAÇÕES:
@@ -725,13 +731,13 @@ Paciente apresenta LDL levemente elevado. Recomendada alteração na dieta e con
     medico: 'Dr. Carlos Mendes - CRM/PA 7823',
     conteudo: `RAIO X DE TÓRAX (PA E PERFIL)
 
-TECNICA:
+TÉCNICA:
 Projeção PA e perfil esquerdo
 
 LAUDO:
-Arcos costais preservados. 
+Arcos costais preservados.
 Campos pulmonares livres, sem infiltrados ou condensações.
-Seio costofrênico livre bilateralmente.
+Seios costofrênicos livres bilateralmente.
 Mediastino sem alargamento.
 Silhueta cardíaca com contornos normais.
 Cúpulas diafragmáticas bem posicionadas.
@@ -740,7 +746,7 @@ IMPRESSÃO DIAGNÓSTICA:
 Raio X de tórax sem alterações significativas.`
   },
   eletrocardiograma: {
-    especialidade: 'Eletrofisiologia',
+    especialidade: 'Cardiologia',
     medico: 'Dra. Amanda Rocha - CRM/PA 6541',
     conteudo: `ELETROCARDIOGRAMA (ECG) - 12 DERIVAÇÕES
 
@@ -783,7 +789,7 @@ Exame realizado com transdutor convexo de 3,5 MHz
 
 FÍGADO:
 - Dimensões normais
-- Ecosnormotexture
+- Ecotextura normal
 - Sem lesões focais
 - Veia porta com fluxo preservado
 
@@ -795,12 +801,12 @@ VESÍCULA BILIAR:
 
 BAÇO:
 - Dimensões normais
-- Ecosnormotexture
+- Ecotextura normal
 
 RINS:
 - Direito: dimensões normais, sem hidronefrose
 - Esquerdo: dimensões normais, sem hidronefrose
-- Sem cálculos ou masses
+- Sem cálculos ou massas
 
 PÂNCREAS:
 - Dimensões normais
@@ -809,7 +815,7 @@ PÂNCREAS:
 
 AORTA ABDOMINAL:
 - Sem aneurismas
-- Calibres preservados
+- Calibre preservado
 
 CONCLUSÃO:
 Ultrassonografia abdominal sem alterações significativas.`
@@ -829,7 +835,7 @@ LAUDO:
 - Linha mediana sem desvio
 - Base do crânio sem alterações
 - Estruturas ósseas íntegras
-- Seios paranasais pneumotizados
+- Seios paranasais pneumatizados
 - Mastoides sem alterações
 
 IMPRESSÃO DIAGNÓSTICA:
@@ -838,6 +844,9 @@ Tomografia de crânio sem alterações significativas.`
 };
 
 // Histórico de saúde por categoria
+// procedimento_id aponta sempre para um procedimento do MESMO servidor em
+// PROCEDIMENTOS_TRE: exames complementares ficam vinculados à consulta ou ao
+// check-up que os originou.
 export const HISTORICO_SAUDE_TRE = [
   {
     id: 'HIST-001',
@@ -858,7 +867,7 @@ export const HISTORICO_SAUDE_TRE = [
     categoria: 'Exames' as const,
     procedimento_id: 'PROC-002',
     descricao: 'Check-up Laboratorial Completo',
-    resultado: 'Colesterol LDL: 160mg/dL (elevado). Demais parâmetros normais.',
+    resultado: 'Colesterol LDL: 162 mg/dL (elevado). Demais parâmetros normais.',
     pdf_url: '/docs/exames_checkup_002.pdf',
     data_realizacao: '2024-02-10',
     laudo: MODELOS_LAUDOS_TRE.exame_laboratorial,
@@ -868,10 +877,10 @@ export const HISTORICO_SAUDE_TRE = [
     matricula: 'TRE0001',
     usuario_nome: 'Maria Santos Oliveira',
     categoria: 'Exames' as const,
-    procedimento_id: 'PROC-005',
+    procedimento_id: 'PROC-001',
     descricao: 'Raio X de Tórax',
     resultado: 'Sem alterações significativas.',
-    pdf_url: '/docs/raiox_torax_005.pdf',
+    pdf_url: '/docs/raiox_torax_001.pdf',
     data_realizacao: '2024-01-20',
     laudo: MODELOS_LAUDOS_TRE.raio_x,
   },
@@ -880,11 +889,11 @@ export const HISTORICO_SAUDE_TRE = [
     matricula: 'TRE0001',
     usuario_nome: 'Maria Santos Oliveira',
     categoria: 'Exames' as const,
-    procedimento_id: 'PROC-006',
+    procedimento_id: 'PROC-001',
     descricao: 'Eletrocardiograma',
     resultado: 'ECG normal.',
-    pdf_url: '/docs/ecg_006.pdf',
-    data_realizacao: '2024-01-22',
+    pdf_url: '/docs/ecg_001.pdf',
+    data_realizacao: '2024-01-15',
     laudo: MODELOS_LAUDOS_TRE.eletrocardiograma,
   },
   {
@@ -892,11 +901,11 @@ export const HISTORICO_SAUDE_TRE = [
     matricula: 'TRE0001',
     usuario_nome: 'Maria Santos Oliveira',
     categoria: 'Exames' as const,
-    procedimento_id: 'PROC-007',
+    procedimento_id: 'PROC-002',
     descricao: 'Ultrassonografia Abdominal',
     resultado: 'Sem alterações.',
-    pdf_url: '/docs/usg_abdominal_007.pdf',
-    data_realizacao: '2024-02-05',
+    pdf_url: '/docs/usg_abdominal_002.pdf',
+    data_realizacao: '2024-02-10',
     laudo: MODELOS_LAUDOS_TRE.ultrassom,
   },
   {
@@ -926,6 +935,7 @@ export const HISTORICO_SAUDE_TRE = [
 ] as const;
 
 // Usuários do sistema (perfis)
+// ultimo_acesso é uma data fixa: gerar a data em tempo de execução diverge entre servidor e cliente.
 export const USUARIOS_SISTEMA_TRE = [
   {
     id: 'USER-001',
@@ -933,7 +943,7 @@ export const USUARIOS_SISTEMA_TRE = [
     email: 'admin@tre-pa.jus.br',
     perfil: 'Gestor_TRE' as const,
     permissoes: ['dashboard', 'relatorios', 'auditoria', 'cadastros', 'configuracoes'],
-    ultimo_acesso: new Date().toISOString(),
+    ultimo_acesso: '2024-01-31T17:42:00-03:00',
   },
   {
     id: 'USER-002',
@@ -941,16 +951,16 @@ export const USUARIOS_SISTEMA_TRE = [
     email: 'auditor@tre-pa.jus.br',
     perfil: 'Auditor' as const,
     permissoes: ['auditoria', 'faturas', 'checklist', 'glosas'],
-    ultimo_acesso: new Date().toISOString(),
+    ultimo_acesso: '2024-01-31T16:05:00-03:00',
   },
   {
     id: 'USER-003',
-    nome: 'Funcionário Hospital Metro',
+    nome: 'Funcionário Hospital Metropolitano',
     email: 'hospital@credenciado.com',
     perfil: 'Credenciado' as const,
     permissoes: ['inserir_fatura', 'inserir_pdf', 'visualizar_status'],
     credenciado_id: 'CRED-001',
-    ultimo_acesso: new Date().toISOString(),
+    ultimo_acesso: '2024-01-31T11:20:00-03:00',
   },
   {
     id: 'USER-004',
@@ -959,13 +969,13 @@ export const USUARIOS_SISTEMA_TRE = [
     perfil: 'Funcionario_TRE' as const,
     permissoes: ['visualizar_historico', 'agendar_procedimento', 'visualizar_status'],
     matricula: 'TRE0001',
-    ultimo_acesso: new Date().toISOString(),
+    ultimo_acesso: '2024-01-30T09:15:00-03:00',
   },
 ] as const;
 
 // Checklist de auditoria
 export const CHECKLIST_AUDITORIA = [
-  { id: 1, item: 'XML válido e completo', verificado: true, obrigatorio: true },
+  { id: 1, item: 'XML TISS válido e completo', verificado: true, obrigatorio: true },
   { id: 2, item: 'PDF legível e assinado', verificado: true, obrigatorio: true },
   { id: 3, item: 'Procedimento compatível com CID', verificado: true, obrigatorio: true },
   { id: 4, item: 'Valor conforme tabela TRE', verificado: true, obrigatorio: true },
@@ -997,9 +1007,13 @@ export const ESTATISTICAS_TRE = {
     'Castanhal': 120,
   },
   
+  // Valor anual consolidado (base 2024). A série mensal do painel do gestor fica
+  // em app/tre/gestor e não é editada aqui.
   valor_total_processado: 2850000.00,
   valor_medio_consulta: 320.00,
-  valor_medio_internacao: 8500.00,
+  // Média de referência: a internação de TRE0002 (PROC-003/FAT-003, R$ 3.770,00)
+  // fica ~35% acima dela.
+  valor_medio_internacao: 2790.00,
   taxa_glosa_media: 3.2,
   
   // Top credenciados
