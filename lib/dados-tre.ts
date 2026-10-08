@@ -421,7 +421,7 @@ export const ITENS_FATURA_TRE = [
     valor_unitario: 45.00,
     valor_total: 45.00,
     origem: 'XML' as const,
-    status_auditoria: 'Aprovado' as const,
+    status_auditoria: 'Pendente' as const,
     motivo_glosa: null,
   },
   {
@@ -434,7 +434,7 @@ export const ITENS_FATURA_TRE = [
     valor_unitario: 25.00,
     valor_total: 25.00,
     origem: 'XML' as const,
-    status_auditoria: 'Aprovado' as const,
+    status_auditoria: 'Pendente' as const,
     motivo_glosa: null,
   },
   {
@@ -447,7 +447,7 @@ export const ITENS_FATURA_TRE = [
     valor_unitario: 35.00,
     valor_total: 35.00,
     origem: 'XML' as const,
-    status_auditoria: 'Aprovado' as const,
+    status_auditoria: 'Pendente' as const,
     motivo_glosa: null,
   },
   {
@@ -460,7 +460,7 @@ export const ITENS_FATURA_TRE = [
     valor_unitario: 2.80,
     valor_total: 8.40,
     origem: 'XML' as const,
-    status_auditoria: 'Aprovado' as const,
+    status_auditoria: 'Pendente' as const,
     motivo_glosa: null,
   },
   {
@@ -473,7 +473,7 @@ export const ITENS_FATURA_TRE = [
     valor_unitario: 1.20,
     valor_total: 6.00,
     origem: 'XML' as const,
-    status_auditoria: 'Aprovado' as const,
+    status_auditoria: 'Pendente' as const,
     motivo_glosa: null,
   },
   // FAT-003 - Internação (bruto R$ 3.770,00 · glosa R$ 800,00 · líquido R$ 2.970,00)
@@ -632,9 +632,9 @@ export const FATURAS_TRE = [
     pdf_categoria: 'Exames' as const,
     valor_bruto: 119.40,
     valor_liquido: 119.40,
-    status: 'Auditada' as const,
+    status: 'Em análise' as const,
     auditor_id: 'AUDITOR-001',
-    observacoes_auditoria: 'Documentação completa',
+    observacoes_auditoria: '',
     motivo_glosa: null,
   },
   {

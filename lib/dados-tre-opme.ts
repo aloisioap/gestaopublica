@@ -797,7 +797,7 @@ export const preencherDUT = (dutId: string, dados: Record<string, string>): stri
 
   let conteudo = dut.conteudo;
   Object.entries(dados).forEach(([chave, valor]) => {
-    conteudo = conteudo.replace(new RegExp(`{{${chave}}}`, "g"), valor);
+    conteudo = conteudo.split(`{{${chave}}}`).join(valor);
   });
 
   return conteudo;

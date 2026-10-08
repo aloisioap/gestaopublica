@@ -273,7 +273,11 @@ const ATRASO = [
 /** Botão "vidro" sem blur próprio, para uso dentro de superfícies que já desfocam. */
 const BOTAO_VIDRO = cn(treBotao({ tom: "vidro" }), "backdrop-blur-none");
 const BOTAO_PERIGO_SUAVE = cn(treBotao({ tom: "fantasma" }), "text-tre-danger-ink hover:bg-tre-danger/10 hover:text-tre-danger-ink");
-const CAMPO_SELECT = cn(TRE_CAMPO, "focus:ring-2 focus:ring-tre-navy/40 focus:ring-offset-0");
+/** TRE_CAMPO usa placeholder slate-500; o mínimo do design system para texto secundário é slate-600. */
+const CAMPO = cn(TRE_CAMPO, "placeholder:text-slate-600");
+const CAMPO_SELECT = cn(CAMPO, "focus:ring-2 focus:ring-tre-navy/40 focus:ring-offset-0");
+/** O "Fechar" do GlassPainel tem 36px (p-2 + ícone 20px); p-2.5 leva o alvo de toque a 40px. */
+const PAINEL = "[&>header>button]:p-2.5";
 const MENU_SELECT = "rounded-xl border-white/70 bg-white/95 shadow-glass-lg";
 const ID_SECAO_ABAS = "secao-abas";
 
@@ -374,7 +378,7 @@ function textoDoLaudo(item: HistoricoItem, servidor: Servidor) {
     `Servidor: ${servidor.nome} (matrícula ${servidor.matricula})`,
     `Categoria: ${item.categoria}`,
     `Data de realização: ${formatData(item.data_realizacao)}`,
-    `Registro: ${item.id} · Procedimento ${item.procedimento_id}`,
+    `Identificação: ${item.id} · Procedimento ${item.procedimento_id}`,
     ...camposDoLaudo(item).map(([rotulo, valor]) => `${rotulo}: ${valor}`),
     "",
     `Resumo: ${item.resultado}`,
@@ -1197,7 +1201,7 @@ export default function PortalUsuarioTRE() {
                   <ToneBadge tom="info">{quando(proximoAtendimento.data)}</ToneBadge>
                   <span className="line-clamp-2 w-full">
                     {proximoAtendimento.hora === HORA_A_DEFINIR ? "Horário a definir" : proximoAtendimento.hora} ·{" "}
-                    {proximoAtendimento.local}
+                    {proximoAtendimento.local === LOCAL_A_DEFINIR ? "local a definir" : proximoAtendimento.local}
                   </span>
                 </>
               ) : (
@@ -1241,7 +1245,7 @@ export default function PortalUsuarioTRE() {
           tom="green"
           valor={formatNumero(examesComLaudo.length)}
           detalhe={exames.length > 0 ? `de ${plural(exames.length, "exame", "exames")} · ver no histórico` : "Nenhum exame registrado"}
-          onClick={verResultados}
+          onClick={exames.length > 0 ? verResultados : undefined}
           ativo={aba === "historico" && filtroCategoria === "Exames"}
           className={cn("h-full", ENTRADA, ATRASO[4])}
         />
@@ -1301,7 +1305,7 @@ export default function PortalUsuarioTRE() {
 
                 {historicoServidor.length > 0 && (
                   <div className="mt-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between print:hidden">
-                    <div role="group" aria-label="Filtrar por categoria" className="tre-scroll-x -mx-1 flex gap-2 px-1 py-1">
+                    <div role="group" aria-label="Filtrar por categoria" className="tre-scroll-x -mx-1 flex min-w-0 gap-2 px-1 py-1">
                       <ChipFiltro
                         rotulo="Todos"
                         contagem={historicoServidor.length}
@@ -1327,7 +1331,7 @@ export default function PortalUsuarioTRE() {
                         onChange={(e) => setBusca(e.target.value)}
                         aria-label="Buscar no histórico por descrição, médico ou laboratório"
                         placeholder="Descrição, médico ou laboratório"
-                        className={cn(TRE_CAMPO, "pl-10")}
+                        className={cn(CAMPO, "pl-10")}
                       />
                     </div>
                   </div>
@@ -1666,6 +1670,7 @@ export default function PortalUsuarioTRE() {
       <GlassDialog open={laudoAberto} onOpenChange={setLaudoAberto}>
         {laudoItem && (
           <GlassPainel
+            className={PAINEL}
             largura="lg"
             icone={CATEGORIAS[laudoItem.categoria].icone}
             titulo={laudoItem.descricao}
@@ -1763,9 +1768,14 @@ export default function PortalUsuarioTRE() {
             const futuro = ag.data >= DATA_REFERENCIA_TRE;
             const podeCancelar = futuro && (ag.status === "Pendente" || ag.status === "Confirmado");
             const podeAgendar = futuro && ag.status !== "Cancelado";
-            const temLocal = ag.local !== LOCAL_A_DEFINIR;
+            // Com credenciado vinculado, o endereço dele é mais preciso para o mapa que o texto livre do local.
+            const destinoMapa = cred
+              ? `${cred.nome_fantasia}, ${cred.endereco}, ${cred.bairro}, ${cred.cidade} - ${cred.estado}`
+              : ag.local;
+            const temLocal = Boolean(cred) || ag.local !== LOCAL_A_DEFINIR;
             return (
               <GlassPainel
+                className={PAINEL}
                 largura="md"
                 icone={CalendarCheck2}
                 titulo={ag.descricao}
@@ -1785,7 +1795,7 @@ export default function PortalUsuarioTRE() {
                     {temLocal ? (
                       <Button asChild className={cn(BOTAO_VIDRO, "tre-ring h-10 rounded-xl")}>
                         <a
-                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ag.local)}`}
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(destinoMapa)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -1883,6 +1893,7 @@ export default function PortalUsuarioTRE() {
       {/* Novo agendamento */}
       <GlassDialog open={novoAberto} onOpenChange={setNovoAberto}>
         <GlassPainel
+          className={PAINEL}
           largura="md"
           icone={CalendarPlus}
           titulo="Solicitar agendamento"
@@ -1933,7 +1944,7 @@ export default function PortalUsuarioTRE() {
                   onChange={(e) => atualizarForm("data", e.target.value)}
                   aria-invalid={Boolean(erros.data)}
                   aria-describedby={descritoPor("agd-data", erros.data, true)}
-                  className={cn(TRE_CAMPO, erros.data && "border-tre-danger")}
+                  className={cn(CAMPO, erros.data && "border-tre-danger")}
                 />
               </Campo>
             </div>
@@ -1970,7 +1981,7 @@ export default function PortalUsuarioTRE() {
                   onChange={(e) => atualizarForm("especialidadeOutra", e.target.value)}
                   aria-invalid={Boolean(erros.especialidadeOutra)}
                   aria-describedby={descritoPor("agd-especialidade-outra", erros.especialidadeOutra)}
-                  className={cn(TRE_CAMPO, erros.especialidadeOutra && "border-tre-danger")}
+                  className={cn(CAMPO, erros.especialidadeOutra && "border-tre-danger")}
                 />
               </Campo>
             )}
@@ -2008,7 +2019,7 @@ export default function PortalUsuarioTRE() {
                 placeholder="Informe sintomas, urgência ou preferências de horário..."
                 value={form.observacoes}
                 onChange={(e) => atualizarForm("observacoes", e.target.value)}
-                className={cn(TRE_CAMPO, "h-auto min-h-24 py-3")}
+                className={cn(CAMPO, "h-auto min-h-24 py-3")}
               />
             </Campo>
 
@@ -2020,6 +2031,7 @@ export default function PortalUsuarioTRE() {
       {/* Notificações */}
       <GlassDialog open={notificacoesAbertas} onOpenChange={setNotificacoesAbertas}>
         <GlassPainel
+          className={PAINEL}
           lado="direita"
           largura="sm"
           icone={Bell}
@@ -2116,6 +2128,7 @@ export default function PortalUsuarioTRE() {
       {/* Carteirinha em tela cheia */}
       <GlassDialog open={qrAberto} onOpenChange={setQrAberto}>
         <GlassPainel
+          className={PAINEL}
           largura="sm"
           icone={QrCode}
           titulo="Carteirinha digital"

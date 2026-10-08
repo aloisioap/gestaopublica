@@ -38,15 +38,15 @@ export function KpiCard({ rotulo, valor, icone: Icone, tom = "navy", detalhe, te
 
   const conteudo = (
     <>
-      <div className="flex items-start justify-between gap-3">
+      <span className="flex items-start justify-between gap-3">
         <span className="text-sm font-medium text-slate-600">{rotulo}</span>
         <span aria-hidden className={cn("grid size-10 shrink-0 place-items-center rounded-2xl bg-gradient-to-br shadow-md", ORB[tom])}>
           <Icone className="size-5" />
         </span>
-      </div>
-      <div className="mt-2 text-3xl font-bold tracking-tight text-tre-navy tabular-nums">{valor}</div>
+      </span>
+      <span className="mt-2 block text-3xl font-bold tracking-tight text-tre-navy tabular-nums">{valor}</span>
       {(detalhe || tendencia) && (
-        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-600">
+        <span className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-600">
           {tendencia && (
             <span className={cn("inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-semibold", tendencia.bom ? "tre-tone-success" : "tre-tone-danger")}>
               {tendencia.direcao === "alta" ? <ArrowUpRight className="size-3" aria-hidden /> : <ArrowDownRight className="size-3" aria-hidden />}
@@ -54,7 +54,7 @@ export function KpiCard({ rotulo, valor, icone: Icone, tom = "navy", detalhe, te
             </span>
           )}
           {detalhe}
-        </div>
+        </span>
       )}
     </>
   );

@@ -43,7 +43,7 @@ export function TreShell({ perfil, titulo, subtitulo, acoes, contexto, cabecalho
               <Shield className="size-5" aria-hidden />
             </span>
             <span className="leading-tight">
-              <span className="block text-sm font-bold tracking-wide text-white">{IDENTIDADE_TRE.nome}</span>
+              <span className="block text-sm font-bold tracking-wide text-white print:text-tre-navy">{IDENTIDADE_TRE.nome}</span>
               <span className="hidden text-xs text-white/80 sm:block">Saúde do Servidor</span>
             </span>
           </Link>

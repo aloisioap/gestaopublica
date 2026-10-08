@@ -369,7 +369,7 @@ const UMA_CASA = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
    Funções auxiliares
    ============================================================ */
 
-const normalizar = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+const normalizar = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 
 const plural = (n: number, singular: string, pluralTexto: string) => `${formatNumero(n)} ${n === 1 ? singular : pluralTexto}`;
 
@@ -454,7 +454,7 @@ function validarExtra(form: FormExtra) {
 }
 
 function baixarCSV(nomeArquivo: string, linhas: (string | number)[][]) {
-  const csv = "﻿" + linhas.map((l) => l.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(";")).join("\r\n");
+  const csv = "\uFEFF" + linhas.map((l) => l.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(";")).join("\r\n");
   const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
   const a = document.createElement("a");
   a.href = url;
@@ -462,7 +462,7 @@ function baixarCSV(nomeArquivo: string, linhas: (string | number)[][]) {
   document.body.appendChild(a);
   a.click();
   a.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 0);
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 const movimentoReduzido = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -512,7 +512,7 @@ function Dado({ rotulo, valor, className }: { rotulo: string; valor: React.React
   return (
     <div className={cn("min-w-0", className)}>
       <dt className="text-xs text-slate-600">{rotulo}</dt>
-      <dd className="truncate font-medium text-slate-900">{valor}</dd>
+      <dd className="break-words font-medium text-slate-900">{valor}</dd>
     </div>
   );
 }
@@ -602,7 +602,7 @@ function FormValidacao({ id, valor, onValor, onValidar, busca, servidor, inputRe
   return (
     <form
       role="search"
-      aria-label="Validar servidor pela matrícula"
+      aria-label={compacto ? "Validar servidor pela matrícula (nova fatura)" : "Validar servidor pela matrícula"}
       onSubmit={(e) => {
         e.preventDefault();
         onValidar();
@@ -765,7 +765,15 @@ function DetalheFatura({ fatura }: { fatura: Fatura }) {
 
       <dl className="grid gap-3 text-sm sm:grid-cols-2">
         <Dado rotulo="Servidor" valor={info.matricula ? `${info.servidor} · ${info.matricula}` : info.servidor} />
-        <Dado rotulo="Procedimento" valor={info.procedimento} />
+        <Dado
+          rotulo="Procedimento"
+          valor={
+            <>
+              {info.procedimento}
+              {fatura.procedimento_id && <span className="font-mono text-xs font-normal text-slate-600"> · {fatura.procedimento_id}</span>}
+            </>
+          }
+        />
         <Dado rotulo="Arquivo XML" valor={<span className="font-mono text-xs">{fatura.xml_arquivo || "—"}</span>} />
         <Dado rotulo="Documento PDF" valor={<span className="font-mono text-xs">{fatura.pdf_arquivo || "—"}</span>} />
       </dl>
@@ -781,18 +789,19 @@ function DetalheFatura({ fatura }: { fatura: Fatura }) {
         <h3 id="detalhe-valores" className="sr-only">
           Valores
         </h3>
-        <dl className="grid grid-cols-3 gap-2 sm:gap-3">
-          <div className="tre-inset rounded-2xl p-3">
+        {/* < sm: linhas rótulo/valor (o valor em BRL não quebra); sm+: três blocos */}
+        <dl className="grid gap-2 sm:grid-cols-3 sm:gap-3">
+          <div className="tre-inset flex items-baseline justify-between gap-3 rounded-2xl px-4 py-3 sm:block sm:p-3">
             <dt className="text-xs text-slate-600">Bruto</dt>
-            <dd className="mt-0.5 font-semibold tabular-nums text-tre-navy sm:text-lg">{formatBRL(fatura.valor_bruto)}</dd>
+            <dd className="font-semibold tabular-nums text-tre-navy sm:mt-0.5 sm:text-lg">{formatBRL(fatura.valor_bruto)}</dd>
           </div>
-          <div className="tre-inset rounded-2xl p-3">
+          <div className="tre-inset flex items-baseline justify-between gap-3 rounded-2xl px-4 py-3 sm:block sm:p-3">
             <dt className="text-xs text-slate-600">Glosado</dt>
-            <dd className={cn("mt-0.5 font-semibold tabular-nums sm:text-lg", glosado > 0 ? "text-tre-danger-ink" : "text-slate-700")}>{formatBRL(glosado)}</dd>
+            <dd className={cn("font-semibold tabular-nums sm:mt-0.5 sm:text-lg", glosado > 0 ? "text-tre-danger-ink" : "text-slate-700")}>{formatBRL(glosado)}</dd>
           </div>
-          <div className="tre-inset rounded-2xl p-3">
+          <div className="tre-inset flex items-baseline justify-between gap-3 rounded-2xl px-4 py-3 sm:block sm:p-3">
             <dt className="text-xs text-slate-600">{fatura.status === "Em análise" ? "Líquido previsto" : "Líquido"}</dt>
-            <dd className="mt-0.5 font-bold tabular-nums text-tre-navy sm:text-lg">{formatBRL(fatura.valor_liquido)}</dd>
+            <dd className="font-bold tabular-nums text-tre-navy sm:mt-0.5 sm:text-lg">{formatBRL(fatura.valor_liquido)}</dd>
           </div>
         </dl>
         <BarraAprovacao fatura={fatura} className="mt-3" />
@@ -872,7 +881,7 @@ function DetalheFatura({ fatura }: { fatura: Fatura }) {
    Página
    ============================================================ */
 
-export default function AreaPrestadorTRE() {
+export default function AreaCredenciadoTRE() {
   /* ---------- Persona e navegação (deep links) ---------- */
   const [credenciadoId, setCredenciadoId] = useQueryParam("credenciado", CREDENCIADOS_TRE[0].id);
   const [abaParam, setAbaParam] = useQueryParam("aba", "upload");
@@ -917,6 +926,13 @@ export default function AreaPrestadorTRE() {
     },
     [],
   );
+
+  // Deep link (?aba=upload|faturas|status): leva o usuário direto às abas, que ficam abaixo da validação.
+  useEffect(() => {
+    if (!new URLSearchParams(window.location.search).has("aba")) return;
+    const timer = window.setTimeout(() => rolarPara("secao-abas"), 150);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   /* ---------- Derivados: faturas ---------- */
   const faturasCredenciado = useMemo(() => faturas.filter((f) => f.credenciado_id === credenciado.id), [faturas, credenciado.id]);
@@ -1098,8 +1114,7 @@ export default function AreaPrestadorTRE() {
       });
       return;
     }
-    setAbaParam("upload");
-    depoisDoRender(() => rolarPara(xmlAnalisado ? "secao-itens" : "secao-xml"));
+    irParaNovaFatura();
   }
 
   /* ---------- Ações: XML ---------- */
@@ -1286,6 +1301,11 @@ export default function AreaPrestadorTRE() {
 
   /* ---------- Ações: faturas ---------- */
 
+  function irParaNovaFatura() {
+    setAbaParam("upload");
+    depoisDoRender(() => rolarPara(xmlAnalisado ? "secao-itens" : "secao-xml"));
+  }
+
   function irParaFaturas(novoFiltro: FiltroFatura) {
     setFiltro(novoFiltro);
     setAbaParam("faturas");
@@ -1358,7 +1378,7 @@ export default function AreaPrestadorTRE() {
       <Select value={credenciado.id} onValueChange={trocarCredenciado}>
         <SelectTrigger
           aria-label="Ver como (credenciado de demonstração)"
-          className="h-10 w-44 gap-2 rounded-full border-white/20 bg-white/10 pl-3 text-white hover:bg-white/15 focus:ring-2 focus:ring-tre-gold-soft focus:ring-offset-0 sm:w-64 [&>svg:last-child]:text-white [&>svg:last-child]:opacity-80"
+          className="h-10 w-44 justify-start gap-2 rounded-full border-white/20 bg-white/10 pl-3 text-white hover:bg-white/15 focus:ring-2 focus:ring-tre-gold-soft focus:ring-offset-0 sm:w-64 [&>span]:flex-1 [&>span]:text-left [&>svg:last-child]:text-white [&>svg:last-child]:opacity-80"
         >
           <Building2 className="size-4 shrink-0 text-tre-gold-soft" aria-hidden />
           <SelectValue />
@@ -1506,7 +1526,7 @@ export default function AreaPrestadorTRE() {
                 titulo="Nenhuma autorização em aberto"
                 descricao="Atendimentos que não exigem autorização prévia podem ser faturados normalmente."
                 acao={
-                  <Button type="button" onClick={() => setAbaParam("upload")} className={cn(BOTAO_VIDRO, "h-10 rounded-xl px-4")}>
+                  <Button type="button" onClick={irParaNovaFatura} className={cn(BOTAO_VIDRO, "h-10 rounded-xl px-4")}>
                     <FilePlus2 aria-hidden />
                     Ir para nova fatura
                   </Button>
@@ -1569,10 +1589,22 @@ export default function AreaPrestadorTRE() {
                       {selecionada && (
                         <div className="flex flex-wrap items-center justify-between gap-2 border-t border-tre-navy/10 px-4 py-3">
                           {vencida ? (
-                            <p className="flex items-start gap-2 text-xs font-medium text-tre-danger-ink">
-                              <Ban aria-hidden className="mt-0.5 size-4 shrink-0" />
-                              Vencida em {formatData(p.data_validade)}: faturamento bloqueado. Solicite a renovação ao TRE-PA.
-                            </p>
+                            <>
+                              <p className="flex min-w-0 flex-1 items-start gap-2 text-xs font-medium text-tre-danger-ink">
+                                <Ban aria-hidden className="mt-0.5 size-4 shrink-0" />
+                                Vencida em {formatData(p.data_validade)}: faturamento bloqueado. Solicite a renovação ao TRE-PA.
+                              </p>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                onClick={() => setProcessoId(null)}
+                                aria-label={`Desmarcar a autorização vencida ${p.id}`}
+                                className={cn(BOTAO_FANTASMA, "h-10 shrink-0 rounded-xl px-3")}
+                              >
+                                <X aria-hidden />
+                                Desmarcar
+                              </Button>
+                            </>
                           ) : (
                             <>
                               <span className="text-xs font-medium text-tre-green-ink">Selecionada para faturamento</span>
@@ -2048,7 +2080,7 @@ export default function AreaPrestadorTRE() {
                             {item.documento_justificativa}
                           </p>
                         )}
-                        <div className="mt-3 flex items-center justify-between gap-2 text-sm">
+                        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm">
                           <OrigemBadge origem="Extra" />
                           <span className="tabular-nums text-slate-600">
                             {formatNumero(item.quantidade)} × {formatBRL(item.valor_unitario)}
@@ -2057,9 +2089,21 @@ export default function AreaPrestadorTRE() {
                         </div>
                       </li>
                     ))}
-                    <li className="flex items-center justify-between rounded-2xl bg-tre-navy/[0.06] px-4 py-3">
-                      <span className="text-sm font-semibold text-tre-navy">Total da fatura</span>
-                      <span className="text-lg font-bold tabular-nums text-tre-navy">{formatBRL(total)}</span>
+                    <li className="rounded-2xl bg-tre-navy/[0.06] px-4 py-3">
+                      <dl className="space-y-1 text-sm">
+                        <div className="flex items-baseline justify-between gap-2 text-slate-600">
+                          <dt>Itens do XML ({formatNumero(itensXml.length)})</dt>
+                          <dd className="tabular-nums text-slate-900">{formatBRL(totalXml)}</dd>
+                        </div>
+                        <div className="flex items-baseline justify-between gap-2 text-slate-600">
+                          <dt>Itens extras ({formatNumero(itensExtras.length)})</dt>
+                          <dd className="tabular-nums text-slate-900">{formatBRL(totalExtras)}</dd>
+                        </div>
+                        <div className="flex items-baseline justify-between gap-2 border-t border-tre-navy/10 pt-2">
+                          <dt className="font-semibold text-tre-navy">Total da fatura</dt>
+                          <dd className="text-lg font-bold tabular-nums text-tre-navy">{formatBRL(total)}</dd>
+                        </div>
+                      </dl>
                     </li>
                   </ul>
                 </>
@@ -2212,7 +2256,7 @@ export default function AreaPrestadorTRE() {
                     titulo="Nenhuma fatura enviada ainda"
                     descricao={`${credenciado.nome_fantasia} ainda não tem faturas. Valide um servidor e envie o XML TISS para começar.`}
                     acao={
-                      <Button type="button" onClick={() => setAbaParam("upload")} className={cn(treBotao({ tom: "sucesso" }), "h-10 rounded-xl px-4")}>
+                      <Button type="button" onClick={irParaNovaFatura} className={cn(treBotao({ tom: "sucesso" }), "h-10 rounded-xl px-4")}>
                         <FilePlus2 aria-hidden />
                         Nova fatura
                       </Button>

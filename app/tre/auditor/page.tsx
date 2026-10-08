@@ -291,7 +291,7 @@ const ROTULO_ESTADO_PARECER: Record<EstadoParecer, { rotulo: string; tom: TomTRE
    Funções auxiliares
    ============================================================ */
 
-const normalizar = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+const normalizar = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 const plural = (n: number, singular: string, pluralTexto: string) => `${formatNumero(n)} ${n === 1 ? singular : pluralTexto}`;
 const primeiraMaiuscula = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 const somenteLeitura = (f: FaturaAuditoria) => STATUS_SOMENTE_LEITURA.has(f.status);
@@ -340,7 +340,7 @@ function baixarCSV(nomeArquivo: string, linhas: (string | number)[][]) {
     const s = String(v);
     return /[";\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
-  const csv = "﻿" + linhas.map((l) => l.map(escapar).join(";")).join("\r\n");
+  const csv = "\uFEFF" + linhas.map((l) => l.map(escapar).join(";")).join("\r\n");
   const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
   const link = document.createElement("a");
   link.href = url;
@@ -602,6 +602,8 @@ export default function AreaAuditoriaTRE() {
     ? faturas.find((f) => f.id === faturaParam || f.numero_fatura === faturaParam) ?? null
     : null;
   const proximaAAuditar = faturasAAuditar.find((f) => f.id !== faturaSelecionada?.id) ?? null;
+  /** Fila zerada: sugere revisar uma fatura concluída que ainda pode ser reaberta (não paga). */
+  const sugestaoRevisao = proximaAAuditar ? null : (faturas.find((f) => f.status !== "Paga") ?? faturas[0] ?? null);
 
   /* ---------- Rolagem até a vistoria no celular (seleção e deep link) ---------- */
   useEffect(() => {
@@ -668,6 +670,11 @@ export default function AreaAuditoriaTRE() {
       const atual = prev[faturaId] ?? { marcados: new Set<number>(), observacoes: "" };
       return { ...prev, [faturaId]: { ...atual, observacoes: texto } };
     });
+  };
+
+  /** O botão acionado some (troca de fatura ou de modo); o foco vai para o título da vistoria em vez de cair no body. */
+  const focarTituloVistoria = () => {
+    requestAnimationFrame(() => document.getElementById("vistoria-titulo")?.focus());
   };
 
   /* ---------- Ações: itens ---------- */
@@ -749,6 +756,7 @@ export default function AreaAuditoriaTRE() {
     const proxima = faturas.find((f) => f.id !== faturaId && precisaAuditar(f)) ?? null;
     fecharEditorGlosa();
     if (proxima) setFaturaParam(proxima.id);
+    focarTituloVistoria();
 
     toast({
       variant: "success",
@@ -787,6 +795,7 @@ export default function AreaAuditoriaTRE() {
     setReabrirAberto(false);
     setJustificativa("");
     setErroJustificativa(null);
+    focarTituloVistoria();
     toast({ title: "Auditoria reaberta", description: `${faturaSelecionada.numero_fatura} voltou para a fila, em análise.` });
   };
 
@@ -840,7 +849,7 @@ export default function AreaAuditoriaTRE() {
                 </ToneBadge>
               )}
             </div>
-            <h2 id="vistoria-titulo" className="mt-2 text-2xl font-bold tracking-tight text-tre-navy">
+            <h2 id="vistoria-titulo" tabIndex={-1} className="mt-2 scroll-mt-32 text-2xl font-bold tracking-tight text-tre-navy focus:outline-none">
               {fatura.numero_fatura}
             </h2>
             <p className="mt-0.5 text-sm text-slate-700">
@@ -986,7 +995,13 @@ export default function AreaAuditoriaTRE() {
         </GlassCard>
 
         {/* Itens + observações */}
-        <GlassCard variante="forte" as="section" aria-labelledby="itens-titulo" className={cn("overflow-hidden", ENTRADA, atraso(1))}>
+        {/* container-type: o editor de glosa usa 100cqw para caber na largura visível quando a tabela rola na horizontal. */}
+        <GlassCard
+          variante="forte"
+          as="section"
+          aria-labelledby="itens-titulo"
+          className={cn("overflow-hidden [container-type:inline-size]", ENTRADA, atraso(1))}
+        >
           <GlassCardHeader>
             <SectionHeader
               id="itens-titulo"
@@ -1116,17 +1131,20 @@ export default function AreaAuditoriaTRE() {
                       {emEdicao && (
                         <TableRow className="border-tre-navy/[0.08] bg-white/70 hover:bg-white/70">
                           <TableCell colSpan={colunas} className="px-5 pb-5 pt-0 sm:px-6">
-                            <EditorGlosa
-                              item={item}
-                              motivo={motivoGlosa}
-                              erro={erroGlosa}
-                              onMotivo={(v) => {
-                                setMotivoGlosa(v);
-                                if (erroGlosa) setErroGlosa(null);
-                              }}
-                              onConfirmar={() => confirmarGlosa(item.id)}
-                              onCancelar={() => fecharEditorGlosa(item.id)}
-                            />
+                            {/* Preso à esquerda e limitado à área visível: no celular a tabela (680px) rola, o editor não. */}
+                            <div className="sticky left-5 max-w-[calc(100cqw-2.5rem)] sm:left-6 sm:max-w-[calc(100cqw-3rem)]">
+                              <EditorGlosa
+                                item={item}
+                                motivo={motivoGlosa}
+                                erro={erroGlosa}
+                                onMotivo={(v) => {
+                                  setMotivoGlosa(v);
+                                  if (erroGlosa) setErroGlosa(null);
+                                }}
+                                onConfirmar={() => confirmarGlosa(item.id)}
+                                onCancelar={() => fecharEditorGlosa(item.id)}
+                              />
+                            </div>
                           </TableCell>
                         </TableRow>
                       )}
@@ -1182,7 +1200,9 @@ export default function AreaAuditoriaTRE() {
             {leitura ? (
               <p className="flex items-center gap-1.5 text-xs text-white/80">
                 <Lock className="size-3.5 text-tre-gold-soft" aria-hidden />
-                {fatura.status === "Paga" ? "Fatura paga: não pode ser reaberta." : `Concluída${fatura.auditor_id ? ` por ${fatura.auditor_id}` : ""}.`}
+                {fatura.status === "Paga"
+                  ? "Fatura paga: não pode ser reaberta."
+                  : `Concluída${fatura.auditor_id ? ` por ${fatura.auditor_id === AUDITOR.id ? AUDITOR.nome : fatura.auditor_id}` : ""}.`}
               </p>
             ) : (
               bloqueios.length > 0 && (
@@ -1491,11 +1511,20 @@ export default function AreaAuditoriaTRE() {
                     <EmptyState
                       icone={ClipboardCheck}
                       titulo="Selecione uma fatura"
-                      descricao="Escolha uma fatura na fila para conferir o checklist, analisar item a item e registrar a decisão."
+                      descricao={
+                        proximaAAuditar || !sugestaoRevisao
+                          ? "Escolha uma fatura na fila para conferir o checklist, analisar item a item e registrar a decisão."
+                          : "A fila de auditoria está zerada. Abra uma fatura concluída para revisar o resultado ou reabrir a auditoria."
+                      }
                       acao={
                         proximaAAuditar ? (
                           <Button onClick={() => selecionarFatura(proximaAAuditar.id)} className={cn(treBotao({ tom: "primario" }), BOTAO_BASE)}>
                             Abrir {proximaAAuditar.numero_fatura}
+                            <ArrowRight aria-hidden />
+                          </Button>
+                        ) : sugestaoRevisao ? (
+                          <Button variant="ghost" onClick={() => selecionarFatura(sugestaoRevisao.id)} className={cn(BOTAO_VIDRO, BOTAO_BASE)}>
+                            Revisar {sugestaoRevisao.numero_fatura}
                             <ArrowRight aria-hidden />
                           </Button>
                         ) : undefined
@@ -1900,7 +1929,15 @@ function AbaLotes({
                                   {g.procedimentoDescricao} <span className="font-mono text-xs text-slate-600">· {g.procedimentoCodigo}</span>
                                 </p>
                                 <p className="mt-0.5 text-xs text-slate-600">
-                                  {g.credenciado_nome} · {g.prestador} · {g.cidade} · {formatData(g.dataExecucao)} · guia {g.numeroGuia}
+                                  {[
+                                    g.credenciado_nome,
+                                    g.prestador !== g.credenciado_nome ? g.prestador : null,
+                                    g.cidade,
+                                    formatData(g.dataExecucao),
+                                    `guia ${g.numeroGuia}`,
+                                  ]
+                                    .filter(Boolean)
+                                    .join(" · ")}
                                 </p>
                                 {g.motivoGlosa && (
                                   <p className="mt-2 flex items-start gap-1.5 text-xs font-medium text-tre-danger-ink">
@@ -2655,8 +2692,8 @@ function AbaOpme({ opme }: { opme: ReturnType<typeof useParecerOpme> }) {
                             />
                           ) : (
                             <ul className="mt-1.5 space-y-1.5">
-                              {parecer.condicionantes?.map((c) => (
-                                <li key={c} className="flex items-start gap-2 text-sm text-slate-800">
+                              {parecer.condicionantes?.map((c, i) => (
+                                <li key={`${i}-${c}`} className="flex items-start gap-2 text-sm text-slate-800">
                                   <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-tre-success" aria-hidden />
                                   {c}
                                 </li>

@@ -84,7 +84,7 @@ const ETAPAS: Array<EtapaFluxo & { perfil: PerfilTRE }> = [
   {
     id: "faturamento",
     titulo: "Faturamento",
-    descricao: "XML no padrão TISS, para troca de informações entre operadora e prestador, com anexos PDF categorizados.",
+    descricao: "XML no padrão TISS, para troca de informações entre o credenciado e o TRE-PA, com anexos PDF categorizados.",
     perfil: "credenciado",
     prazo: "Após o atendimento",
   },
@@ -282,10 +282,15 @@ export default function PortalTRE() {
                     Ver demonstração animada
                   </Button>
                 </GlassDialogTrigger>
+                {/*
+                  Sem `icone`: esta página é Server Component e GlassPainel é Client Component.
+                  Um componente lucide (objeto forwardRef com função render) não é serializável
+                  pelo RSC e derrubaria a renderização ("Functions cannot be passed directly to
+                  Client Components").
+                */}
                 <GlassPainel
                   titulo="Simulação do processo"
                   descricao="Uma solicitação fictícia percorre as etapas do fluxo, da validação ao pagamento."
-                  icone={Play}
                   largura="lg"
                 >
                   <SimuladorProtocoloTRE />
@@ -323,8 +328,10 @@ export default function PortalTRE() {
         </GlassCardContent>
 
         <GlassCardFooter className="justify-start gap-2 py-4">
-          <span className="mr-1 text-sm font-medium text-slate-600">Ir direto para</span>
-          <ul className="flex flex-wrap gap-2">
+          <span id="atalhos-titulo" className="mr-1 text-sm font-medium text-slate-600">
+            Ir direto para
+          </span>
+          <ul aria-labelledby="atalhos-titulo" className="flex flex-wrap gap-2">
             {ATALHOS.map(({ perfil, rotulo, aba }) => {
               const p = PERFIS_TRE[perfil];
               return (

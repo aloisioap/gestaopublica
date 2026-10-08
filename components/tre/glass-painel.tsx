@@ -51,7 +51,7 @@ export function GlassPainel({ titulo, descricao, icone: Icone, rodape, lado = "c
             <DialogPrimitive.Title className="text-lg font-semibold leading-tight text-tre-navy">{titulo}</DialogPrimitive.Title>
             {descricao && <DialogPrimitive.Description className="mt-0.5 text-sm text-slate-600">{descricao}</DialogPrimitive.Description>}
           </div>
-          <DialogPrimitive.Close className="tre-ring rounded-full p-2 text-slate-600 transition-colors hover:bg-white/70 hover:text-tre-navy">
+          <DialogPrimitive.Close className="tre-ring grid size-10 shrink-0 place-items-center rounded-full text-slate-600 transition-colors hover:bg-white/70 hover:text-tre-navy">
             <X className="size-5" aria-hidden />
             <span className="sr-only">Fechar</span>
           </DialogPrimitive.Close>

@@ -343,7 +343,8 @@ export function SimuladorProtocoloTRE({ cenarioInicial = "aleatorio" }: Simulado
 
       {/* Controles: cenário, início e progresso */}
       <div className="tre-inset rounded-3xl p-4 sm:p-5">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        {/* sm:flex-wrap: entre 640 e ~710 px (celular deitado) as pílulas com ícone + o botão não cabem lado a lado */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
           <div className="min-w-0 space-y-2">
             <p id={idCenario} className={ROTULO_SECAO}>
               Cenário
@@ -428,7 +429,7 @@ export function SimuladorProtocoloTRE({ cenarioInicial = "aleatorio" }: Simulado
               </div>
 
               {rodando && (
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   <Button ref={pularRef} onClick={pular} className={cn(BOTAO_VIDRO, "h-10 flex-1 rounded-full px-4 sm:flex-none")}>
                     <FastForward aria-hidden />
                     Pular animação
@@ -564,7 +565,7 @@ export function SimuladorProtocoloTRE({ cenarioInicial = "aleatorio" }: Simulado
             )}
           />
 
-          <div className="flex items-start gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
             <OrbIcone
               icone={caso.glosa ? TriangleAlert : CircleCheck}
               tamanho="lg"
@@ -745,7 +746,7 @@ function DetalhePasso({ alerta, children }: { alerta: boolean; children: React.R
   return (
     <span
       className={cn(
-        "inline-block rounded-xl px-2 py-1 font-medium",
+        "inline-block max-w-full break-words rounded-xl px-2 py-1 font-medium",
         "motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 fill-mode-both motion-safe:[animation-duration:300ms]",
         alerta ? "tre-tone-warning" : "bg-white/80 text-slate-700 ring-1 ring-slate-200/80",
       )}
